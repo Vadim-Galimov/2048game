@@ -77,7 +77,7 @@ makeTurn('right');
  
  
  function newGame() {
-	 btnOn=0;
+	 cursorOverbutton=0;
 	 loseAnimation=0;
 	elementToChange = document.getElementsByTagName("body")[0];
  elementToChange.style.cursor = "default";  

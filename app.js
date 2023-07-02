@@ -67,14 +67,14 @@ console.log(randomNum);
 	 
 	 var elementToChange = document.getElementsByTagName("body")[0];
  elementToChange.style.cursor = "pointer"; 
- btnOn=1;
+ cursorOverbutton=1;
 	 }
 	 
 	 else  {
 		 
 		elementToChange = document.getElementsByTagName("body")[0];
  elementToChange.style.cursor = "default";  
- btnOn=0;	
+ cursorOverbutton=0;	
 	
 	 }
 	 
@@ -86,7 +86,7 @@ console.log(randomNum);
  
  function btnClick() {
 	 
-	 if (btnOn==1) newGame();
+	 if (cursorOverbutton==1) newGame();
 	 
  }
  

@@ -12,7 +12,7 @@
 let score=0;
 
 
- let btnOn;
+ let cursorOverbutton;
 
 turnTime=150;
 
