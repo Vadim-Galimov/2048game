@@ -8,16 +8,13 @@
     <img src="readme-logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">2048 game</h3>
-
 </div>
 
 
 
 
-
 <!-- ABOUT THE PROJECT -->
-## About The Project
+### Дополнительно:
 
 Введите с клавиатуры "admin" для доступа к панели администратора.
 
