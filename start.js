@@ -130,8 +130,8 @@ function setMouseController() {
 
 
 function writeMouseStartXY() {
-	
-	
+	console.log('event');
+	console.log(event);
 
 	startMouseX=event.clientX;
 	startMouseY=event.clientY;
