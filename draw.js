@@ -48,7 +48,7 @@ function drawBackground() {
 
 
 ctx.fillStyle='#776e65';
-  roundRect(ctx,0, 0, 4*stepMargin+minMargin, 4*stepMargin+minMargin, 10);
+  roundRect(ctx,0, 0, fullSize, fullSize, 10);
 ctx.fillStyle='#bbada0';
 
 

@@ -140,6 +140,8 @@ function writeMouseStartXY() {
 	
 }
 
+document.addEventListener('touchstart', writeMouseStartXY);
+	document.addEventListener('touchend ', mathMouseMove);
 document.addEventListener('mousedown', writeMouseStartXY);
 	document.addEventListener('mouseup', mathMouseMove);
 

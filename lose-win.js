@@ -8,7 +8,7 @@ function makeLose() {
 
 	ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
 	
-ctx.fillRect(0, 0, 4*stepMargin+minMargin, 4*stepMargin+minMargin);
+ctx.fillRect(0, 0, fullSize, fullSize);
 
 ctx.fillStyle = "#776e65";
 		 ctx.font = 'bold 50px sans-serif';
@@ -18,8 +18,8 @@ fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
 actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
 
-	 addWidth=((4*stepMargin+minMargin)-metrics.width)/2;
-	addHeight=((4*stepMargin+minMargin)-actualHeight)/2;
+	 addWidth=(fullSize-metrics.width)/2;
+	addHeight=(fullSize-actualHeight)/2;
    ctx.fillText("GAME OVER!",addWidth,addHeight+actualHeight);
    
    
@@ -33,7 +33,7 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
    
    
    
-     ctx.font = 'bold 20px sans-serif'; 
+     ctx.font = 'bold '+size/4+'px sans-serif'; 
 	 
  
  metrics = ctx.measureText('try again');
@@ -44,20 +44,20 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
 ctx.fillStyle = "#8f7a66";
 
 
-   roundRect(ctx,((4*stepMargin+minMargin)-metrics.width-30)/2, 220, metrics.width+30+((4*stepMargin+minMargin)-metrics.width-30)/2, actualHeight+15+220, 3);
+   roundRect(ctx,(fullSize-metrics.width-30)/2, 220, metrics.width+30+(fullSize-metrics.width-30)/2, actualHeight+15+220, 3);
 
 
 ctx.fillStyle = "#f9f6f2";
 
-   ctx.fillText("Try again",(((4*stepMargin+minMargin)-metrics.width-10)/2)+2,244);
+   ctx.fillText("Try again",((fullSize-metrics.width-10)/2)+2,244);
    
    
-   loseAnimation=1;
+   buttonStatus=1;
    
    elem=document.getElementById('canvasBody');
 
-   btnXstart=((4*stepMargin+minMargin)-metrics.width-30)/2+elem.offsetLeft;
-   btnXend=((4*stepMargin+minMargin)-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
+   btnXstart=(fullSize-metrics.width-30)/2+elem.offsetLeft;
+   btnXend=(fullSize-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
    btnYstart=220+elem.offsetTop;
    btnYend=220+actualHeight+15+elem.offsetTop;
    
@@ -66,14 +66,14 @@ ctx.fillStyle = "#f9f6f2";
 
 
  function checkLose() {
-	 console.log('checkLose')
+
 	 loseStatus=1;
 
 	 if (cellArray.length<16) {
 		  loseStatus=0;
 		 return 0;
 	 }
-console.log('checkLose2')
+
 	 for (i1=0; i1<4; i1++) {
 	 for (i=0; i<3; i++) {
 
@@ -90,8 +90,7 @@ console.log('checkLose2')
 	 }
 	 } 
 
-console.log('checkLose3')
-console.log(loseStatus)
+
 if (loseStatus==1) setTimeout(makeLose,turnTime);
 
 
@@ -121,7 +120,7 @@ if (loseStatus==1) setTimeout(makeLose,turnTime);
 
 
 	ctx.fillStyle = "rgba(255, 215, 0, 0.5)";
-ctx.fillRect(0, 0, 4*stepMargin+minMargin, 4*stepMargin+minMargin);
+ctx.fillRect(0, 0, fullSize, fullSize);
 
 ctx.fillStyle = "#f9f6f2";
 		 ctx.font = 'bold 50px sans-serif';
@@ -131,8 +130,8 @@ fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
 actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
 
-	 addWidth=((4*stepMargin+minMargin)-metrics.width)/2;
-	addHeight=((4*stepMargin+minMargin)-actualHeight)/2;
+	 addWidth=(fullSize-metrics.width)/2;
+	addHeight=(fullSize-actualHeight)/2;
    ctx.fillText("YOU WIN!",addWidth,addHeight+actualHeight);
    
    
@@ -160,15 +159,15 @@ ctx.fillStyle = "#8f7a66";
 
 ctx.fillStyle = "#f9f6f2";
 
-   ctx.fillText("Try again",(((4*stepMargin+minMargin)-metrics.width-10)/2)+2,244);
+   ctx.fillText("Try again",((fullSize-metrics.width-10)/2)+2,244);
    
    
-   loseAnimation=1;
+   buttonStatus=1;
    
    elem=document.getElementById('canvasBody');
 
-   btnXstart=((4*stepMargin+minMargin)-metrics.width-30)/2+elem.offsetLeft;
-   btnXend=((4*stepMargin+minMargin)-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
+   btnXstart=(fullSize-metrics.width-30)/2+elem.offsetLeft;
+   btnXend=(fullSize-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
    btnYstart=220+elem.offsetTop;
    btnYend=220+actualHeight+15+elem.offsetTop;
 	 

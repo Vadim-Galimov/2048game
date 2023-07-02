@@ -57,7 +57,7 @@ do {
  
  function mouseMove() {
 	
-	 if (loseAnimation==1) {
+	 if (buttonStatus==1) {
 	 
 	 
 

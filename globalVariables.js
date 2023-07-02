@@ -48,7 +48,7 @@ let checkMove=1;
 
 
 
-let loseAnimation;
+let buttonStatus;
 
   let btnXstart;
  let  btnXend;
@@ -72,8 +72,9 @@ let cellValue;
 
 
 size=80;
-minMargin=10;
+minMargin=size/8;
 
+fullSize=4*size+5*minMargin;
 
 stepMargin=minMargin+size;
 
