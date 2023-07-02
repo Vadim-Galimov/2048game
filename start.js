@@ -140,8 +140,60 @@ function writeMouseStartXY() {
 	
 }
 
-document.addEventListener('touchstart', writeMouseStartXY);
-	document.addEventListener('touchend ', mathMouseMove);
+
+let deltaX;
+
+let deltaY;
+
+
+
+
+document.addEventListener("touchstart", function (e) {
+    event = e;
+});
+document.addEventListener("touchmove", function (e) {
+    if (event) {
+		
+		deltaX=e.touches[0].pageX - event.touches[0].pageX;
+		deltaY=e.touches[0].pageY - event.touches[0].pageY;
+     
+    }
+});
+document.addEventListener("touchend", function (e) {
+
+	
+			if(Math.abs(deltaX)+Math.abs(deltaY)<100) return 0;
+	if (Math.abs(deltaX)>Math.abs(deltaY)) axis='x';
+	else axis='y'
+	
+	if (axis=='y') {
+		
+		
+		if(deltaY >0) moveTo='down';
+		else moveTo='up';
+		
+	}
+	
+		if (axis=='x') {
+			
+		if (deltaX >0) moveTo='right';
+		else moveTo='left';
+		
+	}
+	
+		if (turnBlock==1) return 0;
+
+	moveDirection=moveTo;
+	
+makeTurn(moveTo);
+
+	
+	  event = null;
+	
+	
+});
+
+
 document.addEventListener('mousedown', writeMouseStartXY);
 	document.addEventListener('mouseup', mathMouseMove);
 
