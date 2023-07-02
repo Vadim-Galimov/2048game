@@ -13,7 +13,7 @@ function drawScore() {
    
 
 ctxH.fillStyle='#bbada0';
-textWithMarginsWidth=metrics.width+30;
+textWithMarginsWidth=metrics.width+textMargin;
 
 
    roundRect(ctxH,((fullSize-textWithMarginsWidth)/2)-25, 20, metrics.width+((fullSize-textWithMarginsWidth+10)/2)+25, actualHeight+15+30, 20);

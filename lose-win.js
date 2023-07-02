@@ -42,7 +42,7 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
    
 
 ctx.fillStyle = "#8f7a66";
-textWithMarginsWidth=metrics.width+30;
+textWithMarginsWidth=metrics.width+textMargin;
 
    roundRect(ctx,(fullSize-textWithMarginsWidth)/2, 220, metrics.width+30+(fullSize-textWithMarginsWidth)/2, actualHeight+15+220, 3);
 
@@ -154,7 +154,7 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
    
 
 ctx.fillStyle = "#8f7a66";
-textWithMarginsWidth=metrics.width+30;
+textWithMarginsWidth=metrics.width+textMargin;
   roundRect(ctx,(fullSize-textWithMarginsWidth)/2, 220, textWithMarginsWidth+((fullSize-textWithMarginsWidth)/2, actualHeight+15+220, 3);
 
 ctx.fillStyle = "#f9f6f2";

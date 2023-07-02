@@ -89,3 +89,6 @@ let ctxH = canvasHead.getContext('2d');
 let deltaX;
 
 let deltaY;
+
+
+textMargin=size/8*3;
