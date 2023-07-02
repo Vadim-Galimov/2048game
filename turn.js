@@ -18,7 +18,7 @@ function makeTurn(moveDirection) {
 
 	
 	
-	choosenColumnArr=columnArray[moveDirection];
+
 	for (i=0; i<4; i++) {	
 		setTicketAndMoveSpeed(1, i, moveDirection);
 		setTicketAndMoveSpeed(2, i, moveDirection);	
@@ -95,7 +95,7 @@ setTimeout(() => {
 
 
 function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
-	
+		choosenColumnArr=columnArray[moveDirection];
 
 choosenCell=getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 
