@@ -66,13 +66,14 @@ ctx.fillStyle = "#f9f6f2";
 
 
  function checkLose() {
+	 console.log('checkLose')
 	 loseStatus=1;
 
 	 if (cellArray.length<16) {
 		  loseStatus=0;
 		 return 0;
 	 }
-
+console.log('checkLose2')
 	 for (i1=0; i1<4; i1++) {
 	 for (i=0; i<3; i++) {
 
@@ -89,8 +90,9 @@ ctx.fillStyle = "#f9f6f2";
 	 }
 	 } 
 
-
-if (loseStatus==1) makeLose();
+console.log('checkLose3')
+console.log(loseStatus)
+if (loseStatus==1) setTimeout(makeLose,turnTime);
 
 
 	
@@ -108,7 +110,7 @@ if (loseStatus==1) makeLose();
 	 
 	if (valueArray.includes(2048)) winStatus=1;
 	
-	if(winStatus==1) makeWin();
+	if(winStatus==1) setTimeout(makeWin,turnTime);;
 	 
 	 
  }

@@ -42,7 +42,7 @@ columnArray = {
 
 
 
-let checkTurn=1;
+let checkMove=1;
 
 
 

@@ -61,10 +61,10 @@ setTimeout(() => {
 	
 	
 
-		if (checkTurn==1) make1ActiveCell()
+		if (checkMove==1) make1ActiveCell()
 		
 	
-		checkTurn=0;
+		checkMove=0;
 		checkWin();
 	
 		if (winStatus==1) return 0;
@@ -128,13 +128,13 @@ moveSpeed=0;
 				
 				sub1Cell.mergeBlock=1;
 			choosenCell.mergeBlock=1;
-			checkTurn=1;
+			checkMove=1;
 		}
 		
 	 if (!sub1Cell && maxMove>0 ) {
 		 moveSpeed=1;
 		 ticket=choosenColumnArr[choosenColumn][sub1Number];
-		 checkTurn=1;
+		 checkMove=1;
 		if (checkMerge(sub2Cell)) {
 			moveSpeed=2;
 			
