@@ -15,7 +15,7 @@
 
   setKeyboardController();
   setMouseController()
-  
+  setTouchpadController()
   
   
   
@@ -141,10 +141,50 @@ function writeMouseStartXY() {
 }
 
 
-let deltaX;
 
-let deltaY;
+document.addEventListener('mousedown', writeMouseStartXY);
+	document.addEventListener('mouseup', mathMouseMove);
 
+function mathMouseMove() {
+	let moveTo;
+
+
+	endMouseX=event.clientX;
+	endMouseY=event.clientY;
+	mouseMove=[endMouseX-startMouseX,endMouseY-startMouseY];
+			if(Math.abs(mouseMove[0])+Math.abs(mouseMove[1])<200) return 0;
+	if (Math.abs(mouseMove[0])>Math.abs(mouseMove[1])) axis='x';
+	else axis='y'
+	
+	if (axis=='y') {
+		
+		
+		if(mouseMove[1] >0) moveTo='down';
+		else moveTo='up';
+		
+	}
+	
+		if (axis=='x') {
+			
+		if (mouseMove[0] >0) moveTo='right';
+		else moveTo='left';
+		
+	}
+	
+		if (turnBlock==1) return 0;
+
+	moveDirection=moveTo;
+	
+makeTurn(moveTo);
+
+
+	
+}
+
+}
+
+
+function setTouchpadController() {
 
 
 
@@ -193,44 +233,5 @@ makeTurn(moveTo);
 	
 });
 
-
-document.addEventListener('mousedown', writeMouseStartXY);
-	document.addEventListener('mouseup', mathMouseMove);
-
-function mathMouseMove() {
-	let moveTo;
-
-
-	endMouseX=event.clientX;
-	endMouseY=event.clientY;
-	mouseMove=[endMouseX-startMouseX,endMouseY-startMouseY];
-			if(Math.abs(mouseMove[0])+Math.abs(mouseMove[1])<200) return 0;
-	if (Math.abs(mouseMove[0])>Math.abs(mouseMove[1])) axis='x';
-	else axis='y'
-	
-	if (axis=='y') {
-		
-		
-		if(mouseMove[1] >0) moveTo='down';
-		else moveTo='up';
-		
-	}
-	
-		if (axis=='x') {
-			
-		if (mouseMove[0] >0) moveTo='right';
-		else moveTo='left';
-		
-	}
-	
-		if (turnBlock==1) return 0;
-
-	moveDirection=moveTo;
-	
-makeTurn(moveTo);
-
-
-	
-}
 
 }

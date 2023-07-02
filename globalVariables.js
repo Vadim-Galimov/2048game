@@ -85,3 +85,7 @@ let canvasHead = document.getElementById('canvasHead');
 
 let ctxH = canvasHead.getContext('2d');
 
+
+let deltaX;
+
+let deltaY;

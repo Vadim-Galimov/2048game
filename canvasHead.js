@@ -13,19 +13,19 @@ function drawScore() {
    
 
 ctxH.fillStyle='#bbada0';
+textWithMarginsWidth=metrics.width+30;
 
 
-
-   roundRect(ctxH,((fullSize-metrics.width-30)/2)-25, 20, metrics.width+((fullSize-metrics.width-30+10)/2)+25, actualHeight+15+30, 20);
+   roundRect(ctxH,((fullSize-textWithMarginsWidth)/2)-25, 20, metrics.width+((fullSize-textWithMarginsWidth+10)/2)+25, actualHeight+15+30, 20);
   
 
    ctxH.strokeStyle = '#776e65';
    
- roundRectStroke(ctxH,((fullSize-metrics.width-30)/2)-25, 20, metrics.width+((fullSize-metrics.width-30+10)/2)+25, actualHeight+15+30, 20, 5);
+ roundRectStroke(ctxH,((fullSize-textWithMarginsWidth)/2)-25, 20, metrics.width+((fullSize-textWithMarginsWidth+10)/2)+25, actualHeight+15+30, 20, 5);
  
 ctxH.fillStyle = "#ebe4da";
 
-   ctxH.fillText("SCORE: "+score,((fullSize-metrics.width-30)/2),55);
+   ctxH.fillText("SCORE: "+score,((fullSize-textWithMarginsWidth)/2),55);
    
 }  
  

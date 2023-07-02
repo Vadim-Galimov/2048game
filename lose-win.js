@@ -42,9 +42,9 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
    
 
 ctx.fillStyle = "#8f7a66";
+textWithMarginsWidth=metrics.width+30;
 
-
-   roundRect(ctx,(fullSize-metrics.width-30)/2, 220, metrics.width+30+(fullSize-metrics.width-30)/2, actualHeight+15+220, 3);
+   roundRect(ctx,(fullSize-textWithMarginsWidth)/2, 220, metrics.width+30+(fullSize-textWithMarginsWidth)/2, actualHeight+15+220, 3);
 
 
 ctx.fillStyle = "#f9f6f2";
@@ -56,8 +56,8 @@ ctx.fillStyle = "#f9f6f2";
    
    elem=document.getElementById('canvasBody');
 
-   btnXstart=(fullSize-metrics.width-30)/2+elem.offsetLeft;
-   btnXend=(fullSize-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
+   btnXstart=(fullSize-textWithMarginsWidth)/2+elem.offsetLeft;
+   btnXend=(fullSize-textWithMarginsWidth)/2+metrics.width+30+elem.offsetLeft;
    btnYstart=220+elem.offsetTop;
    btnYend=220+actualHeight+15+elem.offsetTop;
    
@@ -154,8 +154,8 @@ actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescen
    
 
 ctx.fillStyle = "#8f7a66";
-
-  roundRect(ctx,((4*stepMargin+minMargin)-metrics.width-30)/2, 220, metrics.width+30+((4*stepMargin+minMargin)-metrics.width-30)/2, actualHeight+15+220, 3);
+textWithMarginsWidth=metrics.width+30;
+  roundRect(ctx,(fullSize-textWithMarginsWidth)/2, 220, textWithMarginsWidth+((fullSize-textWithMarginsWidth)/2, actualHeight+15+220, 3);
 
 ctx.fillStyle = "#f9f6f2";
 
@@ -166,8 +166,8 @@ ctx.fillStyle = "#f9f6f2";
    
    elem=document.getElementById('canvasBody');
 
-   btnXstart=(fullSize-metrics.width-30)/2+elem.offsetLeft;
-   btnXend=(fullSize-metrics.width-30)/2+metrics.width+30+elem.offsetLeft;
+   btnXstart=(fullSize-textWithMarginsWidth)/2+elem.offsetLeft;
+   btnXend=(fullSize-textWithMarginsWidth)/2+metrics.width+30+elem.offsetLeft;
    btnYstart=220+elem.offsetTop;
    btnYend=220+actualHeight+15+elem.offsetTop;
 	 
