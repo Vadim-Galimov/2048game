@@ -130,14 +130,16 @@ function setMouseController() {
 
 
 function writeMouseStartXY() {
-	console.log('event');
-	console.log(event);
 
+
+
+if (event===null) return 0;
+if (event.type=="touchstart") return 0;
 	startMouseX=event.clientX;
 	startMouseY=event.clientY;
 	
 
-	
+
 }
 
 
@@ -148,13 +150,15 @@ document.addEventListener('mousedown', writeMouseStartXY);
 function mathMouseMove() {
 	let moveTo;
 
+if (event===null) return 0;
+if (event.type=="touchstart") return 0;
 
 	endMouseX=event.clientX;
 	endMouseY=event.clientY;
 	mouseMove=[endMouseX-startMouseX,endMouseY-startMouseY];
 			if(Math.abs(mouseMove[0])+Math.abs(mouseMove[1])<200) return 0;
 	if (Math.abs(mouseMove[0])>Math.abs(mouseMove[1])) axis='x';
-	else axis='y'
+	else axis='y';
 	
 	if (axis=='y') {
 		
@@ -189,6 +193,7 @@ function setTouchpadController() {
 
 
 document.addEventListener("touchstart", function (e) {
+
     event = e;
 });
 document.addEventListener("touchmove", function (e) {
@@ -200,9 +205,10 @@ document.addEventListener("touchmove", function (e) {
     }
 });
 document.addEventListener("touchend", function (e) {
-
+ if (isNaN(Math.abs(deltaX))) return 0;
 	
 			if(Math.abs(deltaX)+Math.abs(deltaY)<100) return 0;
+			console.log('3')
 	if (Math.abs(deltaX)>Math.abs(deltaY)) axis='x';
 	else axis='y'
 	
