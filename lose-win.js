@@ -72,22 +72,18 @@ ctx.fillStyle = "#f9f6f2";
 		  loseStatus=0;
 		 return 0;
 	 }
-	 	 console.log('checklose');
 
-	 
 	 for (i1=0; i1<4; i1++) {
 	 for (i=0; i<3; i++) {
-		 console.log(getCellFromNumber(downColumnArr[i1][i])?.value);
-		  console.log(getCellFromNumber(downColumnArr[i1][i+1])?.value);
+
 		 	if (getCellFromNumber(downColumnArr[i1][i])?.value==getCellFromNumber(downColumnArr[i1][i+1])?.value) loseStatus=0;
 		 
 	 }
 	 } 
- console.log('checklose2');
+
 	 for (i1=0; i1<4; i1++) {
 	 for (i=0; i<3; i++) {
-		  console.log(getCellFromNumber(rightColumnArr[i1][i])?.value);
-		   console.log(getCellFromNumber(rightColumnArr[i1][i+1])?.value);
+
 		 	if (getCellFromNumber(rightColumnArr[i1][i])?.value==getCellFromNumber(rightColumnArr[i1][i+1])?.value) loseStatus=0;
 		 
 	 }
@@ -119,8 +115,7 @@ if (loseStatus==1) makeLose();
  
  
  function makeWin() {
-	 console.log('win');
-	 
+
 
 
 	ctx.fillStyle = "rgba(255, 215, 0, 0.5)";

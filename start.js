@@ -47,10 +47,7 @@ do {
   randomNum2 = Math.floor(Math.random() * 16) ;
 } while (randomNum2 === randomNum1);
 
-console.log(randomNum1, randomNum2);
-  
-  
-  
+
   
   
   
@@ -91,7 +88,6 @@ function setKeyboardController() {
 
 document.getElementsByTagName('body')[0].addEventListener('keydown', function(event){
 		
-	console.log(event.code);
 
 	switch (event.code) {
 		
@@ -174,8 +170,7 @@ function mathMouseMove() {
 	}
 	
 		if (turnBlock==1) return 0;
-	console.log('moveTo');
-		console.log(moveTo);
+
 	moveDirection=moveTo;
 	
 makeTurn(moveTo);

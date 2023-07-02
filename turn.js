@@ -49,8 +49,7 @@ setTimeout(() => {
 	score+=turnScore*2;
 		drawScore();
 		drawCells();
-	console.log('score');
-	console.log(score);
+
 	
 	 cellArray=cellArray.filter(function(item) {
 	 

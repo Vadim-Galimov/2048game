@@ -24,8 +24,7 @@ do {
   randomNum = Math.floor(Math.random() * 16);
 } while (checkCellFunc());
 
-console.log(randomNum);
-  
+
   
   
   
