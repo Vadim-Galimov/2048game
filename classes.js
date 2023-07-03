@@ -54,3 +54,78 @@ class Cell {
 
 
 }
+
+
+
+class Button {
+	
+	constructor () {
+	
+	
+	 this.textValue="Try again";
+	   this.context= ctx;
+     this.font= 'bold ' + size / 4 + 'px sans-serif';
+	 
+	 
+	 	this.context.font=this.font;
+	
+	
+	 
+    metrics = this.context.measureText(this.textValue);
+	
+    actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+textWithMarginsWidth = metrics.width + textMargin;
+
+  this.buttonFillStyle = "#8f7a66";
+    this.textFillStyle = "#f9f6f2";
+
+  this.buttonX1=(fullSize - textWithMarginsWidth) / 2;
+
+ this.buttonY1= 220;
+  this.buttonX2=metrics.width + 30 + (fullSize - textWithMarginsWidth) / 2;
+  this.buttonY2=actualHeight + 15 + 220;
+  this.buttonRadius=3;
+	this.textX=((fullSize - metrics.width - 10) / 2) + 2;
+this.textY=244;
+
+	this.visible=0;
+
+
+	
+	
+		
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	  draw() {
+	  ctx.fillStyle=this.buttonFillStyle;
+	    ctx.font=this.font;
+	      roundRect(this.context, this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2, this.buttonRadius);
+		
+ ctx.fillStyle=this.textFillStyle;
+	  
+	      ctx.fillText(this.textValue, this.textX, this.textY);
+
+
+  }
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+

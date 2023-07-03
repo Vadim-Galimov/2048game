@@ -230,3 +230,48 @@ function drawCells() {
 
 
 }
+
+
+
+
+function drawLose() {
+	
+	    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+
+    ctx.fillRect(0, 0, fullSize, fullSize);
+
+    ctx.fillStyle = "#776e65";
+    ctx.font = 'bold 50px sans-serif';
+
+    metrics = ctx.measureText('GAME OVER!');
+    fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+    actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+
+    addWidth = (fullSize - metrics.width) / 2;
+    addHeight = (fullSize - actualHeight) / 2;
+    ctx.fillText("GAME OVER!", addWidth, addHeight + actualHeight);
+
+
+	
+}
+
+
+function drawWin() {
+	
+	   ctx.fillStyle = "rgba(255, 215, 0, 0.5)";
+    ctx.fillRect(0, 0, fullSize, fullSize);
+
+    ctx.fillStyle = "#f9f6f2";
+    ctx.font = 'bold 50px sans-serif';
+
+    metrics = ctx.measureText('YOU WIN!');
+    fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+    actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+
+    addWidth = (fullSize - metrics.width) / 2;
+    addHeight = (fullSize - actualHeight) / 2;
+    ctx.fillText("YOU WIN!", addWidth, addHeight + actualHeight);
+
+}

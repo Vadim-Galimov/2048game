@@ -61,12 +61,8 @@ let checkMove = 1;
 
 
 
-let buttonStatus;
 
-let btnXstart;
-let btnXend;
-let btnYstart;
-let btnYend;
+
 
 let winStatus;
 let loseStatus;
