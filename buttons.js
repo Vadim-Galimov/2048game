@@ -1,7 +1,6 @@
 
 
-document.addEventListener('mousemove', mouseMove);
-document.addEventListener('click', btnClick);
+
 
 
 function down() {
@@ -108,7 +107,7 @@ function mouseMove() {
 }
 
 
-function btnClick() {
+function buttonClick() {
 
     if (cursorOverbutton == 1) newGame();
 

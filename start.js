@@ -6,23 +6,16 @@ function makeStart() {
 
     make2ActiveCells();
     drawScore();
-
+	drawCells();
 
 
     setKeyboardController();
-    setMouseController()
-    setTouchpadController()
+    setMouseController();
+    setTouchpadController();
+	setCursorXYChecker();
 
 
 
-
-    timerDrawCells = setInterval(drawCells, 25);
-
-    setTimeout(() => {
-        clearInterval(timerDrawCells);
-
-
-    }, turnTime * 2);
 
 
 }
@@ -221,3 +214,13 @@ function setTouchpadController() {
 
 
 }
+
+
+
+
+function setCursorXYChecker() {
+	document.addEventListener('mousemove', mouseMove);
+document.addEventListener('click', buttonClick);
+	
+}
+

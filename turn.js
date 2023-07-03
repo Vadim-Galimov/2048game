@@ -7,7 +7,7 @@ function makeTurn(moveDirection) {
         clearInterval(timerDrawCells);
 
 
-    }, turnTime * 2);
+    }, turnTime*2);
 
 
 

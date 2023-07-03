@@ -1,15 +1,21 @@
 function drawScore() {
 
-    ctxH.clearRect(0, 0, canvasHead.width, canvasHead.height);
-    ctxH.font = 'bold 35px sans-serif';
+	let canvasHead = document.getElementById('canvasHead');
+
+	let ctxHead = canvasHead.getContext('2d');
 
 
-    metrics = ctxH.measureText('SCORE:' + score);
+
+    ctxHead.clearRect(0, 0, canvasHead.width, canvasHead.height);
+    ctxHead.font = 'bold 35px sans-serif';
+
+
+    metrics = ctxHead.measureText('SCORE:' + score);
     fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
     actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
 
-    ctxH.fillStyle = '#bbada0';
+    ctxHead.fillStyle = '#bbada0';
     textWithMarginsWidth = metrics.width + textMargin;
 	textScoreMargin=size*25/80;
 	buttonScoreMarginTop=size/4;
@@ -17,15 +23,15 @@ function drawScore() {
 
 
 
-    roundRect(ctxH, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop+actualHeight+2*textScoreMarginTop, 20);
+    roundRect(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop+actualHeight+2*textScoreMarginTop, 20);
 
 
-    ctxH.strokeStyle = '#776e65';
+    ctxHead.strokeStyle = '#776e65';
 
-    roundRectStroke(ctxH, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop+actualHeight+2*textScoreMarginTop, 20, 5);
+    roundRectStroke(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop+actualHeight+2*textScoreMarginTop, 20, 5);
 
-    ctxH.fillStyle = "#ebe4da";
+    ctxHead.fillStyle = "#ebe4da";
 
-    ctxH.fillText("SCORE: " + score, ((fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop+actualHeight+textScoreMarginTop);
+    ctxHead.fillText("SCORE: " + score, ((fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop+actualHeight+textScoreMarginTop);
 
 }

@@ -1,4 +1,4 @@
-moveXY = {
+let moveXY = {
     down: [0, stepMargin],
     up: [0, -stepMargin],
     left: [-stepMargin, 0],

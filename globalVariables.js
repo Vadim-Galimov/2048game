@@ -1,7 +1,7 @@
 let cellArray = new Array;
 
 
-turnBlock = 0;
+let turnBlock = 0;
 
 
 
@@ -11,30 +11,30 @@ let score = 0;
 
 let cursorOverbutton;
 
-turnTime = 150;
+let turnTime = 150;
 
 
 
-downColumnArr = [
+let downColumnArr = [
     [13, 9, 5, 1],
     [14, 10, 6, 2],
     [15, 11, 7, 3],
     [16, 12, 8, 4]
 ];
-upColumnArr = [
+let upColumnArr = [
     [1, 5, 9, 13],
     [2, 6, 10, 14],
     [3, 7, 11, 15],
     [4, 8, 12, 16]
 ];
 
-rightColumnArr = [
+let rightColumnArr = [
     [4, 3, 2, 1],
     [8, 7, 6, 5],
     [12, 11, 10, 9],
     [16, 15, 14, 13]
 ];
-leftColumnArr = [
+let leftColumnArr = [
     [1, 2, 3, 4],
     [5, 6, 7, 8],
     [9, 10, 11, 12],
@@ -44,7 +44,7 @@ leftColumnArr = [
 
 
 
-columnArray = {
+let columnArray = {
     down: downColumnArr,
     up: upColumnArr,
     left: leftColumnArr,
@@ -80,19 +80,16 @@ let cellValue;
 
 
 
-size = 80;
-minMargin = size / 8;
+let size = 80;
+let minMargin = size / 8;
 
-fullSize = 4 * size + 5 * minMargin;
+let fullSize = 4 * size + 5 * minMargin;
 
-stepMargin = minMargin + size;
-
-
+let stepMargin = minMargin + size;
 
 
-let canvasHead = document.getElementById('canvasHead');
 
-let ctxH = canvasHead.getContext('2d');
+
 
 
 let deltaX;
@@ -100,4 +97,4 @@ let deltaX;
 let deltaY;
 
 
-textMargin = size / 8 * 3;
+let textMargin = size / 8 * 3;
