@@ -1,3 +1,9 @@
+
+
+document.addEventListener('mousemove', mouseMove);
+document.addEventListener('click', btnClick);
+
+
 function down() {
 
     if (turnBlock == 1) return 0;
@@ -67,3 +73,40 @@ function newGame() {
     drawCells();
 
 }
+
+
+
+
+
+function mouseMove() {
+
+    if (buttonStatus == 1) {
+
+
+
+
+        if (event.pageX > btnXstart && event.pageX < btnXend && event.pageY > btnYstart && event.pageY < btnYend) {
+
+            var elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "pointer";
+            cursorOverbutton = 1;
+        } else {
+
+            elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "default";
+            cursorOverbutton = 0;
+
+        }
+
+
+    }
+
+}
+
+
+function btnClick() {
+
+    if (cursorOverbutton == 1) newGame();
+
+}
+
