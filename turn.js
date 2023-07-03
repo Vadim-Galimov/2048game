@@ -22,6 +22,7 @@ function makeTurn(moveDirection) {
         turnScore = 0;
         cellArray.forEach(function (item) {
             item.afterMove()
+			
             if (item.toDelete == 1)
                 turnScore += item.drawValue;
         });
