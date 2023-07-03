@@ -64,7 +64,7 @@ function right() {
 function newGame() {
 	buttonTryAgain.visible=0;
     cursorOverbutton = 0;
-
+	score=0;
     elementToChange = document.getElementsByTagName("body")[0];
     elementToChange.style.cursor = "default";
     cellArray = [];

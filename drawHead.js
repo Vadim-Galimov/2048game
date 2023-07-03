@@ -1,6 +1,6 @@
 function drawScore() {
 
-    ctx.clearRect(0, 0, canvasHead.width, canvasHead.height);
+    ctxH.clearRect(0, 0, canvasHead.width, canvasHead.height);
     ctxH.font = 'bold 35px sans-serif';
 
 
