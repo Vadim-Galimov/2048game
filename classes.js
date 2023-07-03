@@ -9,10 +9,11 @@ let moveXY = {
 class Cell {
 
     constructor(i) {
-
+		this.i=i;
         this.number = i + 1;
 
- 
+       this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
+        this.rowNumber = (Math.floor((this.i) / 4)) + 1;
         this.x = this.columnNumber * (stepMargin) - size;
         this.y = this.rowNumber * (stepMargin) - size;
         this.random10Percent = Math.floor(Math.random() * 10);
@@ -38,9 +39,9 @@ class Cell {
         this.moveSpeed = 0;
         this.mergeBlock = 0;
         this.drawValue = this.value;
-		i= ticket - 1;
-       this.columnNumber = (((i + 1) % 4) != 0) ? (i + 1) % 4 : 4;
-        this.rowNumber = (Math.floor((i) / 4)) + 1;
+		this.i= this.ticket - 1;
+       this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
+        this.rowNumber = (Math.floor((this.i) / 4)) + 1;
 		        this.x = this.columnNumber * (stepMargin) - size;
         this.y = this.rowNumber * (stepMargin) - size;
     }
