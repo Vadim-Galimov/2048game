@@ -7,7 +7,7 @@ function makeTurn(moveDirection) {
         clearInterval(timerDrawCells);
 
 
-    }, turnTime*2);
+    }, phaseTime*2);
 
 
 
@@ -66,9 +66,9 @@ function makeTurn(moveDirection) {
 
         setTimeout(() => {
             turnBlock = 0
-        }, turnTime);
+        }, phaseTime);
 
-    }, turnTime);
+    }, phaseTime);
 
 
 
@@ -217,7 +217,7 @@ function allMove() {
         clearInterval(timerMakeStep);
 
 
-    }, turnTime);
+    }, phaseTime);
 
 
 

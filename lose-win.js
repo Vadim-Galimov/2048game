@@ -48,7 +48,7 @@ function checkLose() {
     }
 
 
-    if (loseStatus == 1) setTimeout(makeLose, turnTime/2);
+    if (loseStatus == 1) setTimeout(makeLose, phaseTime);
 
 
 
@@ -65,7 +65,7 @@ function checkWin() {
 
     if (valueArray.includes(2048)) winStatus = 1;
 
-    if (winStatus == 1) setTimeout(makeWin, turnTime/2);;
+    if (winStatus == 1) setTimeout(makeWin, phaseTime);;
 
 
 }

@@ -11,7 +11,9 @@ let score = 0;
 
 let cursorOverbutton;
 
-let turnTime = 150;
+let phaseTime = 150;
+
+let turnTime = phaseTime*2;
 
 
 
