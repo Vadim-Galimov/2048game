@@ -113,7 +113,8 @@ function mouseMove() {
 
 function buttonClick() {
 
-    if (cursorOverbutton == 1) newGame();
+    if (cursorOverbutton == 1)
+        newGame();
 
 }
 

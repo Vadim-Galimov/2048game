@@ -3,22 +3,15 @@
 
 let cellArray = new Array;
 
-
 let turnBlock = 0;
 
-
-
-
 let score = 0;
-
 
 let cursorOverbutton;
 
 let phaseTime = 100;
 
-let turnTime = phaseTime*2;
-
-
+let turnTime = phaseTime * 2;
 
 let downColumnArr = [
     [13, 9, 5, 1],
@@ -46,44 +39,22 @@ let leftColumnArr = [
     [13, 14, 15, 16]
 ];
 
-
-
-
 let columnArray = {
     down: downColumnArr,
     up: upColumnArr,
     left: leftColumnArr,
     right: rightColumnArr,
 
-
 }
 
-
-
-
 let checkMove = 1;
-
-
-
-
-
-
 
 let winStatus;
 let loseStatus;
 
+let canvasBody = document.getElementById('canvasBody');
 
-
-
-let canvas = document.getElementById('canvasBody');
-
-let ctx = canvas.getContext('2d');
-
-
-let cellValue;
-
-
-
+let ctxBody = canvasBody.getContext('2d');
 
 let size = 80;
 let minMargin = size / 8;
@@ -91,15 +62,5 @@ let minMargin = size / 8;
 let fullSize = 4 * size + 5 * minMargin;
 
 let stepMargin = minMargin + size;
-
-
-
-
-
-
-let deltaX;
-
-let deltaY;
-
 
 let textMargin = size / 8 * 3;

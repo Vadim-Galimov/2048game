@@ -1,20 +1,13 @@
 function makeTurn(moveDirection) {
 
-
     timerDrawCells = setInterval(drawCells, 10);
 
     setTimeout(() => {
         clearInterval(timerDrawCells);
 
-
-    }, phaseTime*2);
-
-
+    }, phaseTime * 2);
 
     turnBlock = 1;
-
-
-
 
     for (i = 0; i < 4; i++) {
         setTicketAndMoveSpeed(1, i, moveDirection);
@@ -22,47 +15,39 @@ function makeTurn(moveDirection) {
         setTicketAndMoveSpeed(3, i, moveDirection);
     }
 
-
     allMove();
-
-
 
     setTimeout(() => {
 
         turnScore = 0;
-        cellArray.forEach(function(item) {
+        cellArray.forEach(function (item) {
             item.afterMove()
-            if (item.toDelete == 1) turnScore += item.drawValue;
+            if (item.toDelete == 1)
+                turnScore += item.drawValue;
         });
-
-
-
 
         score += turnScore * 2;
         drawScore();
         drawCells();
 
-
-        cellArray = cellArray.filter(function(item) {
+        cellArray = cellArray.filter(function (item) {
 
             return item.toDelete != 1;
 
-
         })
 
+            if (checkMove == 1)
+                make1ActiveCell()
 
+                checkMove = 0;
+            checkWin();
 
-
-        if (checkMove == 1) make1ActiveCell()
-
-
-        checkMove = 0;
-        checkWin();
-
-        if (winStatus == 1) return 0;
+        if (winStatus == 1)
+            return 0;
         checkLose();
 
-        if (loseStatus == 1) return 0;
+        if (loseStatus == 1)
+            return 0;
 
         setTimeout(() => {
             turnBlock = 0
@@ -70,26 +55,17 @@ function makeTurn(moveDirection) {
 
     }, phaseTime);
 
-
-
-
 }
-
-
-
 
 function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
     choosenColumnArr = columnArray[moveDirection];
 
     choosenCell = getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 
-    if (!choosenCell) return 0;
-
-
-
+    if (!choosenCell)
+        return 0;
 
     maxMove = getMaxMove(choosenColumn);
-
 
     sub1Number = choosenNumber - 1;
     sub2Number = choosenNumber - 2;
@@ -99,9 +75,6 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
     sub2Cell = getCellFromNumber(choosenColumnArr[choosenColumn][sub2Number]);
     sub3Cell = getCellFromNumber(choosenColumnArr[choosenColumn][sub3Number]);
 
-
-
-
     ticket = choosenCell.number;
     moveSpeed = 0;
     if (checkMerge(sub1Cell)) {
@@ -109,7 +82,6 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
         ticket = choosenColumnArr[choosenColumn][sub1Number];
         choosenCell.toDelete = 1;
         sub1Cell.value *= 2;
-
 
         sub1Cell.mergeBlock = 1;
         choosenCell.mergeBlock = 1;
@@ -125,13 +97,10 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
 
             sub2Cell.value *= 2;
 
-
             choosenCell.toDelete = 1;
             ticket = choosenColumnArr[choosenColumn][sub2Number];
             sub2Cell.mergeBlock = 1;
             choosenCell.mergeBlock = 1;
-
-
 
         }
         if (!sub2Cell && maxMove > 1) {
@@ -155,92 +124,59 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
 
                 ticket = choosenColumnArr[choosenColumn][sub3Number];
 
-
             }
-
 
         }
 
-
-
-
     }
-
 
     choosenCell.ticket = ticket;
     choosenCell.moveSpeed = moveSpeed;
-
-
-
 
     function getMaxMove(choosenColumn) {
 
         thisArr = choosenColumnArr[choosenColumn];
 
-        return thisArr.indexOf(choosenCell.number);;
+        return thisArr.indexOf(choosenCell.number); ;
 
     }
-
-
-
 
     function checkMerge(subCell) {
 
-        if (subCell?.value == choosenCell.value && subCell?.mergeBlock == 0 && choosenCell.mergeBlock == 0) return 1;
-
-
-
-
-        else return 0;
-
+        if (subCell?.value == choosenCell.value && subCell?.mergeBlock == 0 && choosenCell.mergeBlock == 0)
+            return 1;
+        else
+            return 0;
 
     }
 
-
-
-
 }
-
-
-
 
 function allMove() {
 
-
     timerMakeStep = setInterval(() => {
-        cellArray.forEach(function(item) {
+        cellArray.forEach(function (item) {
             item.makeStep()
         })
-    }, phaseTime/5);
+    }, phaseTime / 5);
 
     setTimeout(() => {
         clearInterval(timerMakeStep);
 
-
     }, phaseTime);
-
-
-
 
 }
 
-
-
 function make1ActiveCell() {
-
 
     function checkCellFunc() {
 
-        thisCell = cellArray.find(function(item) {
+        thisCell = cellArray.find(function (item) {
             return item.ticket == randomNum + 1;
-
-
 
         });
 
-
         return thisCell;
-
 
     }
 
@@ -248,26 +184,16 @@ function make1ActiveCell() {
         randomNum = Math.floor(Math.random() * 16);
     } while (checkCellFunc());
 
-
-
-
     newCell = new Cell(randomNum);
 
     cellArray.push(newCell);
 
-
-
 }
-
-
-
-
 
 function getCellFromNumber(cellNumber) {
 
-    return cellArray.find(function(item, index) {
+    return cellArray.find(function (item, index) {
         return item.ticket == cellNumber;
     });
-
 
 }

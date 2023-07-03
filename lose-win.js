@@ -63,7 +63,8 @@ function checkWin() {
     });
 
 
-    if (valueArray.includes(2048)) winStatus = 1;
+    if (valueArray.includes(2048))
+        winStatus = 1;
 
     if (winStatus == 1) setTimeout(makeWin, phaseTime);;
 
