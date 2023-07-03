@@ -1,3 +1,6 @@
+
+
+
 let cellArray = new Array;
 
 
@@ -11,7 +14,7 @@ let score = 0;
 
 let cursorOverbutton;
 
-let phaseTime = 150;
+let phaseTime = 100;
 
 let turnTime = phaseTime*2;
 

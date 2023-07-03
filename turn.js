@@ -211,7 +211,7 @@ function allMove() {
         cellArray.forEach(function(item) {
             item.makeStep()
         })
-    }, 25);
+    }, phaseTime/5);
 
     setTimeout(() => {
         clearInterval(timerMakeStep);

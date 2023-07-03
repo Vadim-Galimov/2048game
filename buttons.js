@@ -88,7 +88,11 @@ function mouseMove() {
 
 
 
-        if (event.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && event.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && event.pageY > buttonTryAgain.buttonY1+elem.offsetTop && event.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
+        if (
+		event.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
+		event.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
+		event.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
+		event.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
 
             var elementToChange = document.getElementsByTagName("body")[0];
             elementToChange.style.cursor = "pointer";

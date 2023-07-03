@@ -38,8 +38,8 @@ class Cell {
 
 
     makeStep() {
-        this.x += (moveXY[moveDirection][0] * this.moveSpeed) / (phaseTime / 25);
-        this.y += (moveXY[moveDirection][1] * this.moveSpeed) / (phaseTime / 25);
+        this.x += (moveXY[moveDirection][0] * this.moveSpeed) / (phaseTime / 20);
+        this.y += (moveXY[moveDirection][1] * this.moveSpeed) / (phaseTime / 20);
 
 
     }
