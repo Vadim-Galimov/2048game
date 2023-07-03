@@ -153,18 +153,17 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
 }
 
 function allMove() {
-
+animationCounter=0;
     timerMakeStep = setInterval(() => {
+		if( animationCounter>4)  clearInterval(timerMakeStep);
+		
         cellArray.forEach(function (item) {
             item.makeStep()
         })
+		animationCounter++;
     }, phaseTime / 5);
 
-    setTimeout(() => {
-        clearInterval(timerMakeStep);
-
-    }, phaseTime);
-
+ 
 }
 
 function make1ActiveCell() {
