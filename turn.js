@@ -1,81 +1,16 @@
+
+
+
+
+
+
 function makeTurn(moveDirection) {
 
-    timerDrawCells = setInterval(drawCells, 10);
+  turn.startTurn();
 
-    setTimeout(() => {
-        clearInterval(timerDrawCells);
+ 
 
-    }, phaseTime * 2);
-
-    turnBlock = 1;
-
-    for (i = 0; i < 4; i++) {
-        setTicketAndMoveSpeed(1, i, moveDirection);
-        setTicketAndMoveSpeed(2, i, moveDirection);
-        setTicketAndMoveSpeed(3, i, moveDirection);
-    }
-
-    allMove();
-
-    setTimeout(() => {
-
-        i = 0;
-        createInterval = setInterval(() => {
-            cellArray.forEach(function (item) {
-                item.createAnimation(5 - i);
-                item.mergeAnimation(5 - i);
-            });
-            i++;
-            if (i > 4) {
-
-                clearInterval(createInterval);
-                cellArray.forEach(function (item) {
-                    item.create = 0;
-                    item.createSize = 0;
-                    item.merge = 0;
-                    item.mergeSize = 0;
-                });
-            }
-        }, 10)
-
-            turnScore = 0;
-        cellArray.forEach(function (item) {
-            item.afterMove()
-
-            item.createAnimation();
-            if (item.toDelete == 1)
-                turnScore += item.drawValue;
-        });
-
-        score += turnScore * 2;
-        drawScore();
-        drawCells();
-
-        cellArray = cellArray.filter(function (item) {
-
-            return item.toDelete != 1;
-
-        })
-
-            if (checkMove == 1)
-                make1ActiveCell()
-
-                checkMove = 0;
-            checkWin();
-
-        if (winStatus == 1)
-            return 0;
-        checkLose();
-
-        if (loseStatus == 1)
-            return 0;
-
-        setTimeout(() => {
-            turnBlock = 0
-        }, phaseTime);
-
-    }, phaseTime);
-
+ 
 }
 
 function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
@@ -183,7 +118,7 @@ function allMove() {
             item.makeStep()
         })
         animationCounter++;
-    }, phaseTime / 5);
+    }, turn.phaseTime / 5);
 
 }
 

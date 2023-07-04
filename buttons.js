@@ -3,7 +3,7 @@
 
 function down() {
 
-    if (turnBlock == 1)
+    if (turn.block == 1)
         return 0;
 
     moveDirection = 'down';
@@ -14,7 +14,7 @@ function down() {
 
 function up() {
 
-    if (turnBlock == 1)
+    if (turn.block == 1)
         return 0;
 
     moveDirection = 'up';
@@ -24,7 +24,7 @@ function up() {
 }
 
 function left() {
-    if (turnBlock == 1)
+    if (turn.block == 1)
         return 0;
 
     moveDirection = 'left';
@@ -35,7 +35,7 @@ function left() {
 
 function right() {
 
-    if (turnBlock == 1)
+    if (turn.block == 1)
         return 0;
 
     moveDirection = 'right';
@@ -61,7 +61,7 @@ function newGame() {
     elementToChange.style.cursor = "default";
     cellArray = [];
     make2ActiveCells();
-    turnBlock = 0;
+    turn.block = 0;
     drawScore();
     drawCells();
     winStatus = 0;

@@ -40,7 +40,7 @@ function checkLose() {
     }
 
     if (loseStatus == 1)
-        setTimeout(makeLose, phaseTime);
+        setTimeout(makeLose, turn.phaseTime);
 
 }
 
@@ -54,7 +54,7 @@ function checkWin() {
         winStatus = 1;
 
     if (winStatus == 1)
-        setTimeout(makeWin, phaseTime); ;
+        setTimeout(makeWin, turn.phaseTime); ;
 
 }
 

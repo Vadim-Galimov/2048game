@@ -9,7 +9,7 @@ function makeStart() {
     setTimeout(() => {
         clearInterval(timerDrawCells);
 
-    }, phaseTime * 2);
+    }, turn.phaseTime * 2);
 
     setKeyboardController();
     setMouseController();
@@ -155,7 +155,7 @@ function setMouseController() {
 
         }
 
-        if (turnBlock == 1)
+        if (turn.block == 1)
             return 0;
 
         moveDirection = moveTo;
@@ -214,7 +214,7 @@ function setTouchpadController() {
 
                 }
 
-                if (turnBlock == 1)
+                if (turn.block == 1)
                     return 0;
 
                 moveDirection = moveTo;
