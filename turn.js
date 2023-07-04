@@ -106,7 +106,7 @@ turn.startTurn= function () {
 
 
    turn.endTurn =function () {
-	    turn.block = 0
+	   if(winStatus == 0&&loseStatus==0) turn.block = 0
         stopAnimation();
 
     };
