@@ -183,7 +183,7 @@ function setTouchpadController() {
 
         if (Math.abs(deltaX) + Math.abs(deltaY) < 100)
             return 0;
-        console.log('3')
+  
         if (Math.abs(deltaX) > Math.abs(deltaY))
             axis = 'x';
         else
@@ -261,6 +261,8 @@ function mouseMove() {
 
 function touchClick() {
 	
+	
+	
   if (buttonTryAgain.visible == 1) {
 
 
@@ -269,31 +271,86 @@ function touchClick() {
 
 
         if (
-		event.touches[0].pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
-		event.touches[0].pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
-		event.touches[0].pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
-		event.touches[0].pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
 
-            var elementToChange = document.getElementsByTagName("body")[0];
-            elementToChange.style.cursor = "pointer";
-            cursorOverbutton = 1;
+		event.touches[0]?.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
+		event.touches[0]?.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
+		event.touches[0]?.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
+		event.touches[0]?.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
+
+        
+			touchCheck=1;
+	
+			
         } else {
 
-            elementToChange = document.getElementsByTagName("body")[0];
-            elementToChange.style.cursor = "default";
-            cursorOverbutton = 0;
-
+  
+       
+	touchCheck=0;
         }
 
 
     }
-    if (cursorOverbutton == 1)
-        newGame();
+	
+	
+	  document.addEventListener('touchend', touchClickEnd, event);
+	
+	
+	
+	
+	
+	
+	
+
 
 }
 
 
 
+	
+	function touchClickEnd(e) {
+	
+		
+		 if (buttonTryAgain.visible == 1) {
+
+
+  elem = document.getElementById('canvasBody');
+
+
+
+        if (
+		e?.changedTouches[0]?.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
+		e?.changedTouches[0]?.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
+		e?.changedTouches[0]?.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
+		e?.changedTouches[0]?.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
+
+  
+            cursorOverbutton = 1;
+			
+        } else {
+
+  touchCkeck=0;
+            cursorOverbutton = 0;
+	
+        }
+
+
+    }
+		
+		
+		    if (cursorOverbutton == 1 && touchCheck==1) {
+	
+				
+        newGame();
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

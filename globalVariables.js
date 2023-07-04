@@ -80,3 +80,5 @@ let columnArray = {
     right: rightColumnArr,
 
 }
+
+let touchCheck;
