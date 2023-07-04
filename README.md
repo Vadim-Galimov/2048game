@@ -7,6 +7,8 @@
   <a href="https://vadim-galimov.github.io/2048game/">
     <img src="readme-logo.jpg" alt="Logo" width="80" height="80">
   </a>
+  
+ <p  align="center"> &#8657; попробовать &#8657; </p>
 
 </div>
 
