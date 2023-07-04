@@ -223,7 +223,8 @@ function setTouchpadController() {
 function setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('click', buttonClick);
-	
+	  document.addEventListener('touchmove', mouseMove);
+    document.addEventListener('touchstart', buttonClick);
 	
 
 
