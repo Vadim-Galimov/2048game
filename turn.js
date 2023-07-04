@@ -10,7 +10,7 @@
 }
 
 turn.startTurn= function () {
-
+		turn.block = 1;
         turn.doPhase1();
 
         timerDrawCells = setInterval(drawCells, 10);
@@ -25,7 +25,7 @@ turn.startTurn= function () {
 
         }, turn.phaseTime * 2);
 
-        turn.block = 1;
+    
 
     };
 
@@ -78,7 +78,7 @@ turn.startTurn= function () {
 
         score += turnScore * 2;
         drawScore();
-        drawCells();
+
 
         cellArray = cellArray.filter(function (item) {
 
@@ -99,15 +99,14 @@ turn.startTurn= function () {
         if (loseStatus == 1)
             return 0;
 
-        setTimeout(() => {
-            turn.block = 0
-        }, turn.phaseTime);
+ 
 
     };
 
 
 
    turn.endTurn =function () {
+	    turn.block = 0
         clearInterval(timerDrawCells);
 
     };
