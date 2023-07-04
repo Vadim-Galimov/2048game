@@ -19,10 +19,34 @@ function makeTurn(moveDirection) {
 
     setTimeout(() => {
 
+	i=0;
+	createInterval=	setInterval(() => {
+		cellArray.forEach(function(item) {
+				item.createAnimation(5-i);
+					item.mergeAnimation(5-i);
+				});
+				i++;
+				if (i>4) {
+					
+					
+					clearInterval(createInterval);
+					cellArray.forEach(function(item) {
+						item.create=0;
+		item.createSize=0;
+								item.merge=0;
+		item.mergeSize=0;
+				});
+				}
+			}, 10)
+
+
         turnScore = 0;
         cellArray.forEach(function (item) {
             item.afterMove()
+	
 			
+			
+			item.createAnimation();
             if (item.toDelete == 1)
                 turnScore += item.drawValue;
         });
@@ -83,7 +107,7 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
         ticket = choosenColumnArr[choosenColumn][sub1Number];
         choosenCell.toDelete = 1;
         sub1Cell.value *= 2;
-
+  sub1Cell.merge= 1;
         sub1Cell.mergeBlock = 1;
         choosenCell.mergeBlock = 1;
         checkMove = 1;
@@ -97,7 +121,7 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
             moveSpeed = 2;
 
             sub2Cell.value *= 2;
-
+  sub2Cell.merge= 1;
             choosenCell.toDelete = 1;
             ticket = choosenColumnArr[choosenColumn][sub2Number];
             sub2Cell.mergeBlock = 1;
@@ -113,7 +137,7 @@ function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
                 ticket = choosenColumnArr[choosenColumn][sub3Number];
 
                 sub3Cell.value *= 2;
-
+  sub3Cell.merge= 1;
                 choosenCell.toDelete = 1;
 
                 sub3Cell.mergeBlock = 1;

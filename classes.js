@@ -25,7 +25,10 @@ class Cell {
         this.ticket = this.number;
         this.toDelete = 0;
         this.mergeBlock = 0;
-
+		this.create=1;
+		this.createSize=0;
+		this.merge=0;
+		this.mergeSize=0;
     }
 
     makeStep() {
@@ -45,8 +48,28 @@ class Cell {
 		        this.x = this.columnNumber * (stepMargin) - size;
         this.y = this.rowNumber * (stepMargin) - size;
     }
+	 mergeAnimation(tick) {
+				 if (this.merge==0) return 0;
+		 		 
+		this.mergeSize=1*tick; 
+		 
+	 }
+	 
+	 createAnimation(tick) {
+		 if (this.create==0) return 0;
+		 		 
+		this.createSize=2*tick;
+		 
+		 
+	 }
+	
+	
+	
 
 }
+
+
+
 
 class Button {
 

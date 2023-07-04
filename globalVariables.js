@@ -13,6 +13,39 @@ let phaseTime = 100;
 
 let turnTime = phaseTime * 2;
 
+let checkMove = 1;
+
+let winStatus;
+
+let loseStatus;
+
+
+
+
+
+
+
+
+let canvasBody = document.getElementById('canvasBody');
+
+let ctxBody = canvasBody.getContext('2d');
+
+let size = 80;
+let minMargin = size / 8;
+
+let fullSize = 4 * size + 5 * minMargin;
+
+let stepMargin = minMargin + size;
+
+let textMargin = size / 8 * 3;
+
+
+
+
+
+
+
+
 let downColumnArr = [
     [13, 9, 5, 1],
     [14, 10, 6, 2],
@@ -39,6 +72,7 @@ let leftColumnArr = [
     [13, 14, 15, 16]
 ];
 
+
 let columnArray = {
     down: downColumnArr,
     up: upColumnArr,
@@ -46,21 +80,3 @@ let columnArray = {
     right: rightColumnArr,
 
 }
-
-let checkMove = 1;
-
-let winStatus;
-let loseStatus;
-
-let canvasBody = document.getElementById('canvasBody');
-
-let ctxBody = canvasBody.getContext('2d');
-
-let size = 80;
-let minMargin = size / 8;
-
-let fullSize = 4 * size + 5 * minMargin;
-
-let stepMargin = minMargin + size;
-
-let textMargin = size / 8 * 3;

@@ -4,12 +4,37 @@ function makeStart() {
 
     make2ActiveCells();
     drawScore();
-    drawCells();
+   timerDrawCells = setInterval(drawCells, 10);
+
+    setTimeout(() => {
+        clearInterval(timerDrawCells);
+
+    }, phaseTime * 2);
 
     setKeyboardController();
     setMouseController();
     setTouchpadController();
     setCursorXYChecker();
+	
+	i=0;
+		createInterval=	setInterval(() => {
+		cellArray.forEach(function(item) {
+				item.createAnimation(5-i);
+					item.mergeAnimation(5-i);
+				});
+				i++;
+				if (i>4) {
+					
+					
+					clearInterval(createInterval);
+					cellArray.forEach(function(item) {
+						item.create=0;
+		item.createSize=0;
+								item.merge=0;
+		item.mergeSize=0;
+				});
+				}
+			}, 10)
 
 }
 
@@ -198,5 +223,53 @@ function setTouchpadController() {
 function setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('click', buttonClick);
+	
+	
 
+
+function mouseMove() {
+
+    if (buttonTryAgain.visible == 1) {
+
+
+  elem = document.getElementById('canvasBody');
+
+
+
+        if (
+		event.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
+		event.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
+		event.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
+		event.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
+
+            var elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "pointer";
+            cursorOverbutton = 1;
+        } else {
+
+            elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "default";
+            cursorOverbutton = 0;
+
+        }
+
+
+    }
+
+}
+
+
+function buttonClick() {
+
+    if (cursorOverbutton == 1)
+        newGame();
+
+}
+
+
+
+	
+	
+	
+	
 }

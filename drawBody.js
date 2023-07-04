@@ -103,7 +103,7 @@ function drawCells() {
 
         }
 
-        roundRect(ctxBody, item.x, item.y, item.x + size, item.y + size, 3);
+        roundRect(ctxBody, item.x+item.createSize-item.mergeSize, item.y+item.createSize-item.mergeSize, item.x + size-item.createSize+item.mergeSize,item.y + size-item.createSize+item.mergeSize, 3);
 
         switch (cellValue) {
 
