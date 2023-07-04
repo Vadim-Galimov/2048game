@@ -64,6 +64,6 @@ function newGame() {
     turn.block = 0;
     drawScore();
     drawCells();
-    winStatus = 0;
+    turn.winStatus = 0;
 
 }

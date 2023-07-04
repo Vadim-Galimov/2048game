@@ -9,10 +9,6 @@ let cursorOverbutton;
 
 let checkMove = 1;
 
-let winStatus;
-
-let loseStatus;
-
 let canvasBody = document.getElementById('canvasBody');
 
 let ctxBody = canvasBody.getContext('2d');

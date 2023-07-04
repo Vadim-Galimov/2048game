@@ -14,10 +14,10 @@ function makeLose() {
 
 function checkLose() {
 
-    loseStatus = 1;
+    turn.loseStatus = 1;
 
     if (cellArray.length < 16) {
-        loseStatus = 0;
+        turn.loseStatus = 0;
         return 0;
     }
 
@@ -25,7 +25,7 @@ function checkLose() {
         for (i = 0; i < 3; i++) {
 
             if (getCellFromNumber(downColumnArr[i1][i])?.value == getCellFromNumber(downColumnArr[i1][i + 1])?.value)
-                loseStatus = 0;
+                turn.loseStatus = 0;
 
         }
     }
@@ -34,12 +34,12 @@ function checkLose() {
         for (i = 0; i < 3; i++) {
 
             if (getCellFromNumber(rightColumnArr[i1][i])?.value == getCellFromNumber(rightColumnArr[i1][i + 1])?.value)
-                loseStatus = 0;
+                turn.loseStatus = 0;
 
         }
     }
 
-    if (loseStatus == 1)
+    if (turn.loseStatus == 1)
         setTimeout(makeLose, turn.phaseTime);
 
 }
@@ -51,9 +51,9 @@ function checkWin() {
     });
 
     if (valueArray.includes(2048))
-        winStatus = 1;
+        turn.winStatus = 1;
 
-    if (winStatus == 1)
+    if (turn.winStatus == 1)
         setTimeout(makeWin, turn.phaseTime); ;
 
 }

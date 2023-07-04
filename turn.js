@@ -7,6 +7,9 @@
     block: 0,
     phaseTime: 100,
 	moveDirection: '',
+	winStatus:0,
+	loseStatus:0,
+	
 }
 
 turn.startTurn= function () {
@@ -92,11 +95,11 @@ turn.startTurn= function () {
                 checkMove = 0;
             checkWin();
 
-        if (winStatus == 1)
+        if (turn.winStatus == 1)
             return 0;
         checkLose();
 
-        if (loseStatus == 1)
+        if (turn.loseStatus == 1)
             return 0;
 
  
@@ -106,7 +109,7 @@ turn.startTurn= function () {
 
 
    turn.endTurn =function () {
-	   if(winStatus == 0&&loseStatus==0) turn.block = 0
+	   if(turn.winStatus == 0&&turn.loseStatus==0) turn.block = 0
         stopAnimation();
 
     };
