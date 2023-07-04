@@ -158,7 +158,7 @@ function setMouseController() {
         if (turn.block == 1)
             return 0;
 
-        moveDirection = moveTo;
+        turn.moveDirection = moveTo;
 
         makeTurn(moveTo);
 
@@ -217,7 +217,7 @@ function setTouchpadController() {
                 if (turn.block == 1)
                     return 0;
 
-                moveDirection = moveTo;
+                turn.moveDirection = moveTo;
 
         makeTurn(moveTo);
 

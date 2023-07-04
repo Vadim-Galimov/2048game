@@ -4,11 +4,9 @@
 
 
  turn = {
-    active: 0,
     block: 0,
     phaseTime: 100,
-
- 
+	moveDirection: '',
 }
 
 turn.startTurn= function () {
@@ -36,9 +34,9 @@ turn.startTurn= function () {
     turn.doPhase1 = function () {
 
         for (i = 0; i < 4; i++) {
-            setTicketAndMoveSpeed(1, i, moveDirection);
-            setTicketAndMoveSpeed(2, i, moveDirection);
-            setTicketAndMoveSpeed(3, i, moveDirection);
+            setTicketAndMoveSpeed(1, i);
+            setTicketAndMoveSpeed(2, i);
+            setTicketAndMoveSpeed(3, i);
         }
 
         allMove();
@@ -124,7 +122,7 @@ turn.startTurn= function () {
 
 
 
-function makeTurn(moveDirection) {
+function makeTurn() {
 
   turn.startTurn();
  
@@ -133,8 +131,8 @@ function makeTurn(moveDirection) {
 
 
 
-function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
-    choosenColumnArr = columnArray[moveDirection];
+function setTicketAndMoveSpeed(choosenNumber, choosenColumn) {
+    choosenColumnArr = columnArray[turn.moveDirection];
 
     choosenCell = getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 

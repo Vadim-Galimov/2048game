@@ -6,9 +6,9 @@ function down() {
     if (turn.block == 1)
         return 0;
 
-    moveDirection = 'down';
+    turn.moveDirection = 'down';
 
-    makeTurn('down');
+    makeTurn();
 
 }
 
@@ -17,9 +17,9 @@ function up() {
     if (turn.block == 1)
         return 0;
 
-    moveDirection = 'up';
+    turn.moveDirection = 'up';
 
-    makeTurn('up');
+    makeTurn();
 
 }
 
@@ -27,9 +27,9 @@ function left() {
     if (turn.block == 1)
         return 0;
 
-    moveDirection = 'left';
+    turn.moveDirection = 'left';
 
-    makeTurn('left');
+    makeTurn();
 
 }
 
@@ -38,9 +38,9 @@ function right() {
     if (turn.block == 1)
         return 0;
 
-    moveDirection = 'right';
+    turn.moveDirection = 'right';
 
-    makeTurn('right');
+    makeTurn();
 
 }
 
