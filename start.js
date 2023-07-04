@@ -4,7 +4,7 @@ function makeStart() {
 
     make2ActiveCells();
     drawScore();
-   timerDrawCells = setInterval(drawCells, 10);
+    timerDrawCells = setInterval(drawCells, 10);
 
     setTimeout(() => {
         clearInterval(timerDrawCells);
@@ -15,26 +15,25 @@ function makeStart() {
     setMouseController();
     setTouchpadController();
     setCursorXYChecker();
-	
-	i=0;
-		createInterval=	setInterval(() => {
-		cellArray.forEach(function(item) {
-				item.createAnimation(5-i);
-					item.mergeAnimation(5-i);
-				});
-				i++;
-				if (i>4) {
-					
-					
-					clearInterval(createInterval);
-					cellArray.forEach(function(item) {
-						item.create=0;
-		item.createSize=0;
-								item.merge=0;
-		item.mergeSize=0;
-				});
-				}
-			}, 10)
+
+    i = 0;
+    createInterval = setInterval(() => {
+        cellArray.forEach(function (item) {
+            item.createAnimation(5 - i);
+            item.mergeAnimation(5 - i);
+        });
+        i++;
+        if (i > 4) {
+
+            clearInterval(createInterval);
+            cellArray.forEach(function (item) {
+                item.create = 0;
+                item.createSize = 0;
+                item.merge = 0;
+                item.mergeSize = 0;
+            });
+        }
+    }, 10)
 
 }
 
@@ -81,15 +80,14 @@ function setKeyboardController() {
         case 'ArrowRight':
             right();
             break;
-			
-			 case 'Enter':
-			event.preventDefault()
+
+        case 'Enter':
+            event.preventDefault()
             enter();
             break;
 
-    
             break;
-			
+
         }
 
         passArray.push(event.code);
@@ -192,7 +190,7 @@ function setTouchpadController() {
 
         if (Math.abs(deltaX) + Math.abs(deltaY) < 100)
             return 0;
-  
+
         if (Math.abs(deltaX) > Math.abs(deltaY))
             axis = 'x';
         else
@@ -233,139 +231,90 @@ function setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('click', buttonClick);
     document.addEventListener('touchstart', touchClick);
-	
 
+    function mouseMove() {
 
-function mouseMove() {
+        if (buttonTryAgain.visible == 1) {
 
-    if (buttonTryAgain.visible == 1) {
+            elem = document.getElementById('canvasBody');
 
+            if (
+                event.pageX > buttonTryAgain.buttonX1 + elem.offsetLeft &&
+                event.pageX < buttonTryAgain.buttonX2 + elem.offsetLeft &&
+                event.pageY > buttonTryAgain.buttonY1 + elem.offsetTop &&
+                event.pageY < buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-  elem = document.getElementById('canvasBody');
+                var elementToChange = document.getElementsByTagName("body")[0];
+                elementToChange.style.cursor = "pointer";
+                cursorOverbutton = 1;
+            } else {
 
+                elementToChange = document.getElementsByTagName("body")[0];
+                elementToChange.style.cursor = "default";
+                cursorOverbutton = 0;
 
-
-        if (
-		event.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
-		event.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
-		event.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
-		event.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
-
-            var elementToChange = document.getElementsByTagName("body")[0];
-            elementToChange.style.cursor = "pointer";
-            cursorOverbutton = 1;
-        } else {
-
-            elementToChange = document.getElementsByTagName("body")[0];
-            elementToChange.style.cursor = "default";
-            cursorOverbutton = 0;
+            }
 
         }
 
-
     }
 
-}
+    function touchClick() {
 
+        if (buttonTryAgain.visible == 1) {
 
-function touchClick() {
-	
-	
-	
-  if (buttonTryAgain.visible == 1) {
+            elem = document.getElementById('canvasBody');
 
+            if (
 
-  elem = document.getElementById('canvasBody');
+                event.touches[0]?.pageX > buttonTryAgain.buttonX1 + elem.offsetLeft &&
+                event.touches[0]?.pageX < buttonTryAgain.buttonX2 + elem.offsetLeft &&
+                event.touches[0]?.pageY > buttonTryAgain.buttonY1 + elem.offsetTop &&
+                event.touches[0]?.pageY < buttonTryAgain.buttonY2 + elem.offsetTop) {
 
+                touchCheck = 1;
 
+            } else {
 
-        if (
+                touchCheck = 0;
+            }
 
-		event.touches[0]?.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
-		event.touches[0]?.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
-		event.touches[0]?.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
-		event.touches[0]?.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
-
-        
-			touchCheck=1;
-	
-			
-        } else {
-
-  
-       
-	touchCheck=0;
         }
 
+        document.addEventListener('touchend', touchClickEnd, event);
 
     }
-	
-	
-	  document.addEventListener('touchend', touchClickEnd, event);
-	
-	
-	
-	
-	
-	
-	
 
+    function touchClickEnd(e) {
 
-}
+        if (buttonTryAgain.visible == 1) {
 
+            elem = document.getElementById('canvasBody');
 
+            if (
+                e?.changedTouches[0]?.pageX > buttonTryAgain.buttonX1 + elem.offsetLeft &&
+                e?.changedTouches[0]?.pageX < buttonTryAgain.buttonX2 + elem.offsetLeft &&
+                e?.changedTouches[0]?.pageY > buttonTryAgain.buttonY1 + elem.offsetTop &&
+                e?.changedTouches[0]?.pageY < buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-	
-	function touchClickEnd(e) {
-	
-		
-		 if (buttonTryAgain.visible == 1) {
+                cursorOverbutton = 1;
 
+            } else {
 
-  elem = document.getElementById('canvasBody');
+                touchCkeck = 0;
+                cursorOverbutton = 0;
 
+            }
 
-
-        if (
-		e?.changedTouches[0]?.pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
-		e?.changedTouches[0]?.pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
-		e?.changedTouches[0]?.pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
-		e?.changedTouches[0]?.pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
-
-  
-            cursorOverbutton = 1;
-			
-        } else {
-
-  touchCkeck=0;
-            cursorOverbutton = 0;
-	
         }
 
+        if (cursorOverbutton == 1 && touchCheck == 1) {
 
+            newGame();
+        }
     }
-		
-		
-		    if (cursorOverbutton == 1 && touchCheck==1) {
-	
-				
-        newGame();
-			}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
 
+}
 
 function buttonClick() {
 
@@ -373,9 +322,3 @@ function buttonClick() {
         newGame();
 
 }
-
-
-
-	
-	
-

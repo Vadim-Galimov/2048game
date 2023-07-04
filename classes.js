@@ -9,10 +9,10 @@ let moveXY = {
 class Cell {
 
     constructor(i) {
-		this.i=i;
+        this.i = i;
         this.number = i + 1;
 
-       this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
+        this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
         this.rowNumber = (Math.floor((this.i) / 4)) + 1;
         this.x = this.columnNumber * (stepMargin) - size;
         this.y = this.rowNumber * (stepMargin) - size;
@@ -25,10 +25,10 @@ class Cell {
         this.ticket = this.number;
         this.toDelete = 0;
         this.mergeBlock = 0;
-		this.create=1;
-		this.createSize=0;
-		this.merge=0;
-		this.mergeSize=0;
+        this.create = 1;
+        this.createSize = 0;
+        this.merge = 0;
+        this.mergeSize = 0;
     }
 
     makeStep() {
@@ -42,34 +42,29 @@ class Cell {
         this.moveSpeed = 0;
         this.mergeBlock = 0;
         this.drawValue = this.value;
-		this.i= this.ticket - 1;
-       this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
+        this.i = this.ticket - 1;
+        this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
         this.rowNumber = (Math.floor((this.i) / 4)) + 1;
-		        this.x = this.columnNumber * (stepMargin) - size;
+        this.x = this.columnNumber * (stepMargin) - size;
         this.y = this.rowNumber * (stepMargin) - size;
     }
-	 mergeAnimation(tick) {
-				 if (this.merge==0) return 0;
-		 		 
-		this.mergeSize=1*tick; 
-		 
-	 }
-	 
-	 createAnimation(tick) {
-		 if (this.create==0) return 0;
-		 		 
-		this.createSize=2*tick;
-		 
-		 
-	 }
-	
-	
-	
+    mergeAnimation(tick) {
+        if (this.merge == 0)
+            return 0;
+
+        this.mergeSize = 1 * tick;
+
+    }
+
+    createAnimation(tick) {
+        if (this.create == 0)
+            return 0;
+
+        this.createSize = 2 * tick;
+
+    }
 
 }
-
-
-
 
 class Button {
 

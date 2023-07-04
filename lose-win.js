@@ -2,23 +2,15 @@
 
 let buttonTryAgain = new Button;
 
-
-
-
-
 function makeLose() {
 
-drawLose();
+    drawLose();
 
-buttonTryAgain.draw();
+    buttonTryAgain.draw();
 
-  
-buttonTryAgain.visible=1;
-  
+    buttonTryAgain.visible = 1;
 
 }
-
-
 
 function checkLose() {
 
@@ -32,7 +24,8 @@ function checkLose() {
     for (i1 = 0; i1 < 4; i1++) {
         for (i = 0; i < 3; i++) {
 
-            if (getCellFromNumber(downColumnArr[i1][i])?.value == getCellFromNumber(downColumnArr[i1][i + 1])?.value) loseStatus = 0;
+            if (getCellFromNumber(downColumnArr[i1][i])?.value == getCellFromNumber(downColumnArr[i1][i + 1])?.value)
+                loseStatus = 0;
 
         }
     }
@@ -40,50 +33,36 @@ function checkLose() {
     for (i1 = 0; i1 < 4; i1++) {
         for (i = 0; i < 3; i++) {
 
-            if (getCellFromNumber(rightColumnArr[i1][i])?.value == getCellFromNumber(rightColumnArr[i1][i + 1])?.value) loseStatus = 0;
+            if (getCellFromNumber(rightColumnArr[i1][i])?.value == getCellFromNumber(rightColumnArr[i1][i + 1])?.value)
+                loseStatus = 0;
 
         }
     }
 
-
-    if (loseStatus == 1) setTimeout(makeLose, phaseTime);
-
-
-
+    if (loseStatus == 1)
+        setTimeout(makeLose, phaseTime);
 
 }
 
-
 function checkWin() {
-    valueArray = cellArray.map(function(item) {
+    valueArray = cellArray.map(function (item) {
         return item.value;
 
     });
 
-
     if (valueArray.includes(2048))
         winStatus = 1;
 
-    if (winStatus == 1) setTimeout(makeWin, phaseTime);;
-
+    if (winStatus == 1)
+        setTimeout(makeWin, phaseTime); ;
 
 }
 
-
 function makeWin() {
 
+    drawWin();
 
-
-drawWin();
-
-
- 
-
-
-
-
-buttonTryAgain.draw();
-buttonTryAgain.visible=1;
-  
+    buttonTryAgain.draw();
+    buttonTryAgain.visible = 1;
 
 }

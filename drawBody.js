@@ -103,7 +103,7 @@ function drawCells() {
 
         }
 
-        roundRect(ctxBody, item.x+item.createSize-item.mergeSize, item.y+item.createSize-item.mergeSize, item.x + size-item.createSize+item.mergeSize,item.y + size-item.createSize+item.mergeSize, 3);
+        roundRect(ctxBody, item.x + item.createSize - item.mergeSize, item.y + item.createSize - item.mergeSize, item.x + size - item.createSize + item.mergeSize, item.y + size - item.createSize + item.mergeSize, 3);
 
         switch (cellValue) {
 
@@ -147,11 +147,8 @@ function drawCells() {
 function drawLose() {
 
     ctxBody.fillStyle = "rgba(255, 255, 255, 0.5)";
-	
-	
-	 roundRect(ctxBody, 0, 0, fullSize,fullSize, 10);
 
-
+    roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
 
     ctxBody.fillStyle = "#776e65";
     ctxBody.font = 'bold 50px sans-serif';
@@ -169,9 +166,8 @@ function drawLose() {
 function drawWin() {
 
     ctxBody.fillStyle = "rgba(255, 215, 0, 0.5)";
-	
-	 roundRect(ctxBody, 0, 0, fullSize,fullSize, 10);
 
+    roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
 
     ctxBody.fillStyle = "#f9f6f2";
     ctxBody.font = 'bold 50px sans-serif';

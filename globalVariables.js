@@ -19,13 +19,6 @@ let winStatus;
 
 let loseStatus;
 
-
-
-
-
-
-
-
 let canvasBody = document.getElementById('canvasBody');
 
 let ctxBody = canvasBody.getContext('2d');
@@ -38,13 +31,6 @@ let fullSize = 4 * size + 5 * minMargin;
 let stepMargin = minMargin + size;
 
 let textMargin = size / 8 * 3;
-
-
-
-
-
-
-
 
 let downColumnArr = [
     [13, 9, 5, 1],
@@ -71,7 +57,6 @@ let leftColumnArr = [
     [9, 10, 11, 12],
     [13, 14, 15, 16]
 ];
-
 
 let columnArray = {
     down: downColumnArr,
