@@ -160,7 +160,7 @@ function setMouseController() {
 
         turn.moveDirection = moveTo;
 
-        makeTurn(moveTo);
+        makeTurn();
 
     }
 
@@ -219,7 +219,7 @@ function setTouchpadController() {
 
                 turn.moveDirection = moveTo;
 
-        makeTurn(moveTo);
+        makeTurn();
 
         event = null;
 
