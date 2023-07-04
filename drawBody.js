@@ -147,8 +147,11 @@ function drawCells() {
 function drawLose() {
 
     ctxBody.fillStyle = "rgba(255, 255, 255, 0.5)";
+	
+	
+	 roundRect(ctxBody, 0, 0, fullSize,fullSize, 10);
 
-    ctxBody.fillRect(0, 0, fullSize, fullSize);
+
 
     ctxBody.fillStyle = "#776e65";
     ctxBody.font = 'bold 50px sans-serif';
@@ -166,7 +169,9 @@ function drawLose() {
 function drawWin() {
 
     ctxBody.fillStyle = "rgba(255, 215, 0, 0.5)";
-    ctxBody.fillRect(0, 0, fullSize, fullSize);
+	
+	 roundRect(ctxBody, 0, 0, fullSize,fullSize, 10);
+
 
     ctxBody.fillStyle = "#f9f6f2";
     ctxBody.font = 'bold 50px sans-serif';
