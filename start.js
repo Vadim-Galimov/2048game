@@ -223,8 +223,7 @@ function setTouchpadController() {
 function setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('click', buttonClick);
-	  document.addEventListener('touchmove', mouseMove);
-    document.addEventListener('touchstart', buttonClick);
+    document.addEventListener('touchstart', touchClick);
 	
 
 
@@ -260,8 +259,34 @@ function mouseMove() {
 }
 
 
-function buttonClick() {
+function touchClick() {
+	
+  if (buttonTryAgain.visible == 1) {
 
+
+  elem = document.getElementById('canvasBody');
+
+
+
+        if (
+		event.touches[0].pageX > buttonTryAgain.buttonX1+elem.offsetLeft && 
+		event.touches[0].pageX < buttonTryAgain.buttonX2+elem.offsetLeft && 
+		event.touches[0].pageY > buttonTryAgain.buttonY1+elem.offsetTop && 
+		event.touches[0].pageY < buttonTryAgain.buttonY2+elem.offsetTop) {
+
+            var elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "pointer";
+            cursorOverbutton = 1;
+        } else {
+
+            elementToChange = document.getElementsByTagName("body")[0];
+            elementToChange.style.cursor = "default";
+            cursorOverbutton = 0;
+
+        }
+
+
+    }
     if (cursorOverbutton == 1)
         newGame();
 
@@ -274,3 +299,17 @@ function buttonClick() {
 	
 	
 }
+
+
+function buttonClick() {
+
+    if (cursorOverbutton == 1)
+        newGame();
+
+}
+
+
+
+	
+	
+
