@@ -8,8 +8,6 @@ let buttonTryAgain = new Button;
 
 function makeLose() {
 
-
-
 drawLose();
 
 buttonTryAgain.draw();
@@ -73,7 +71,6 @@ function checkWin() {
 
 
 function makeWin() {
-
 
 
 

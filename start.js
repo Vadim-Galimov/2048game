@@ -66,7 +66,7 @@ function setKeyboardController() {
     let passArray = new Array;
 
     document.getElementsByTagName('body')[0].addEventListener('keydown', function (event) {
-
+console.log(event.code)
         switch (event.code) {
 
         case 'ArrowUp':
@@ -81,9 +81,15 @@ function setKeyboardController() {
         case 'ArrowRight':
             right();
             break;
+			
 			 case 'Enter':
+			event.preventDefault()
             enter();
             break;
+
+    
+            break;
+			
         }
 
         passArray.push(event.code);
@@ -370,17 +376,6 @@ function buttonClick() {
 
 
 
-	
-function enter() {
-
-   if (buttonTryAgain.visible == 1)    newGame();
-     
-
-}
-
-
-
-	
 	
 	
 

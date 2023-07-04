@@ -61,6 +61,21 @@ function right() {
 
 
 
+
+	
+function enter() {
+
+   if (buttonTryAgain.visible == 1)   {
+
+	   newGame();
+     
+   }
+}
+
+
+
+	
+
 function newGame() {
 	buttonTryAgain.visible=0;
     cursorOverbutton = 0;
