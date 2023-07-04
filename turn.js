@@ -13,7 +13,7 @@ turn.startTurn= function () {
 		turn.block = 1;
         turn.doPhase1();
 
-        timerDrawCells = setInterval(drawCells, 10);
+       startAnimation();
 
         setTimeout(() => {
             turn.doPhase2();
@@ -107,7 +107,7 @@ turn.startTurn= function () {
 
    turn.endTurn =function () {
 	    turn.block = 0
-        clearInterval(timerDrawCells);
+        stopAnimation();
 
     };
 

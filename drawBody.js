@@ -1,6 +1,34 @@
 
 
 
+
+
+	function startAnimation() {
+		  timerDrawCells = setInterval(drawCells, 10);
+		
+		
+	}
+
+
+
+	function stopAnimation() {
+		
+		  clearInterval(timerDrawCells);
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function drawBackground() {
 
     ctxBody.fillStyle = '#776e65';

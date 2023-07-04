@@ -1,3 +1,5 @@
+
+
 function drawScore() {
 
     let canvasHead = document.getElementById('canvasHead');
