@@ -3,15 +3,135 @@
 
 
 
+ turn = {
+    active: 0,
+    block: 0,
+    phaseTime: 100,
+
+ 
+}
+
+turn.startTurn= function () {
+
+        turn.doPhase1();
+
+        timerDrawCells = setInterval(drawCells, 10);
+
+        setTimeout(() => {
+            turn.doPhase2();
+
+        }, turn.phaseTime);
+
+        setTimeout(() => {
+            turn.endTurn();
+
+        }, turn.phaseTime * 2);
+
+        turn.block = 1;
+
+    };
+
+
+
+    turn.doPhase1 = function () {
+
+        for (i = 0; i < 4; i++) {
+            setTicketAndMoveSpeed(1, i, moveDirection);
+            setTicketAndMoveSpeed(2, i, moveDirection);
+            setTicketAndMoveSpeed(3, i, moveDirection);
+        }
+
+        allMove();
+
+    };
+
+
+
+
+
+    turn.doPhase2= function () {
+        i = 0;
+        createInterval = setInterval(() => {
+            cellArray.forEach(function (item) {
+                item.createAnimation(5 - i);
+                item.mergeAnimation(5 - i);
+            });
+            i++;
+            if (i > 4) {
+
+                clearInterval(createInterval);
+                cellArray.forEach(function (item) {
+                    item.create = 0;
+                    item.createSize = 0;
+                    item.merge = 0;
+                    item.mergeSize = 0;
+                });
+            }
+        }, 10)
+
+            turnScore = 0;
+        cellArray.forEach(function (item) {
+            item.afterMove()
+
+            item.createAnimation();
+            if (item.toDelete == 1)
+                turnScore += item.drawValue;
+        });
+
+        score += turnScore * 2;
+        drawScore();
+        drawCells();
+
+        cellArray = cellArray.filter(function (item) {
+
+            return item.toDelete != 1;
+
+        })
+
+            if (checkMove == 1)
+                make1ActiveCell()
+
+                checkMove = 0;
+            checkWin();
+
+        if (winStatus == 1)
+            return 0;
+        checkLose();
+
+        if (loseStatus == 1)
+            return 0;
+
+        setTimeout(() => {
+            turn.block = 0
+        }, turn.phaseTime);
+
+    };
+
+
+
+   turn.endTurn =function () {
+        clearInterval(timerDrawCells);
+
+    };
+
+
+
+
+
+
+
+
+
+
 
 function makeTurn(moveDirection) {
 
   turn.startTurn();
-
- 
-
  
 }
+
+
+
 
 function setTicketAndMoveSpeed(choosenNumber, choosenColumn, moveDirection) {
     choosenColumnArr = columnArray[moveDirection];
