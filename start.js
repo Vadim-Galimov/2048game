@@ -66,7 +66,7 @@ function setKeyboardController() {
     let passArray = new Array;
 
     document.getElementsByTagName('body')[0].addEventListener('keydown', function (event) {
-console.log(event.code)
+
         switch (event.code) {
 
         case 'ArrowUp':
