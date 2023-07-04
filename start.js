@@ -4,10 +4,10 @@ function makeStart() {
 
     make2ActiveCells();
     drawScore();
-    timerDrawCells = setInterval(drawCells, 10);
+    startAnimation();
 
     setTimeout(() => {
-        clearInterval(timerDrawCells);
+     stopAnimation();
 
     }, turn.phaseTime * 2);
 
