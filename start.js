@@ -103,6 +103,9 @@ function setKeyboardController() {
 
 }
 
+
+
+
 function setMouseController() {
 
     function writeMouseStartXY() {
@@ -229,7 +232,42 @@ function setTouchpadController() {
 
 function setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
-    document.addEventListener('click', buttonClick);
+	 document.addEventListener('mousedown', buttonDown, event);
+	
+		function buttonDown(e) {
+	
+		
+	x1=e.x
+	y1=e.y
+		
+		 document.addEventListener('mouseup', buttonUp, event);
+		
+		
+		
+		function buttonUp(e) {
+			x2=e.x
+			y2=e.y
+			
+			if (Math.abs(x1-x2) + Math.abs(y1-y2)<5) {
+				
+			
+
+    if (cursorOverbutton == 1)
+        newGame();
+
+
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+	}
+	
+
     document.addEventListener('touchstart', touchClick);
 
     function mouseMove() {
@@ -316,9 +354,3 @@ function setCursorXYChecker() {
 
 }
 
-function buttonClick() {
-
-    if (cursorOverbutton == 1)
-        newGame();
-
-}
