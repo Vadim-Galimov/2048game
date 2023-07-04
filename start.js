@@ -81,6 +81,9 @@ function setKeyboardController() {
         case 'ArrowRight':
             right();
             break;
+			 case 'Enter':
+            enter();
+            break;
         }
 
         passArray.push(event.code);
@@ -367,6 +370,17 @@ function buttonClick() {
 
 
 
+	
+function enter() {
+
+   if (buttonTryAgain.visible == 1)    newGame();
+     
+
+}
+
+
+
+	
 	
 	
 
