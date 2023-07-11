@@ -32,8 +32,8 @@ class Cell {
     }
 
     makeStep() {
-        this.x += (moveXY[turn.moveDirection][0] * this.moveSpeed) / ( turn.phaseTime / 20);
-        this.y += (moveXY[turn.moveDirection][1] * this.moveSpeed) / (turn.phaseTime / 20);
+        this.x += (moveXY[App.moveDirection][0] * this.moveSpeed) / ( App.phaseTime / 20);
+        this.y += (moveXY[App.moveDirection][1] * this.moveSpeed) / (App.phaseTime / 20);
 
     }
 
@@ -76,11 +76,11 @@ class Button {
 
         this.context.font = this.font;
 
-        metrics = this.context.measureText(this.textValue);
+       let metrics = this.context.measureText(this.textValue);
 
-        actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+      let  actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-        textWithMarginsWidth = metrics.width + textMargin;
+     let   textWithMarginsWidth = metrics.width + textMargin;
 
         this.buttonFillStyle = "#8f7a66";
         this.textFillStyle = "#f9f6f2";
@@ -95,7 +95,7 @@ class Button {
         this.textY = 244;
 
         this.visible = 0;
-
+		this.cursorOverbutton=0;
     }
 
     draw() {
@@ -110,3 +110,5 @@ class Button {
     }
 
 }
+
+

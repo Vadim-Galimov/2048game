@@ -3,15 +3,15 @@
 
 function makePrewinSituation() {
 
-    cellArray[0].value = 1024;
+    Field.cellArray[0].value = 1024;
 
-    cellArray[1].value = 1024;
+    Field.cellArray[1].value = 1024;
 
-    cellArray[1].drawValue = 1024;
+    Field.cellArray[1].drawValue = 1024;
 
-    cellArray[0].drawValue = 1024;
+    Field.cellArray[0].drawValue = 1024;
 
-    drawCells();
+    Draw.drawCells();
 
 }
 
@@ -26,10 +26,10 @@ function makePreloseSituation() {
 
     for (i = 0; i < 15; i++) {
 
-        cellArray[i].value = i + 32;
-        cellArray[i].drawValue = i + 32;
+        Field.cellArray[i].value = i + 32;
+        Field.cellArray[i].drawValue = i + 32;
     }
 
-    drawCells();
+    Draw.drawCells();
 
 }

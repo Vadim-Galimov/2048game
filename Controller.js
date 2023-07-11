@@ -1,67 +1,10 @@
-makeStart();
 
-function makeStart() {
+ let  startMouseX;
+  let  startMouseY;
+let axis;
+class Controller {
 
-    make2ActiveCells();
-    drawScore();
-    startAnimation();
-
-    setTimeout(() => {
-     stopAnimation();
-
-    }, turn.phaseTime * 2);
-
-    setKeyboardController();
-    setMouseController();
-    setTouchpadController();
-    setCursorXYChecker();
-
-    i = 0;
-    createInterval = setInterval(() => {
-        cellArray.forEach(function (item) {
-            item.createAnimation(5 - i);
-            item.mergeAnimation(5 - i);
-        });
-        i++;
-        if (i > 4) {
-
-            clearInterval(createInterval);
-            cellArray.forEach(function (item) {
-                item.create = 0;
-                item.createSize = 0;
-                item.merge = 0;
-                item.mergeSize = 0;
-            });
-        }
-    }, 10)
-
-}
-
-function make2ActiveCells() {
-
-    randomNum1 = Math.floor(Math.random() * 16);
-    let randomNum2;
-
-    do {
-        randomNum2 = Math.floor(Math.random() * 16);
-    } while (randomNum2 === randomNum1);
-
-    newCell = new Cell(randomNum1);
-
-    cellArray.push(newCell);
-
-    newCell = new Cell(randomNum2);
-
-    cellArray.push(newCell);
-
-    cellArray.forEach(function (item) {
-        item.value = 2;
-        item.drawValue = 2;
-    })
-
-}
-
-function setKeyboardController() {
+	static setKeyboardController() {
     let passArray = new Array;
 
     document.getElementsByTagName('body')[0].addEventListener('keydown', function (event) {
@@ -105,8 +48,7 @@ function setKeyboardController() {
 
 
 
-
-function setMouseController() {
+static setMouseController() {
 
     function writeMouseStartXY() {
 
@@ -115,7 +57,7 @@ function setMouseController() {
         if (event.type == "touchstart")
             return 0;
         startMouseX = event.clientX;
-        startMouseY = event.clientY;
+     startMouseY = event.clientY;
 
     }
 
@@ -130,9 +72,9 @@ function setMouseController() {
         if (event.type == "touchstart")
             return 0;
 
-        endMouseX = event.clientX;
-        endMouseY = event.clientY;
-        mouseMove = [endMouseX - startMouseX, endMouseY - startMouseY];
+    let    endMouseX = event.clientX;
+      let  endMouseY = event.clientY;
+     let   mouseMove = [endMouseX - startMouseX, endMouseY - startMouseY];
         if (Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) < 200)
             return 0;
         if (Math.abs(mouseMove[0]) > Math.abs(mouseMove[1]))
@@ -158,18 +100,17 @@ function setMouseController() {
 
         }
 
-        if (turn.block == 1)
+        if (App.turnBlock == 1)
             return 0;
 
-        turn.moveDirection = moveTo;
+        App.moveDirection = moveTo;
 
-        makeTurn();
+        App.makeTurn();
 
     }
 
 }
-
-function setTouchpadController() {
+ static setTouchpadController() {
 
     let deltaX;
 
@@ -188,6 +129,8 @@ function setTouchpadController() {
         }
     });
     document.addEventListener("touchend", function (e) {
+		
+		
         if (isNaN(Math.abs(deltaX)))
             return 0;
 
@@ -217,12 +160,12 @@ function setTouchpadController() {
 
                 }
 
-                if (turn.block == 1)
+                if (App.turnBlock == 1)
                     return 0;
 
-                turn.moveDirection = moveTo;
+                App.moveDirection = moveTo;
 
-        makeTurn();
+        App.makeTurn();
 
         event = null;
 
@@ -230,29 +173,29 @@ function setTouchpadController() {
 
 }
 
-function setCursorXYChecker() {
+static  setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
 	 document.addEventListener('mousedown', buttonDown, event);
 	
 		function buttonDown(e) {
 	
 		
-	x1=e.x
-	y1=e.y
+	let x1=e.x
+	let y1=e.y
 		
 		 document.addEventListener('mouseup', buttonUp, event);
 		
 		
 		
 		function buttonUp(e) {
-			x2=e.x
-			y2=e.y
+			let x2=e.x
+			let y2=e.y
 			
 			if (Math.abs(x1-x2) + Math.abs(y1-y2)<5) {
 				
 			
 
-    if (cursorOverbutton == 1)
+    if (buttonTryAgain.cursorOverbutton == 1)
         newGame();
 
 
@@ -267,6 +210,9 @@ function setCursorXYChecker() {
 		
 	}
 	
+	
+	
+
 
     document.addEventListener('touchstart', touchClick);
 
@@ -274,7 +220,7 @@ function setCursorXYChecker() {
 
         if (buttonTryAgain.visible == 1) {
 
-            elem = document.getElementById('canvasBody');
+         let   elem = document.getElementById('canvasBody');
 
             if (
                 event.pageX > buttonTryAgain.buttonX1 + elem.offsetLeft &&
@@ -282,14 +228,14 @@ function setCursorXYChecker() {
                 event.pageY > buttonTryAgain.buttonY1 + elem.offsetTop &&
                 event.pageY < buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-                var elementToChange = document.getElementsByTagName("body")[0];
-                elementToChange.style.cursor = "pointer";
-                cursorOverbutton = 1;
+         
+                document.getElementsByTagName("body")[0].style.cursor = "pointer";
+                buttonTryAgain.cursorOverbutton = 1;
             } else {
 
-                elementToChange = document.getElementsByTagName("body")[0];
-                elementToChange.style.cursor = "default";
-                cursorOverbutton = 0;
+            
+               document.getElementsByTagName("body")[0].style.cursor = "default";
+                buttonTryAgain.cursorOverbutton = 0;
 
             }
 
@@ -335,22 +281,26 @@ function setCursorXYChecker() {
                 e?.changedTouches[0]?.pageY > buttonTryAgain.buttonY1 + elem.offsetTop &&
                 e?.changedTouches[0]?.pageY < buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-                cursorOverbutton = 1;
+                buttonTryAgain.cursorOverbutton = 1;
 
             } else {
 
                 touchCkeck = 0;
-                cursorOverbutton = 0;
+                buttonTryAgain.cursorOverbutton = 0;
 
             }
 
         }
 
-        if (cursorOverbutton == 1 && touchCheck == 1) {
+        if (buttonTryAgain.cursorOverbutton == 1 && touchCheck == 1) {
 
             newGame();
         }
     }
 
+}
+
+
+	
 }
 

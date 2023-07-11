@@ -1,13 +1,7 @@
 
 let turn = {}
 
-let cellArray = new Array;
 
-let score = 0;
-
-let cursorOverbutton;
-
-let checkMove = 1;
 
 let canvasBody = document.getElementById('canvasBody');
 
@@ -57,3 +51,4 @@ let columnArray = {
 }
 
 let touchCheck;
+

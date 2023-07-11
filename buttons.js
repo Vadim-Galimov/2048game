@@ -3,44 +3,44 @@
 
 function down() {
 
-    if (turn.block == 1)
+    if (App.turnBlock == 1)
         return 0;
 
-    turn.moveDirection = 'down';
+    App.moveDirection = 'down';
 
-    makeTurn();
+    App.makeTurn();
 
 }
 
 function up() {
 
-    if (turn.block == 1)
+    if (App.turnBlock == 1)
         return 0;
 
-    turn.moveDirection = 'up';
+    App.moveDirection = 'up';
 
-    makeTurn();
+    App.makeTurn();
 
 }
 
 function left() {
-    if (turn.block == 1)
+    if (App.turnBlock == 1)
         return 0;
 
-    turn.moveDirection = 'left';
+    App.moveDirection = 'left';
 
-    makeTurn();
+    App.makeTurn();
 
 }
 
 function right() {
 
-    if (turn.block == 1)
+    if (App.turnBlock == 1)
         return 0;
 
-    turn.moveDirection = 'right';
+    App.moveDirection = 'right';
 
-    makeTurn();
+    App.makeTurn();
 
 }
 
@@ -54,16 +54,5 @@ function enter() {
 }
 
 function newGame() {
-    buttonTryAgain.visible = 0;
-    cursorOverbutton = 0;
-    score = 0;
-    elementToChange = document.getElementsByTagName("body")[0];
-    elementToChange.style.cursor = "default";
-    cellArray = [];
-    make2ActiveCells();
-    turn.block = 0;
-    drawScore();
-    drawCells();
-    turn.winStatus = 0;
-
+ App.startNewGame();
 }
