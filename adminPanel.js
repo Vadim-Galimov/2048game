@@ -17,11 +17,11 @@ function makePrewinSituation() {
 
 function makePreloseSituation() {
 
-    newGame();
+    Controller.newGame();
 
     for (i = 0; i < 13; i++) {
 
-        make1ActiveCell();
+        Field.make1ActiveCell();
     }
 
     for (i = 0; i < 15; i++) {

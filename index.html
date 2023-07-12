@@ -10,29 +10,30 @@
 <canvas width="500" height="500" id='canvasBody' style="display:block"></canvas>
 </div>
 <div id='adminPanel' style='display:none'>
-<button onclick='newGame()'>New Game</button>
-<button onclick='up()'>Up</button>
-<button onclick='left()'>Left</button>
-<button onclick='right()'>Right</button>
-<button onclick='down()'>Down</button>
+<button onclick='Controller.newGame()'>New Game</button>
+<button onclick='Controller.up()'>Up</button>
+<button onclick='Controller.left()'>Left</button>
+<button onclick='Controller.right()'>Right</button>
+<button onclick='Controller.down()'>Down</button>
 <button onclick='makeLose()'>Lose</button>
 <button onclick='makeWin()'>Win</button>
 <button onclick='makePrewinSituation()'>Almost win</button>
 <button onclick='makePreloseSituation()'>Almost lose</button>
 </div>
 
+
 <script src='globalVariables.js'></script>
 <script src='classes.js'></script>
-<script src='drawBody.js'></script>
+
 <script src='Draw.js'></script>
 
-<script src='buttons.js'></script>
 <script src='Controller.js'></script>
 <script src='Field.js'></script>
-<script src='App.js'></script>
+
 
 <script src='lose-win.js'></script>
 <script src='adminPanel.js'></script>
 
+<script type="module" src='index.js'></script>
 </body>
 

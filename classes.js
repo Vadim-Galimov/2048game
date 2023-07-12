@@ -101,7 +101,7 @@ class Button {
     draw() {
         ctxBody.fillStyle = this.buttonFillStyle;
         ctxBody.font = this.font;
-        roundRect(this.context, this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2, this.buttonRadius);
+        Draw.roundRect(this.context, this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2, this.buttonRadius);
 
         ctxBody.fillStyle = this.textFillStyle;
 

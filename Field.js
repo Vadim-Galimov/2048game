@@ -87,9 +87,9 @@ static make1ActiveCell() {
 
 	static setTickets() {
 		        for (let i = 0; i < 4; i++) {
-            Field.setTicketAndMoveSpeed(1, i);
-            Field.setTicketAndMoveSpeed(2, i);
-            Field.setTicketAndMoveSpeed(3, i);
+            Field.#setTicketAndMoveSpeed(1, i);
+            Field.#setTicketAndMoveSpeed(2, i);
+            Field.#setTicketAndMoveSpeed(3, i);
         }
 		
 	}
@@ -98,15 +98,15 @@ static make1ActiveCell() {
 
 
 
-	static setTicketAndMoveSpeed(choosenNumber, choosenColumn) {
-    let choosenColumnArr = columnArray[App.moveDirection];
+	static #setTicketAndMoveSpeed(choosenNumber, choosenColumn) {
+ let  choosenColumnArr = columnArray[App.moveDirection];
 
    let choosenCell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 
     if (!choosenCell)
         return 0;
 
-  let  maxMove = getMaxMove(choosenColumn);
+  let  maxMove = Field.#getMaxMove(choosenColumn, choosenCell);
 
    let sub1Number = choosenNumber - 1;
    let sub2Number = choosenNumber - 2;
@@ -118,7 +118,7 @@ static make1ActiveCell() {
 
   let  ticket = choosenCell.number;
    let moveSpeed = 0;
-    if (checkMerge(sub1Cell)) {
+    if (Field.#checkMerge(sub1Cell, choosenCell)) {
         moveSpeed = 1;
         ticket = choosenColumnArr[choosenColumn][sub1Number];
         choosenCell.toDelete = 1;
@@ -133,7 +133,7 @@ static make1ActiveCell() {
         moveSpeed = 1;
         ticket = choosenColumnArr[choosenColumn][sub1Number];
         App.moveDetected = 1;
-        if (checkMerge(sub2Cell)) {
+        if (Field.#checkMerge(sub2Cell, choosenCell)) {
             moveSpeed = 2;
 
             sub2Cell.value *= 2;
@@ -148,7 +148,7 @@ static make1ActiveCell() {
             moveSpeed = 2;
 
             ticket = choosenColumnArr[choosenColumn][sub2Number];
-            if (checkMerge(sub3Cell)) {
+            if (Field.#checkMerge(sub3Cell, choosenCell)) {
                 moveSpeed = 3;
                 ticket = choosenColumnArr[choosenColumn][sub3Number];
 
@@ -174,15 +174,23 @@ static make1ActiveCell() {
     choosenCell.ticket = ticket;
     choosenCell.moveSpeed = moveSpeed;
 
-    function getMaxMove(choosenColumn) {
 
+
+
+
+}
+
+
+
+    static #getMaxMove(choosenColumn, choosenCell) {
+ let  choosenColumnArr = columnArray[App.moveDirection];
        let thisArr = choosenColumnArr[choosenColumn];
 
         return thisArr.indexOf(choosenCell.number); ;
 
     }
 
-    function checkMerge(subCell) {
+    static #checkMerge(subCell, choosenCell) {
 
         if (subCell?.value == choosenCell.value && subCell?.mergeBlock == 0 && choosenCell.mergeBlock == 0)
             return 1;
@@ -190,12 +198,6 @@ static make1ActiveCell() {
             return 0;
 
     }
-
-}
-
-
-
-
 
 	static allMove() {
  let   animationCounter = 0;

@@ -1,5 +1,5 @@
 
-class App {
+export class App {
 	
 	static moveDirection;
 	  static  phaseTime =  100;
@@ -25,12 +25,9 @@ class App {
     Draw.drawScore();
     Draw.startAnimation();
 
+Controller.init();
 
 
-    Controller.setKeyboardController();
-    Controller.setMouseController();
-    Controller.setTouchpadController();
-    Controller.setCursorXYChecker();
 
 
 		

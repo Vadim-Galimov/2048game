@@ -22,11 +22,11 @@ class Draw {
    let buttonScoreMarginTop = size / 4;
    let textScoreMarginTop = size / 8;
 
-  roundRect(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20);
+  Draw.roundRect(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20);
 
     ctxHead.strokeStyle = '#776e65';
 
-    roundRectStroke(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20, 5);
+    Draw.#roundRectStroke(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20, 5);
 
     ctxHead.fillStyle = "#ebe4da";
 
@@ -51,7 +51,7 @@ class Draw {
  static drawCells() {
 
     ctxBody.clearRect(0, 0, canvasBody.width, canvasBody.height);
-    drawBackground();
+    Draw.#drawBackground();
 
     Field.cellArray.forEach(function (item) {
       let  cellValue = item.drawValue;
@@ -129,7 +129,7 @@ class Draw {
 
         }
 
-        roundRect(ctxBody, item.x + item.createSize - item.mergeSize, item.y + item.createSize - item.mergeSize, item.x + size - item.createSize + item.mergeSize, item.y + size - item.createSize + item.mergeSize, 3);
+        Draw.roundRect(ctxBody, item.x + item.createSize - item.mergeSize, item.y + item.createSize - item.mergeSize, item.x + size - item.createSize + item.mergeSize, item.y + size - item.createSize + item.mergeSize, 3);
 
         switch (cellValue) {
 
@@ -178,7 +178,7 @@ class Draw {
 
     ctxBody.fillStyle = "rgba(255, 255, 255, 0.5)";
 
-    roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
+    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
 
     ctxBody.fillStyle = "#776e65";
     ctxBody.font = 'bold 50px sans-serif';
@@ -198,7 +198,7 @@ class Draw {
 
     ctxBody.fillStyle = "rgba(255, 215, 0, 0.5)";
 
-    roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
+    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
 
     ctxBody.fillStyle = "#f9f6f2";
     ctxBody.font = 'bold 50px sans-serif';
@@ -212,6 +212,81 @@ class Draw {
     ctxBody.fillText("YOU WIN!", addWidth, addHeight + actualHeight);
 
 }
+	
+	
+	
+	
+	
+	
+
+static #drawBackground() {
+
+    ctxBody.fillStyle = '#776e65';
+    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
+    ctxBody.fillStyle = '#bbada0';
+
+    for (let y = 0; y < 4; y++) {
+
+        for (let x = 0; x < 4; x++) {
+
+           let startWidth = minMargin + stepMargin * x;
+          let  startHeight = minMargin + stepMargin * y;
+
+            Draw.roundRect(ctxBody, startWidth, startHeight, startWidth + size, startHeight + size, 3);
+
+        }
+
+    }
+
+}
+
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+static roundRect(ctxHB, x1, y1, x2, y2, radius) {
+
+    radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
+    ctxHB.beginPath();
+
+    ctxHB.moveTo(x1 + radius, y1);
+    ctxHB.lineTo(x2 - radius, y1);
+    ctxHB.arcTo(x2, y1, x2, y1 + radius, radius);
+    ctxHB.lineTo(x2, y2 - radius);
+    ctxHB.arcTo(x2, y2, x2 - radius, y2, radius);
+    ctxHB.lineTo(x1 + radius, y2);
+    ctxHB.arcTo(x1, y2, x1, y2 - radius, radius);
+    ctxHB.lineTo(x1, y1 + radius);
+    ctxHB.arcTo(x1, y1, x1 + radius, y1, radius);
+    ctxHB.fill();
+}
+
+static #roundRectStroke(ctxHB, x1, y1, x2, y2, radius, lineWidth) {
+    ctxHB.lineWidth = lineWidth;
+    radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
+    ctxHB.beginPath();
+    ctxHB.moveTo(x1 + radius, y1);
+    ctxHB.lineTo(x2 - radius, y1);
+    ctxHB.arcTo(x2, y1, x2, y1 + radius, radius);
+    ctxHB.lineTo(x2, y2 - radius);
+    ctxHB.arcTo(x2, y2, x2 - radius, y2, radius);
+    ctxHB.lineTo(x1 + radius, y2);
+    ctxHB.arcTo(x1, y2, x1, y2 - radius, radius);
+    ctxHB.lineTo(x1, y1 + radius);
+    ctxHB.arcTo(x1, y1, x1 + radius, y1, radius);
+    ctxHB.stroke();
+}
+
+	
+	
+	
 	
 	
 	

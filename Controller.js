@@ -3,8 +3,35 @@
   let  startMouseY;
 let axis;
 class Controller {
+	
+	static #onMove(direction) {
+		
+		
+    if (App.turnBlock == 1)
+        return 0;
 
-	static setKeyboardController() {
+    App.moveDirection = direction;
+
+    App.makeTurn();
+		
+	}
+	
+	static init() {
+		
+		    Controller.#setKeyboardController();
+    Controller.#setMouseController();
+    Controller.#setTouchpadController();
+    Controller.#setCursorXYChecker();
+		
+	}
+	
+	
+	
+	
+	
+	
+
+	static #setKeyboardController() {
     let passArray = new Array;
 
     document.getElementsByTagName('body')[0].addEventListener('keydown', function (event) {
@@ -12,21 +39,21 @@ class Controller {
         switch (event.code) {
 
         case 'ArrowUp':
-            up();
+            Controller.up();
             break;
         case 'ArrowDown':
-            down();
+            Controller.down();
             break;
         case 'ArrowLeft':
-            left();
+            Controller.left();
             break;
         case 'ArrowRight':
-            right();
+            Controller.right();
             break;
 
         case 'Enter':
             event.preventDefault()
-            enter();
+            Controller.enter();
             break;
 
             break;
@@ -48,7 +75,7 @@ class Controller {
 
 
 
-static setMouseController() {
+static #setMouseController() {
 
     function writeMouseStartXY() {
 
@@ -99,18 +126,14 @@ static setMouseController() {
                 moveTo = 'left';
 
         }
+	Controller.#onMove(moveTo);
+    
 
-        if (App.turnBlock == 1)
-            return 0;
-
-        App.moveDirection = moveTo;
-
-        App.makeTurn();
 
     }
 
 }
- static setTouchpadController() {
+ static #setTouchpadController() {
 
     let deltaX;
 
@@ -160,12 +183,10 @@ static setMouseController() {
 
                 }
 
-                if (App.turnBlock == 1)
-                    return 0;
 
-                App.moveDirection = moveTo;
 
-        App.makeTurn();
+				Controller.#onMove(moveTo);
+    
 
         event = null;
 
@@ -173,7 +194,7 @@ static setMouseController() {
 
 }
 
-static  setCursorXYChecker() {
+static  #setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
 	 document.addEventListener('mousedown', buttonDown, event);
 	
@@ -196,7 +217,7 @@ static  setCursorXYChecker() {
 			
 
     if (buttonTryAgain.cursorOverbutton == 1)
-        newGame();
+        Controller.newGame();
 
 
 			}
@@ -294,11 +315,64 @@ static  setCursorXYChecker() {
 
         if (buttonTryAgain.cursorOverbutton == 1 && touchCheck == 1) {
 
-            newGame();
+            Controller.newGame();
         }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+static down() {
+
+Controller.#onMove('down');
+
+}
+
+
+
+
+
+
+
+static up() {
+
+Controller.#onMove('up');
+
+}
+
+static left() {
+Controller.#onMove('left');
+}
+
+static right() {
+
+Controller.#onMove('right');
+
+}
+
+static enter() {
+
+    if (buttonTryAgain.visible == 1) {
+
+        Controller.newGame();
+
+    }
+}
+
+static newGame() {
+ App.startNewGame();
+}
+
+
+
 
 
 	
