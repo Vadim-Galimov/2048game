@@ -1,5 +1,5 @@
 class Field {
-
+static buttonTryAgain = new Button;
 		static cellArray=[];
 
 
@@ -99,7 +99,7 @@ static make1ActiveCell() {
 
 
 	static #setTicketAndMoveSpeed(choosenNumber, choosenColumn) {
- let  choosenColumnArr = columnArray[App.moveDirection];
+ let  choosenColumnArr = App.columnArray[App.moveDirection];
 
    let choosenCell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 
@@ -183,7 +183,7 @@ static make1ActiveCell() {
 
 
     static #getMaxMove(choosenColumn, choosenCell) {
- let  choosenColumnArr = columnArray[App.moveDirection];
+ let  choosenColumnArr = App.columnArray[App.moveDirection];
        let thisArr = choosenColumnArr[choosenColumn];
 
         return thisArr.indexOf(choosenCell.number); ;

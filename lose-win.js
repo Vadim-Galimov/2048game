@@ -1,4 +1,3 @@
 
-
-let buttonTryAgain = new Button;
+		
 

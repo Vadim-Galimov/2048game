@@ -1,12 +1,15 @@
-let moveXY = {
-    down: [0, stepMargin],
-    up: [0, -stepMargin],
-    left: [-stepMargin, 0],
-    right: [stepMargin, 0],
 
-}
 
 class Cell {
+
+
+static moveXY = {
+    down: [0, Draw.stepMargin],
+    up: [0, -Draw.stepMargin],
+    left: [-Draw.stepMargin, 0],
+    right: [Draw.stepMargin, 0],
+
+}
 
     constructor(i) {
         this.i = i;
@@ -14,8 +17,8 @@ class Cell {
 
         this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
         this.rowNumber = (Math.floor((this.i) / 4)) + 1;
-        this.x = this.columnNumber * (stepMargin) - size;
-        this.y = this.rowNumber * (stepMargin) - size;
+        this.x = this.columnNumber * (Draw.stepMargin) - Draw.size;
+        this.y = this.rowNumber * (Draw.stepMargin) - Draw.size;
         this.random10Percent = Math.floor(Math.random() * 10);
         this.value = 2;
         if (this.random10Percent == 9)
@@ -32,8 +35,8 @@ class Cell {
     }
 
     makeStep() {
-        this.x += (moveXY[App.moveDirection][0] * this.moveSpeed) / ( App.phaseTime / 20);
-        this.y += (moveXY[App.moveDirection][1] * this.moveSpeed) / (App.phaseTime / 20);
+        this.x += (Cell.moveXY[App.moveDirection][0] * this.moveSpeed) / ( App.phaseTime / 20);
+        this.y += (Cell.moveXY[App.moveDirection][1] * this.moveSpeed) / (App.phaseTime / 20);
 
     }
 
@@ -45,8 +48,8 @@ class Cell {
         this.i = this.ticket - 1;
         this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
         this.rowNumber = (Math.floor((this.i) / 4)) + 1;
-        this.x = this.columnNumber * (stepMargin) - size;
-        this.y = this.rowNumber * (stepMargin) - size;
+        this.x = this.columnNumber * (Draw.stepMargin) - Draw.size;
+        this.y = this.rowNumber * (Draw.stepMargin) - Draw.size;
     }
     mergeAnimation(tick) {
         if (this.merge == 0)
@@ -71,8 +74,8 @@ class Button {
     constructor() {
 
         this.textValue = "Try again";
-        this.context = ctxBody;
-        this.font = 'bold ' + size / 4 + 'px sans-serif';
+        this.context = Draw.ctxBody;
+        this.font = 'bold ' + Draw.size / 4 + 'px sans-serif';
 
         this.context.font = this.font;
 
@@ -80,18 +83,18 @@ class Button {
 
       let  actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-     let   textWithMarginsWidth = metrics.width + textMargin;
+     let   textWithMarginsWidth = metrics.width + Draw.textMargin;
 
         this.buttonFillStyle = "#8f7a66";
         this.textFillStyle = "#f9f6f2";
 
-        this.buttonX1 = (fullSize - textWithMarginsWidth) / 2;
+        this.buttonX1 = (Draw.fullSize - textWithMarginsWidth) / 2;
 
         this.buttonY1 = 220;
-        this.buttonX2 = metrics.width + 30 + (fullSize - textWithMarginsWidth) / 2;
+        this.buttonX2 = metrics.width + 30 + (Draw.fullSize - textWithMarginsWidth) / 2;
         this.buttonY2 = actualHeight + 15 + 220;
         this.buttonRadius = 3;
-        this.textX = ((fullSize - metrics.width - 10) / 2) + 2;
+        this.textX = ((Draw.fullSize - metrics.width - 10) / 2) + 2;
         this.textY = 244;
 
         this.visible = 0;
@@ -99,13 +102,13 @@ class Button {
     }
 
     draw() {
-        ctxBody.fillStyle = this.buttonFillStyle;
-        ctxBody.font = this.font;
+        Draw.ctxBody.fillStyle = this.buttonFillStyle;
+        Draw.ctxBody.font = this.font;
         Draw.roundRect(this.context, this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2, this.buttonRadius);
 
-        ctxBody.fillStyle = this.textFillStyle;
+        Draw.ctxBody.fillStyle = this.textFillStyle;
 
-        ctxBody.fillText(this.textValue, this.textX, this.textY);
+        Draw.ctxBody.fillText(this.textValue, this.textX, this.textY);
 
     }
 

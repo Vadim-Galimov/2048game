@@ -3,7 +3,21 @@
 
 class Draw {
 	
-	static drawScore() {
+
+	static  ctxBody = (document.getElementById('canvasBody')).getContext('2d');
+
+	
+	static size = 80;
+static minMargin = Draw.size / 8;
+
+static fullSize = 4 * Draw.size + 5 * Draw.minMargin;
+
+static stepMargin = Draw.minMargin + Draw.size;
+
+static textMargin = Draw.size / 8 * 3;
+	
+	
+	static drawScore(score) {
 		
 		   let canvasHead = document.getElementById('canvasHead');
 
@@ -12,34 +26,34 @@ class Draw {
     ctxHead.clearRect(0, 0, canvasHead.width, canvasHead.height);
     ctxHead.font = 'bold 35px sans-serif';
 
-  let   metrics = ctxHead.measureText('SCORE:' + App.score);
+  let   metrics = ctxHead.measureText('SCORE:' + score);
   let   fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
    let  actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
     ctxHead.fillStyle = '#bbada0';
-   let textWithMarginsWidth = metrics.width + textMargin;
-   let textScoreMargin = size * 25 / 80;
-   let buttonScoreMarginTop = size / 4;
-   let textScoreMarginTop = size / 8;
+   let textWithMarginsWidth = metrics.width + Draw.textMargin;
+   let textScoreMargin = Draw.size * 25 / 80;
+   let buttonScoreMarginTop = Draw.size / 4;
+   let textScoreMarginTop = Draw.size / 8;
 
-  Draw.roundRect(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20);
+  Draw.roundRect(ctxHead, ((Draw.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((Draw.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20);
 
     ctxHead.strokeStyle = '#776e65';
 
-    Draw.#roundRectStroke(ctxHead, ((fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20, 5);
+    Draw.#roundRectStroke(ctxHead, ((Draw.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, metrics.width + ((Draw.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + actualHeight + 2 * textScoreMarginTop, 20, 5);
 
     ctxHead.fillStyle = "#ebe4da";
 
-    ctxHead.fillText("SCORE: " + App.score, ((fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + actualHeight + textScoreMarginTop);
+    ctxHead.fillText("SCORE: " + score, ((Draw.fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + actualHeight + textScoreMarginTop);
 
 		
 	}
 	
 	static timerDrawCells;
 	
-	static startAnimation() {
+	static startAnimation(cellArray) {
 		
-	 Draw.timerDrawCells = setInterval(Draw.drawCells, 10);	
+	 Draw.timerDrawCells = setInterval(Draw.drawCells, 10, cellArray);	
 	 
 	     setTimeout(() => {
     clearInterval(Draw.timerDrawCells);
@@ -48,12 +62,12 @@ class Draw {
 	}
 	
 	
- static drawCells() {
+ static drawCells(cellArray) {
 
-    ctxBody.clearRect(0, 0, canvasBody.width, canvasBody.height);
+    Draw.ctxBody.clearRect(0, 0, canvasBody.width, canvasBody.height);
     Draw.#drawBackground();
 
-    Field.cellArray.forEach(function (item) {
+    cellArray.forEach(function (item) {
       let  cellValue = item.drawValue;
 
         switch (cellValue) {
@@ -64,18 +78,18 @@ class Draw {
         case 16:
         case 32:
         case 64:
-            ctxBody.font = 'bold 50px sans-serif';
+            Draw.ctxBody.font = 'bold 50px sans-serif';
             break;
 
         case 128:
         case 256:
         case 512:
-            ctxBody.font = 'bold 42px sans-serif';
+            Draw.ctxBody.font = 'bold 42px sans-serif';
             break;
 
         case 1024:
         case 2048:
-            ctxBody.font = 'bold 35px sans-serif';
+            Draw.ctxBody.font = 'bold 35px sans-serif';
             break;
 
         }
@@ -83,59 +97,59 @@ class Draw {
         switch (cellValue) {
 
         case 2:
-            ctxBody.fillStyle = '#eee4da';
+            Draw.ctxBody.fillStyle = '#eee4da';
             break;
 
         case 4:
-            ctxBody.fillStyle = '#ede0c8';
+            Draw.ctxBody.fillStyle = '#ede0c8';
             break;
 
         case 8:
-            ctxBody.fillStyle = '#f2b179';
+            Draw.ctxBody.fillStyle = '#f2b179';
             break;
 
         case 16:
-            ctxBody.fillStyle = '#f59563';
+            Draw.ctxBody.fillStyle = '#f59563';
             break;
 
         case 32:
-            ctxBody.fillStyle = '#f67c5f';
+            Draw.ctxBody.fillStyle = '#f67c5f';
             break;
 
         case 64:
-            ctxBody.fillStyle = '#f35c3d';
+            Draw.ctxBody.fillStyle = '#f35c3d';
             break;
 
         case 128:
-            ctxBody.fillStyle = '#e7cf73';
+            Draw.ctxBody.fillStyle = '#e7cf73';
             break;
 
         case 256:
-            ctxBody.fillStyle = '#ecca64';
+            Draw.ctxBody.fillStyle = '#ecca64';
             break;
 
         case 512:
         case 1024:
-            ctxBody.fillStyle = '#eac75c';
+            Draw.ctxBody.fillStyle = '#eac75c';
             break;
 
         case 2048:
-            ctxBody.fillStyle = '#e6bd4f';
+            Draw.ctxBody.fillStyle = '#e6bd4f';
             break;
 
         default:
-            ctxBody.fillStyle = '#f2b179';
+            Draw.ctxBody.fillStyle = '#f2b179';
             break;
 
         }
 
-        Draw.roundRect(ctxBody, item.x + item.createSize - item.mergeSize, item.y + item.createSize - item.mergeSize, item.x + size - item.createSize + item.mergeSize, item.y + size - item.createSize + item.mergeSize, 3);
+        Draw.roundRect(Draw.ctxBody, item.x + item.createSize - item.mergeSize, item.y + item.createSize - item.mergeSize, item.x + Draw.size - item.createSize + item.mergeSize, item.y + Draw.size - item.createSize + item.mergeSize, 3);
 
         switch (cellValue) {
 
         case 2:
         case 4:
-            ctxBody.fillStyle = '#776e65';
+            Draw.ctxBody.fillStyle = '#776e65';
             break;
 
         case 8:
@@ -148,23 +162,23 @@ class Draw {
         case 1024:
         case 2048:
 
-            ctxBody.fillStyle = '#f9f6f2';
+            Draw.ctxBody.fillStyle = '#f9f6f2';
             break;
 
         default:
-            ctxBody.fillStyle = '#776e65';
+            Draw.ctxBody.fillStyle = '#776e65';
             break;
 
         }
 
-        let metrics = ctxBody.measureText(cellValue);
+        let metrics = Draw.ctxBody.measureText(cellValue);
         let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
         let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-       let addWidth = (size - metrics.width) / 2;
-     let    addHeight = (size - actualHeight) / 2;
+       let addWidth = (Draw.size - metrics.width) / 2;
+     let    addHeight = (Draw.size - actualHeight) / 2;
 
-        ctxBody.fillText(cellValue, item.x + addWidth, item.y + addHeight + actualHeight);
+        Draw.ctxBody.fillText(cellValue, item.x + addWidth, item.y + addHeight + actualHeight);
 
     });
 
@@ -176,40 +190,40 @@ class Draw {
 	
 	static drawLose() {
 
-    ctxBody.fillStyle = "rgba(255, 255, 255, 0.5)";
+    Draw.ctxBody.fillStyle = "rgba(255, 255, 255, 0.5)";
 
-    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
+    Draw.roundRect(Draw.ctxBody, 0, 0, Draw.fullSize, Draw.fullSize, 10);
 
-    ctxBody.fillStyle = "#776e65";
-    ctxBody.font = 'bold 50px sans-serif';
+    Draw.ctxBody.fillStyle = "#776e65";
+    Draw.ctxBody.font = 'bold 50px sans-serif';
 
-    metrics = ctxBody.measureText('GAME OVER!');
+    metrics = Draw.ctxBody.measureText('GAME OVER!');
     fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
     actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-    addWidth = (fullSize - metrics.width) / 2;
-    addHeight = (fullSize - actualHeight) / 2;
-    ctxBody.fillText("GAME OVER!", addWidth, addHeight + actualHeight);
+    addWidth = (Draw.fullSize - metrics.width) / 2;
+    addHeight = (Draw.fullSize - actualHeight) / 2;
+    Draw.ctxBody.fillText("GAME OVER!", addWidth, addHeight + actualHeight);
 
 }
 	
 	
 	static drawWin() {
 
-    ctxBody.fillStyle = "rgba(255, 215, 0, 0.5)";
+    Draw.ctxBody.fillStyle = "rgba(255, 215, 0, 0.5)";
 
-    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
+    Draw.roundRect(Draw.ctxBody, 0, 0, Draw.fullSize, Draw.fullSize, 10);
 
-    ctxBody.fillStyle = "#f9f6f2";
-    ctxBody.font = 'bold 50px sans-serif';
+    Draw.ctxBody.fillStyle = "#f9f6f2";
+    Draw.ctxBody.font = 'bold 50px sans-serif';
 
-    metrics = ctxBody.measureText('YOU WIN!');
+    metrics = Draw.ctxBody.measureText('YOU WIN!');
     fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
     actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-    addWidth = (fullSize - metrics.width) / 2;
-    addHeight = (fullSize - actualHeight) / 2;
-    ctxBody.fillText("YOU WIN!", addWidth, addHeight + actualHeight);
+    addWidth = (Draw.fullSize - metrics.width) / 2;
+    addHeight = (Draw.fullSize - actualHeight) / 2;
+    Draw.ctxBody.fillText("YOU WIN!", addWidth, addHeight + actualHeight);
 
 }
 	
@@ -221,18 +235,18 @@ class Draw {
 
 static #drawBackground() {
 
-    ctxBody.fillStyle = '#776e65';
-    Draw.roundRect(ctxBody, 0, 0, fullSize, fullSize, 10);
-    ctxBody.fillStyle = '#bbada0';
+    Draw.ctxBody.fillStyle = '#776e65';
+    Draw.roundRect(Draw.ctxBody, 0, 0, Draw.fullSize, Draw.fullSize, 10);
+    Draw.ctxBody.fillStyle = '#bbada0';
 
     for (let y = 0; y < 4; y++) {
 
         for (let x = 0; x < 4; x++) {
 
-           let startWidth = minMargin + stepMargin * x;
-          let  startHeight = minMargin + stepMargin * y;
+           let startWidth = Draw.minMargin + Draw.stepMargin * x;
+          let  startHeight = Draw.minMargin + Draw.stepMargin * y;
 
-            Draw.roundRect(ctxBody, startWidth, startHeight, startWidth + size, startHeight + size, 3);
+            Draw.roundRect(Draw.ctxBody, startWidth, startHeight, startWidth + Draw.size, startHeight + Draw.size, 3);
 
         }
 
