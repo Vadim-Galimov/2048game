@@ -1,4 +1,4 @@
-let start = await import {App} from './App.js';
+let start = await import('./App.js');
 start.then(() = > App.run();) 
 
 
