@@ -6,12 +6,12 @@
 
 class Controller {
 	
-	
+
  static  startMouseX;
   static startMouseY;
 static axis;
 
-
+ static enterActiveStatus=0;
 
 
 
@@ -19,19 +19,6 @@ static axis;
 static touchCheck;
 
 
-	
-	static #onMove(direction) {
-		
-		
-    if (App.turnBlock == 1)
-        return 0;
-
-    App.moveDirection = direction;
-
-    App.makeTurn();
-		
-	}
-	
 	static init() {
 		
 		    Controller.#setKeyboardController();
@@ -42,10 +29,9 @@ static touchCheck;
 	}
 	
 	
-	
-	
-	
-	
+
+
+
 
 	static #setKeyboardController() {
     let passArray = new Array;
@@ -55,24 +41,24 @@ static touchCheck;
         switch (event.code) {
 
         case 'ArrowUp':
-            Controller.up();
+           App.doMove('up');
             break;
         case 'ArrowDown':
-            Controller.down();
+           App.doMove('down');
             break;
         case 'ArrowLeft':
-            Controller.left();
+           App.doMove('left');
             break;
         case 'ArrowRight':
-            Controller.right();
+           App.doMove('right');
             break;
 
         case 'Enter':
             event.preventDefault()
-            Controller.enter();
+             if (Controller.enterActiveStatus == 1)  App.startNewGame();
             break;
 
-            break;
+    
 
         }
 
@@ -81,6 +67,7 @@ static touchCheck;
         if (passArray.length > 5)
             passArray.shift();
         if (passArray.join() == ['KeyA', 'KeyD', 'KeyM', 'KeyI', 'KeyN'].join()) {
+			
             document.getElementById('adminPanel').style = 'display: block';
 
         }
@@ -91,9 +78,28 @@ static touchCheck;
 
 
 
+
+
+
 static #setMouseController() {
 
-    function writeMouseStartXY() {
+
+
+    document.addEventListener('mousedown', Controller.#writeMouseStartXY);
+    document.addEventListener('mouseup', Controller.mathMouseMove);
+
+
+
+}
+
+
+
+
+
+
+
+
+    static #writeMouseStartXY() {
 
         if (event === null)
             return 0;
@@ -103,11 +109,9 @@ static #setMouseController() {
      Controller.startMouseY = event.clientY;
 
     }
-
-    document.addEventListener('mousedown', writeMouseStartXY);
-    document.addEventListener('mouseup', mathMouseMove);
-
-    function mathMouseMove() {
+	
+	
+	    static #mathMouseMove() {
         let moveTo;
 
         if (event === null)
@@ -142,28 +146,35 @@ static #setMouseController() {
                 moveTo = 'left';
 
         }
-	Controller.#onMove(moveTo);
+	App.doMove(moveTo);
     
 
 
     }
+	
+	
+	
+	
+	
+	
+	
 
-}
+
  static #setTouchpadController() {
 
     let deltaX;
 
     let deltaY;
-
+	let touchStartEvent;
     document.addEventListener("touchstart", function (e) {
 
-        event = e;
+      touchStartEvent = e;
     });
     document.addEventListener("touchmove", function (e) {
-        if (event) {
+        if (touchStartEvent) {
 
-            deltaX = e.touches[0].pageX - event.touches[0].pageX;
-            deltaY = e.touches[0].pageY - event.touches[0].pageY;
+            deltaX = e.touches[0].pageX - touchStartEvent.touches[0].pageX;
+            deltaY = e.touches[0].pageY - touchStartEvent.touches[0].pageY;
 
         }
     });
@@ -201,14 +212,17 @@ static #setMouseController() {
 
 
 
-				Controller.#onMove(moveTo);
+				App.doMove(moveTo);
     
 
-        event = null;
+        touchStartEvent = null;
 
     });
 
 }
+
+
+
 
 static  #setCursorXYChecker() {
     document.addEventListener('mousemove', mouseMove);
@@ -231,9 +245,10 @@ static  #setCursorXYChecker() {
 			if (Math.abs(x1-x2) + Math.abs(y1-y2)<5) {
 				
 			
+			App.buttonClick();
 
-    if (Field.buttonTryAgain.cursorOverbutton == 1)
-        Controller.newGame();
+
+
 
 
 			}
@@ -254,138 +269,49 @@ static  #setCursorXYChecker() {
     document.addEventListener('touchstart', touchClick);
 
     function mouseMove() {
-
-        if (Field.buttonTryAgain.visible == 1) {
-
-         let   elem = document.getElementById('canvasBody');
-
-            if (
-                event.pageX > Field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
-                event.pageX < Field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
-                event.pageY > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
-                event.pageY < Field.buttonTryAgain.buttonY2 + elem.offsetTop) {
-
-         
-                document.getElementsByTagName("body")[0].style.cursor = "pointer";
-                Field.buttonTryAgain.cursorOverbutton = 1;
-            } else {
-
-            
-               document.getElementsByTagName("body")[0].style.cursor = "default";
-                Field.buttonTryAgain.cursorOverbutton = 0;
-
-            }
-
-        }
+		App.checkMouseMove(event.pageX, event.pageY);
+		
 
     }
 
     function touchClick() {
 
-        if (Field.buttonTryAgain.visible == 1) {
-
             elem = document.getElementById('canvasBody');
+		let x1= event.touches[0]?.pageX;
+		let y1=event.touches[0]?.pageY 
+     
 
-            if (
+  
 
-                event.touches[0]?.pageX > Field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
-                event.touches[0]?.pageX < Field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
-                event.touches[0]?.pageY > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
-                event.touches[0]?.pageY < Field.buttonTryAgain.buttonY2 + elem.offsetTop) {
-
-                Controller.touchCheck = 1;
-
-            } else {
-
-                Controller.touchCheck = 0;
-            }
-
-        }
-
-        document.addEventListener('touchend', touchClickEnd, event);
+        document.addEventListener('touchend', touchClickEnd, x1, y1);
 
     }
 
     function touchClickEnd(e) {
 
-        if (Field.buttonTryAgain.visible == 1) {
 
-            elem = document.getElementById('canvasBody');
+  
 
-            if (
-                e?.changedTouches[0]?.pageX > Field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
-                e?.changedTouches[0]?.pageX < Field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
-                e?.changedTouches[0]?.pageY > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
-                e?.changedTouches[0]?.pageY < Field.buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-                Field.buttonTryAgain.cursorOverbutton = 1;
 
-            } else {
+	let x2=e.x
+			let y2=e.y
+			
+			if (Math.abs(x1-x2) + Math.abs(y1-y2)<5) {
+				
+				App.touchButtonClick(x1, y1); 
 
-                touchCkeck = 0;
-                Field.buttonTryAgain.cursorOverbutton = 0;
+			}
 
-            }
 
-        }
-
-        if (Field.buttonTryAgain.cursorOverbutton == 1 && Controller.touchCheck == 1) {
-
-            Controller.newGame();
-        }
-    }
 
 }
 
 
 
 
+	
 
-
-
-
-
-
-static down() {
-
-Controller.#onMove('down');
-
-}
-
-
-
-
-
-
-
-static up() {
-
-Controller.#onMove('up');
-
-}
-
-static left() {
-Controller.#onMove('left');
-}
-
-static right() {
-
-Controller.#onMove('right');
-
-}
-
-static enter() {
-
-    if (Field.buttonTryAgain.visible == 1) {
-
-        Controller.newGame();
-
-    }
-}
-
-static newGame() {
- App.startNewGame();
-}
 
 
 
@@ -394,3 +320,5 @@ static newGame() {
 	
 }
 
+
+}

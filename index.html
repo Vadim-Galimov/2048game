@@ -10,11 +10,7 @@
 <canvas width="500" height="500" id='canvasBody' style="display:block"></canvas>
 </div>
 <div id='adminPanel' style='display:none'>
-<button onclick='Controller.newGame()'>New Game</button>
-<button onclick='Controller.up()'>Up</button>
-<button onclick='Controller.left()'>Left</button>
-<button onclick='Controller.right()'>Right</button>
-<button onclick='Controller.down()'>Down</button>
+<button onclick='App.startNewGame()'>New Game</button>
 <button onclick='App.makeLose()'>Lose</button>
 <button onclick='App.makeWin()'>Win</button>
 <button onclick='App.makePrewinSituation()'>Almost win</button>
@@ -24,12 +20,13 @@
 
 
 
-<script src='Draw.js'></script>
+<script src='Drawer.js'></script>
 
 <script src='classes.js'></script>
 
 
 <script src='Controller.js'></script>
+
 <script src='Field.js'></script>
 <script src='App.js'></script>
 
