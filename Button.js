@@ -1,4 +1,4 @@
- class Button {
+ export class Button {
 
  constructor() {
 	 

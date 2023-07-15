@@ -1,6 +1,6 @@
 
 
-class Cell {
+export class Cell {
 
 
 static moveXY = {
