@@ -15,7 +15,7 @@
 
 	App.#animateResize();
     Drawer.drawScore(Field.score);
-    App.startAnimation();
+    App.#startAnimation();
 
 Controller.init();
 
@@ -44,7 +44,7 @@ Controller.init();
 	App.#animateResize();
    Field.turnBlock = 0;
     Drawer.drawScore(Field.score);
-     App.startAnimation();
+     App.#startAnimation();
 
     Field.winStatus = 0;
 	Field.loseStatus = 0;
@@ -80,7 +80,7 @@ Controller.init();
 	
 	
 	     static #doPhase1() {
-			       App.startAnimation();
+			       App.#startAnimation();
 
 App.#setTickets()
 
@@ -537,7 +537,7 @@ static #make1ActiveCell() {
 
 }
 	
-			static startAnimation() {
+			static #startAnimation() {
 		
 	 let timerDrawCells = setInterval( () => {Drawer.drawCells(Field.cellArray) }, 10);	
 	 
@@ -636,7 +636,4 @@ return [1, 2, 3, 4]
 
 	
 }
-
-
-App.run();
 

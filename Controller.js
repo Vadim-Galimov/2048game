@@ -7,9 +7,9 @@
 class Controller {
 	
 
- static  startMouseX;
-  static startMouseY;
-static axis;
+ static  #startMouseX;
+  static #startMouseY;
+static #axis;
 
  static enterActiveStatus=0;
 
@@ -86,7 +86,7 @@ static #setMouseController() {
 
 
     document.addEventListener('mousedown', Controller.#writeMouseStartXY);
-    document.addEventListener('mouseup', Controller.mathMouseMove);
+    document.addEventListener('mouseup', Controller.#mathMouseMove);
 
 
 
@@ -105,8 +105,8 @@ static #setMouseController() {
             return 0;
         if (event.type == "touchstart")
             return 0;
-        Controller.startMouseX = event.clientX;
-     Controller.startMouseY = event.clientY;
+        Controller.#startMouseX = event.clientX;
+     Controller.#startMouseY = event.clientY;
 
     }
 	
@@ -121,15 +121,15 @@ static #setMouseController() {
 
     let    endMouseX = event.clientX;
       let  endMouseY = event.clientY;
-     let   mouseMove = [endMouseX - Controller.startMouseX, endMouseY - Controller.startMouseY];
+     let   mouseMove = [endMouseX - Controller.#startMouseX, endMouseY - Controller.#startMouseY];
         if (Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) < 200)
             return 0;
         if (Math.abs(mouseMove[0]) > Math.abs(mouseMove[1]))
-            Controller.axis = 'x';
+            Controller.#axis = 'x';
         else
-            Controller.axis = 'y';
+            Controller.#axis = 'y';
 
-        if (Controller.axis == 'y') {
+        if (Controller.#axis == 'y') {
 
             if (mouseMove[1] > 0)
                 moveTo = 'down';
@@ -138,7 +138,7 @@ static #setMouseController() {
 
         }
 
-        if (Controller.axis == 'x') {
+        if (Controller.#axis == 'x') {
 
             if (mouseMove[0] > 0)
                 moveTo = 'right';
@@ -188,11 +188,11 @@ static #setMouseController() {
             return 0;
 
         if (Math.abs(deltaX) > Math.abs(deltaY))
-            Controller.axis = 'x';
+            Controller.#axis = 'x';
         else
-            Controller.axis = 'y'
+            Controller.#axis = 'y'
 
-                if (Controller.axis == 'y') {
+                if (Controller.#axis == 'y') {
 
                     if (deltaY > 0)
                         moveTo = 'down';
@@ -201,7 +201,7 @@ static #setMouseController() {
 
                 }
 
-                if (Controller.axis == 'x') {
+                if (Controller.#axis == 'x') {
 
                     if (deltaX > 0)
                         moveTo = 'right';
