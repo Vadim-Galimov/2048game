@@ -1,7 +1,7 @@
 
 
 
-class Drawer {
+export class Drawer {
 	
 	
 static mathWidthHeight(text, canvas) {

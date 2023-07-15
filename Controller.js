@@ -4,7 +4,7 @@
 
 
 
-class Controller {
+export class Controller {
 	
 
  static  #startMouseX;

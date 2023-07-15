@@ -14,7 +14,7 @@
 
 
 
-class Field {
+export class Field {
 	
 	
 	static buttonTryAgain = new Button();
