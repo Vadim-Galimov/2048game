@@ -9,7 +9,6 @@ import {Cell} from './Cell.js';
 const cell = new Cell();
 
 
-		
 
 
 
@@ -22,7 +21,7 @@ export class Field {
 	static buttonTryAgain = new Button();
 	
 	
-	
+
 	
 	
 	
@@ -101,8 +100,18 @@ static getCellFromNumber(cellNumber) {
 
 
 
+    static makeCell(number) {
+     let newCell = new Cell(number);
+            return newCell;
+    }
 
-}
+
+    
+    }
+
+
+
+
 
 
 

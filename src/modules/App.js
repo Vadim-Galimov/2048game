@@ -348,11 +348,11 @@ static makePreloseSituation() {
         randomNum2 = Math.floor(Math.random() * 16);
     } while (randomNum2 === randomNum1);
 
-  let  newCell = new Cell(randomNum1);
+  let  newCell = Field.makeCell(randomNum1);
 
     Field.cellArray.push(newCell);
 
-    newCell = new Cell(randomNum2);
+    newCell = Field.makeCell(randomNum2);
 
     Field.cellArray.push(newCell);
 
