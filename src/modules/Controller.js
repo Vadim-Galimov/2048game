@@ -26,6 +26,14 @@ static touchCheck;
     Controller.#setTouchpadController();
     Controller.#setCursorXYChecker();
 		
+        document.getElementById('startNewGame').addEventListener('click', App.startNewGame );
+        document.getElementById('makeLose').addEventListener('click', App.makeLose);
+        document.getElementById('makeWin').addEventListener('click', App.makeWin);
+        document.getElementById('makePrewinSituation').addEventListener('click', App.makePrewinSituation);
+        document.getElementById('makePreloseSituation').addEventListener('click', App.makePreloseSituation);
+
+
+
 	}
 	
 	
