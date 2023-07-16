@@ -21,6 +21,16 @@ export class App {
 	static run() {
 
 		Controller.doMove=App.doMove.bind(this);
+		Controller.makeLose=App.makeLose.bind(this);
+		Controller.makeWin=App.makeWin.bind(this);
+		Controller.makePrewinSituation=App.makePrewinSituation.bind(this);
+		Controller.makePreloseSituation=App.makePreloseSituation.bind(this);
+		Controller.startNewGame=App.startNewGame.bind(this);
+		Controller.checkMouseMove=App.checkMouseMove.bind(this);
+        Controller.buttonClick=App.buttonClick.bind(this);
+
+
+
 		 App.#make2ActiveCells();
 		 
 

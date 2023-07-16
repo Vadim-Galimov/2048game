@@ -26,11 +26,11 @@ static touchCheck;
     Controller.#setTouchpadController();
     Controller.#setCursorXYChecker();
 		
-        document.getElementById('startNewGame').addEventListener('click', App.startNewGame );
-        document.getElementById('makeLose').addEventListener('click', App.makeLose);
-        document.getElementById('makeWin').addEventListener('click', App.makeWin);
-        document.getElementById('makePrewinSituation').addEventListener('click', App.makePrewinSituation);
-        document.getElementById('makePreloseSituation').addEventListener('click', App.makePreloseSituation);
+        document.getElementById('startNewGame').addEventListener('click', Controller.startNewGame );
+        document.getElementById('makeLose').addEventListener('click', Controller.makeLose);
+        document.getElementById('makeWin').addEventListener('click', Controller.makeWin);
+        document.getElementById('makePrewinSituation').addEventListener('click', Controller.makePrewinSituation);
+        document.getElementById('makePreloseSituation').addEventListener('click', Controller.makePreloseSituation);
 
 
 
@@ -329,29 +329,18 @@ static  #setCursorXYChecker() {
 }
 
 
-static doMove() {
-
- 
-
-
-}
-
-
-static startNewGame() {
+static doMove;
+static makeLose;
+static makeWin;
+static makePrewinSituation;
+static makePreloseSituation;
 
 
 
-}
+static startNewGame;
 
 
-static checkMouseMove() {
-
-
-}
-static buttonClick() {
-
-    
-}
-
+static checkMouseMove;
+static buttonClick;
 
 }
