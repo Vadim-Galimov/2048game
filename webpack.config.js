@@ -6,7 +6,7 @@ module.exports = {
  output: {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    filename: 'index.[contenthash].js'
+    filename: 'index.js'
 
  },
  plugins: [new HtmlWebpackPlugin({
