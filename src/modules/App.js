@@ -548,7 +548,7 @@ static #make1ActiveCell() {
      randomNum = Math.floor(Math.random() * 16);
     } while (checkCellFunc());
 
-  let  newCell = new Cell(randomNum);
+  let  newCell =  Field.makeCell(randomNum);
 
     Field.cellArray.push(newCell);
 
