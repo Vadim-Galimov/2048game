@@ -105,7 +105,7 @@ static getCellFromNumber(cellNumber) {
             return newCell;
     }
 
-        static stepMove() {}
+        static stepMove() {
     Field.cellArray.forEach(function (item) {
 
         item.x += (Cell.moveXY[Field.moveDirection][0] * item.moveSpeed) / ( Field.phaseTime / 20);
@@ -113,11 +113,11 @@ static getCellFromNumber(cellNumber) {
 
 
     })
-}
 
 
 
 
+        }
 
 
 
