@@ -499,13 +499,7 @@ static makePreloseSituation() {
 
         });
 		}
-        Field.cellArray.forEach(function (item) {
-
-            item.x += (Cell.moveXY[Field.moveDirection][0] * item.moveSpeed) / ( Field.phaseTime / 20);
-            item.y += (Cell.moveXY[Field.moveDirection][1] * item.moveSpeed) / (Field.phaseTime / 20);
-    
-
-        })
+        Field.stepMove();
         animationCounter++;
     }, Field.phaseTime / 5);
 
