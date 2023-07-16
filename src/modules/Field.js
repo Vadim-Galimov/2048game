@@ -5,6 +5,8 @@ import {Button} from './Button.js';
 const button= new Button();
 
 
+import {Cell} from './Cell.js';
+const cell = new Cell();
 
 
 		

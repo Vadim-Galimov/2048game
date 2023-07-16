@@ -10,8 +10,6 @@ import {Field} from './Field.js';
 const field = new Field();
 
 
-import {Cell} from './Cell.js';
-const cell = new Cell();
 
 
 export class App {
