@@ -8,11 +8,9 @@ export class Cell {
         this.value = 2;
         if (this.random10Percent == 9)
             this.value = 4;
-
         this.number = index + 1;
         this.ticket = this._number;
         this.toDelete = 0;
-
         this.statusNewlyCreating = 1;
         this.sizePenalty = 0;
         this.statusEndedMerge = 0;
@@ -20,9 +18,7 @@ export class Cell {
     }
 
     set number(value) {
-
         this._number = value;
-
         this.index = this._number - 1;
         this.columnNumber = (((this.index + 1) % 4) != 0) ? (this.index + 1) % 4 : 4;
         this.rowNumber = (Math.floor((this.index) / 4)) + 1;
@@ -31,37 +27,26 @@ export class Cell {
         this.moveSpeed = 0;
         this.mergeBlock = 0;
         this.valueOfDraw = this.value;
-
     }
 
     get number() {
-
         return this._number;
     }
 
     animateMerge(tick) {
-        if (this.statusEndedMerge == 0)
-            return 0;
-
+        if (this.statusEndedMerge == 0) return 0;
         this.sizeBonus = 1 * tick;
-
     }
 
     animateCreating(tick) {
-        if (this.statusNewlyCreating == 0)
-            return 0;
-
+        if (this.statusNewlyCreating == 0) return 0;
         this.sizePenalty = 2 * tick;
-
     }
 
     stopAnimating() {
-
         this.statusNewlyCreating = 0;
         this.sizePenalty = 0;
         this.statusEndedMerge = 0;
         this.sizeBonus = 0;
-
     }
-
 }

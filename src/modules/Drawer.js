@@ -1,24 +1,17 @@
 export class Drawer {
 
     static #size = 80;
-
     static #minMargin = Drawer.#size / 8;
-
     static #fullSize = 4 * Drawer.#size + 5 * Drawer.#minMargin;
-
     static #stepMargin = Drawer.#minMargin + Drawer.#size;
-
     static #textMarginSize = Drawer.#size / 8 * 3;
 
     static drawScore(score) {
 
         let canvas = (document.getElementById('canvasHead')).getContext('2d');
-
         canvas.clearRect(0, 0, canvasHead.width, canvasHead.height);
         canvas.font = 'bold ' + Drawer.#size * 35 / 80 + 'px sans-serif';
-
         let [textWidth, textHeight] = Drawer.#mathWidthHeight('SCORE:' + score, canvas);
-
         canvas.fillStyle = '#bbada0';
         let textWithMarginsWidth = textWidth + Drawer.#textMarginSize;
         let textScoreMargin = Drawer.#size * 25 / 80;
@@ -26,33 +19,20 @@ export class Drawer {
         let textScoreMarginTop = Drawer.#size / 8;
 
         Drawer.#roundRect(canvas, ((Drawer.#fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((Drawer.#fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20);
-
         canvas.strokeStyle = '#776e65';
-
         Drawer.#roundRectStroke(canvas, ((Drawer.#fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((Drawer.#fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20, 5);
-
         canvas.fillStyle = "#ebe4da";
-
         canvas.fillText("SCORE: " + score, ((Drawer.#fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + textHeight + textScoreMarginTop);
-
     }
 
     static runBodyDrawer(drawDuration, cellArray) {
-
-        let timerDrawCells = setInterval(() => {
-            Drawer.drawCells(cellArray)
-        }, 10);
-
-        setTimeout(() => {
-            clearInterval(timerDrawCells);
-
-        }, drawDuration);
+        let timerDrawCells = setInterval(Drawer.drawCells, 10, cellArray);
+        setTimeout(clearInterval, drawDuration, timerDrawCells);
     }
 
     static drawCells(cellArray) {
 
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
-
         canvas.clearRect(0, 0, canvasBody.width, canvasBody.height);
         Drawer.#drawBackground();
 
@@ -161,29 +141,19 @@ export class Drawer {
             }
 
             let [textWidth, textHeight] = Drawer.#mathWidthHeight(cellValue, canvas);
-
             let addWidth = (Drawer.#size - textWidth) / 2;
             let addHeight = (Drawer.#size - textHeight) / 2;
-
             canvas.fillText(cellValue, item.x + addWidth, item.y + addHeight + textHeight);
-
         });
-
     }
 
     static drawLose() {
-
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
-
         canvas.fillStyle = "rgba(255, 255, 255, 0.5)";
-
         Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
-
         canvas.fillStyle = "#776e65";
         canvas.font = 'bold 50px sans-serif';
-
         let [textWidth, textHeight] = Drawer.#mathWidthHeight('GAME OVER!', canvas);
-
         let addWidth = (Drawer.#fullSize - textWidth) / 2;
         let addHeight = (Drawer.#fullSize - textHeight) / 2;
         canvas.fillText("GAME OVER!", addWidth, addHeight + textHeight);
@@ -191,73 +161,47 @@ export class Drawer {
     }
 
     static drawWin() {
-
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
-
         canvas.fillStyle = "rgba(255, 215, 0, 0.5)";
-
         Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
-
         canvas.fillStyle = "#f9f6f2";
         canvas.font = 'bold 50px sans-serif';
-
         let [textWidth, textHeight] = Drawer.#mathWidthHeight('YOU WIN!', canvas);
-
         let addWidth = (Drawer.#fullSize - textWidth) / 2;
         let addHeight = (Drawer.#fullSize - textHeight) / 2;
         canvas.fillText("YOU WIN!", addWidth, addHeight + textHeight);
-
     }
 
     static #drawBackground() {
-
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
-
         canvas.fillStyle = '#776e65';
         Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
         canvas.fillStyle = '#bbada0';
 
         for (let y = 0; y < 4; y++) {
-
             for (let x = 0; x < 4; x++) {
-
                 let startWidth = Drawer.#minMargin + Drawer.#stepMargin * x;
                 let startHeight = Drawer.#minMargin + Drawer.#stepMargin * y;
-
                 Drawer.#roundRect(canvas, startWidth, startHeight, startWidth + Drawer.#size, startHeight + Drawer.#size, 3);
-
             }
-
         }
-
     }
 
     static drawButton(button) {
-
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
-
         canvas.fillStyle = "#8f7a66";
         canvas.font = 'bold ' + Drawer.#size / 4 + 'px sans-serif';
-
         let [textWidth, textHeight] = Drawer.#mathWidthHeight("Try again", canvas);
-
         let textWithMarginsWidth = textWidth + Drawer.#textMarginSize;
-
         Drawer.#roundRect(canvas, (Drawer.#fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (Drawer.#fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220, 3);
-
         canvas.fillStyle = "#f9f6f2";
-
         canvas.fillText("Try again", ((Drawer.#fullSize - textWidth - 10) / 2) + 2, 244);
-
         return [(Drawer.#fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (Drawer.#fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220];
-
     }
 
     static #roundRect(canvas, x1, y1, x2, y2, radius) {
-
         radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
         canvas.beginPath();
-
         canvas.moveTo(x1 + radius, y1);
         canvas.lineTo(x2 - radius, y1);
         canvas.arcTo(x2, y1, x2, y1 + radius, radius);
@@ -290,7 +234,5 @@ export class Drawer {
         let metrics = canvas.measureText(text);
         let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
         return [metrics.width, actualHeight]
-
     }
-
 }

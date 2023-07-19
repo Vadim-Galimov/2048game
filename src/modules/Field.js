@@ -1,19 +1,13 @@
-import {
-    Cell
-} from './Cell.js';
+import {Cell} from './Cell.js';
 const cell = new Cell();
 
 export class Field {
 
     static buttonTryAgain = {
         cursorOverbutton: 0,
-
         set buttonXY(value) {
-
             [this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2] = value;
-
         }
-
     }
 
     static moveDeltaXY = {
@@ -21,21 +15,15 @@ export class Field {
         up: [0, -90],
         left: [-90, 0],
         right: [90, 0],
-
     }
 
     static score = 0;
-
     static cellArray = [];
-
     static moveDirection;
     static phaseTime = 100;
-
     static winStatus = 0;
     static loseStatus = 0;
-
     static moveDetected = 0;
-
     static columnArray = {
         down: [
             [13, 9, 5, 1],
@@ -65,9 +53,7 @@ export class Field {
     }
 
     static turnBlock = 0;
-
     static getCellFromNumber(cellNumber) {
-
         return Field.cellArray.find(function(item, index) {
             return item.ticket == cellNumber;
         });
@@ -75,18 +61,14 @@ export class Field {
     }
 
     static resetData() {
-
         Field.winStatus = 0;
         Field.loseStatus = 0;
         Field.score = 0;
         Field.buttonTryAgain.visible = 0;
-
         Field.buttonTryAgain.cursorOverbutton = 0;
-
         document.body.style.cursor = "default";
         Field.cellArray = [];
         Field.turnBlock = 0;
-
     }
 
     static make2ActiveCells() {
@@ -99,13 +81,9 @@ export class Field {
         } while (randomNum2 === randomNum1);
 
         let newCell = new Cell(randomNum1);
-
         Field.cellArray.push(newCell);
-
         newCell = new Cell(randomNum2);
-
         Field.cellArray.push(newCell);
-
         Field.cellArray.forEach(function(item) {
             item.value = 2;
             item.valueOfDraw = 2;
@@ -115,16 +93,11 @@ export class Field {
 
     static make1ActiveCell() {
         let randomNum;
-
         function checkCellFunc() {
-
             let thisCell = Field.cellArray.find(function(item) {
                 return item.ticket == randomNum + 1;
-
             });
-
             return thisCell;
-
         }
 
         do {
@@ -132,19 +105,12 @@ export class Field {
         } while (checkCellFunc());
 
         let newCell = new Cell(randomNum);
-
         Field.cellArray.push(newCell);
-
     }
 
     static deleteExcessCells() {
-
         Field.cellArray = Field.cellArray.filter(function(item) {
-
             return item.toDelete != 1;
-
         })
-
     }
-
 }
