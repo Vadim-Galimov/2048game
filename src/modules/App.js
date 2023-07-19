@@ -592,8 +592,6 @@ static adminComands = {
 	Field.buttonTryAgain.buttonXY=buttonXY;
     Field.buttonTryAgain.visible = 1;
 
-    console.log('tut')
-   
 
 },
 
@@ -602,7 +600,6 @@ static adminComands = {
 
 	makeWin() {
 
-        console.log('win')
 
     Drawer.drawWin();
 
@@ -657,7 +654,7 @@ static adminComands = {
  
 	
 		        if (Field.buttonTryAgain.visible == 1) {
-                    console.log(event);       console.log('da');
+
                     let   elem = document.getElementById('canvasBody');
                 
       
@@ -668,7 +665,7 @@ static adminComands = {
                 event.y > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
                 event.y < Field.buttonTryAgain.buttonY2 + elem.offsetTop) {
 
-                    console.log('da2');
+       
                 document.body.style.cursor = "pointer";
                 Field.buttonTryAgain.cursorOverbutton = 1;
             } else {

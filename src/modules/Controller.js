@@ -26,7 +26,7 @@ export class Controller {
    	let passArray = new Array;
 
     document.addEventListener('keydown', function (event) {
-console.log(3);
+
         switch (event.code) {
 
         case 'ArrowUp':
@@ -133,9 +133,9 @@ static #setMouseController() {
              let moveTo;
              let   mouseMove  = [x2-x1, y2-y1];
          
-         console.log(mouseMove, x1, x2, y1, y2,Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) )
+ 
             if (Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) < 200) {
-                console.log('net')
+  
     return 0;
     
             } 
@@ -162,7 +162,7 @@ static #setMouseController() {
     
             }
     
-            console.log('ryly?');
+    
         Controller.doMove(moveTo);
     
     
@@ -291,7 +291,7 @@ static #setMouseController() {
                 }
 
 
-console.log('2');
+
 				Controller.doMove(moveTo);
     
 

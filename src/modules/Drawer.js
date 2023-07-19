@@ -237,7 +237,7 @@ let [textWidth, textHeight] = Drawer.#mathWidthHeight('GAME OVER!', canvas);
 	
 	static drawWin() {
 		
-        console.log('draw');
+  
 		  let canvas= (document.getElementById('canvasBody')).getContext('2d'); 
 
     canvas.fillStyle = "rgba(255, 215, 0, 0.5)";

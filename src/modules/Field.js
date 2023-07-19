@@ -23,7 +23,7 @@ set buttonXY(value) {
 
 	[ this.buttonX1,this.buttonY1 ,this.buttonX2 ,this.buttonY2] = value;
 	
-console.log(Field.buttonTryAgain);
+
 }
 
 
