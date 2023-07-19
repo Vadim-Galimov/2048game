@@ -3,31 +3,23 @@
  export class Cell {
 
 
-static moveXY = {
-    down: [0, 90],
-    up: [0, -90],
-    left: [-90, 0],
-    right: [90, 0],
 
-}
-
-    constructor(i) {
-        this.i = i;
-        this.number = i + 1;
-
-        this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
-        this.rowNumber = (Math.floor((this.i) / 4)) + 1;
-        this.x = this.columnNumber * (90) - 80;
-        this.y = this.rowNumber * (90) - 80;
+    constructor(index) {
+		
+		// В паре "индекс - номер" индекс служит для математических операций, а номер оставлен для простоты восприятия кода, в частности в паре "номер - билет", где в определённый момент хода, они могут иметь разные значения
+	
+		
+		
         this.random10Percent = Math.floor(Math.random() * 10);
         this.value = 2;
         if (this.random10Percent == 9)
             this.value = 4;
-        this.valueOfDraw = this.value;
-        this.moveSpeed = 0;
-        this.ticket = this.number;
+
+
+				this.number = index + 1;
+        this.ticket = this._number;
         this.toDelete = 0;
-        this.mergeBlock = 0;
+ 
         this.statusNewlyCreating = 1;
         this.sizePenalty = 0;
         this.statusEndedMerge = 0;
@@ -35,17 +27,29 @@ static moveXY = {
     }
 
 
-    afterMove() {
-        this.number = this.ticket;
-        this.moveSpeed = 0;
-        this.mergeBlock = 0;
-        this.valueOfDraw = this.value;
-        this.i = this.ticket - 1;
-        this.columnNumber = (((this.i + 1) % 4) != 0) ? (this.i + 1) % 4 : 4;
-        this.rowNumber = (Math.floor((this.i) / 4)) + 1;
+		set number(value) {
+			
+		this._number = value;
+ 
+        this.index = this._number - 1;
+        this.columnNumber = (((this.index + 1) % 4) != 0) ? (this.index + 1) % 4 : 4;
+        this.rowNumber = (Math.floor((this.index) / 4)) + 1;
         this.x = this.columnNumber * (90) - 80;
         this.y = this.rowNumber * (90) - 80;
-    }
+		 this.moveSpeed = 0;
+        this.mergeBlock = 0;
+        this.valueOfDraw = this.value;
+			
+		}
+
+        get number() {
+
+            return this._number;
+        }
+
+
+
+
     animateMerge(tick) {
         if (this.statusEndedMerge == 0)
             return 0;

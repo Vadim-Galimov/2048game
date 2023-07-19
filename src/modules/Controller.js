@@ -7,32 +7,12 @@
 export class Controller {
 	
 
- static  #startMouseX;
-  static #startMouseY;
-static #axis;
-
- static enterActiveStatus=0;
-
-
-
-
-static touchCheck;
-
-
 	static init() {
 		
-		    Controller.#setKeyboardController();
+	Controller.#setKeyboardController();
     Controller.#setMouseController();
     Controller.#setTouchpadController();
-    Controller.#setCursorXYChecker();
-		
-        document.getElementById('startNewGame').addEventListener('click', Controller.startNewGame );
-        document.getElementById('makeLose').addEventListener('click', Controller.makeLose);
-        document.getElementById('makeWin').addEventListener('click', Controller.makeWin);
-        document.getElementById('makePrewinSituation').addEventListener('click', Controller.makePrewinSituation);
-        document.getElementById('makePreloseSituation').addEventListener('click', Controller.makePreloseSituation);
-
-
+	Controller.#setButtonsController();
 
 	}
 	
@@ -42,10 +22,11 @@ static touchCheck;
 
 
 	static #setKeyboardController() {
-    let passArray = new Array;
+		
+   	let passArray = new Array;
 
-    document.getElementsByTagName('body')[0].addEventListener('keydown', function (event) {
-
+    document.addEventListener('keydown', function (event) {
+console.log(3);
         switch (event.code) {
 
         case 'ArrowUp':
@@ -62,21 +43,25 @@ static touchCheck;
             break;
 
         case 'Enter':
-            event.preventDefault()
-             if (Controller.enterActiveStatus == 1)  Controller.startNewGame();
+		  event.preventDefault()
+		 Controller.pressEnter();
             break;
 
     
 
         }
-
+	
         passArray.push(event.code);
 
         if (passArray.length > 5)
             passArray.shift();
         if (passArray.join() == ['KeyA', 'KeyD', 'KeyM', 'KeyI', 'KeyN'].join()) {
 			
-            document.getElementById('adminPanel').style = 'display: block';
+			
+			Controller.openAdminPanel();
+			
+	
+     
 
         }
 
@@ -90,11 +75,132 @@ static touchCheck;
 
 
 static #setMouseController() {
+	
+
+    let x1, x2, y1, y2;
+	document.addEventListener('mousedown', mouseButtonDown);
+	
+   
+	function mouseButtonDown(buttonDownEvent) {
+		
+	     if (event === null)
+            return 0;
+        if (event.type == "touchstart")
+            return 0;
+       
+	
+
+ 
+		 x1=buttonDownEvent.x
+		 y1=buttonDownEvent.y
+		
+
+		 document.addEventListener('mouseup', buttonUp);
+		
+
+	
+		
+		
+	}
+	
 
 
+    
+		function buttonUp(ButtonUpEvent) {
+			
+   
 
-    document.addEventListener('mousedown', Controller.#writeMouseStartXY);
-    document.addEventListener('mouseup', Controller.#mathMouseMove);
+            if (event === null)
+                return 0;
+            if (event.type == "touchstart")
+                return 0;
+           
+                
+                 x2=ButtonUpEvent.x
+                y2=ButtonUpEvent.y
+                
+        
+            
+    
+    checkMove();
+    
+    checkClick();
+    
+    
+                function checkMove() {
+            
+                    let axis;
+             let moveTo;
+             let   mouseMove  = [x2-x1, y2-y1];
+         
+         console.log(mouseMove, x1, x2, y1, y2,Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) )
+            if (Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) < 200) {
+                console.log('net')
+    return 0;
+    
+            } 
+            if (Math.abs(mouseMove[0]) > Math.abs(mouseMove[1]))
+                Controller.axis = 'x';
+            else
+                Controller.axis = 'y';
+    
+            if (Controller.axis == 'y') {
+    
+                if (mouseMove[1] > 0)
+                    moveTo = 'down';
+                else
+                    moveTo = 'up';
+    
+            }
+    
+            if (Controller.axis == 'x') {
+    
+                if (mouseMove[0] > 0)
+                    moveTo = 'right';
+                else
+                    moveTo = 'left';
+    
+            }
+    
+            console.log('ryly?');
+        Controller.doMove(moveTo);
+    
+    
+    
+    
+    
+        
+    }
+    
+    
+    
+    
+    
+    function checkClick() {
+        
+                if (Math.abs(x2-x1) + Math.abs(y2-y1)<5) {
+                    
+                
+                Controller.buttonClick();
+    
+    
+    
+    
+    
+                }
+    }
+    
+    
+    
+    
+            
+            }
+	
+	
+    document.addEventListener('mousemove', Controller.checkMouseMove);
+	
+
+
 
 
 
@@ -107,58 +213,8 @@ static #setMouseController() {
 
 
 
-    static #writeMouseStartXY() {
 
-        if (event === null)
-            return 0;
-        if (event.type == "touchstart")
-            return 0;
-        Controller.#startMouseX = event.clientX;
-     Controller.#startMouseY = event.clientY;
-
-    }
-	
-	
-	    static #mathMouseMove() {
-        let moveTo;
-
-        if (event === null)
-            return 0;
-        if (event.type == "touchstart")
-            return 0;
-
-    let    endMouseX = event.clientX;
-      let  endMouseY = event.clientY;
-     let   mouseMove = [endMouseX - Controller.#startMouseX, endMouseY - Controller.#startMouseY];
-        if (Math.abs(mouseMove[0]) + Math.abs(mouseMove[1]) < 200)
-            return 0;
-        if (Math.abs(mouseMove[0]) > Math.abs(mouseMove[1]))
-            Controller.#axis = 'x';
-        else
-            Controller.#axis = 'y';
-
-        if (Controller.#axis == 'y') {
-
-            if (mouseMove[1] > 0)
-                moveTo = 'down';
-            else
-                moveTo = 'up';
-
-        }
-
-        if (Controller.#axis == 'x') {
-
-            if (mouseMove[0] > 0)
-                moveTo = 'right';
-            else
-                moveTo = 'left';
-
-        }
-	Controller.doMove(moveTo);
     
-
-
-    }
 	
 	
 	
@@ -174,33 +230,49 @@ static #setMouseController() {
 
     let deltaY;
 	let touchStartEvent;
-    document.addEventListener("touchstart", function (e) {
+    document.addEventListener("touchstart", touchStart, event);
+	
 
-      touchStartEvent = e;
-    });
-    document.addEventListener("touchmove", function (e) {
-        if (touchStartEvent) {
-
-            deltaX = e.touches[0].pageX - touchStartEvent.touches[0].pageX;
-            deltaY = e.touches[0].pageY - touchStartEvent.touches[0].pageY;
-
-        }
-    });
-    document.addEventListener("touchend", function (e) {
+	
+	
+	
+	function touchStart(touchStartEvent) {
 		
 		
-        if (isNaN(Math.abs(deltaX)))
+		function touchMove(touchMoveEvent) {
+		        if (touchStartEvent) {
+
+            deltaX = touchMoveEvent.touches[0].pageX - touchStartEvent.touches[0].pageX;
+            deltaY = touchMoveEvent.touches[0].pageY - touchStartEvent.touches[0].pageY;
+
+        }	
+			
+		}
+
+	
+	document.addEventListener("touchmove", touchMove, event);
+				
+    document.addEventListener("touchend", touchEnd);
+		
+	
+		
+		
+		
+		function touchEnd() {
+			let axis;
+			
+			 if (isNaN(Math.abs(deltaX)))
             return 0;
 
         if (Math.abs(deltaX) + Math.abs(deltaY) < 100)
             return 0;
 
         if (Math.abs(deltaX) > Math.abs(deltaY))
-            Controller.#axis = 'x';
+            Controller.axis = 'x';
         else
-            Controller.#axis = 'y'
+            Controller.axis = 'y'
 
-                if (Controller.#axis == 'y') {
+                if (Controller.axis == 'y') {
 
                     if (deltaY > 0)
                         moveTo = 'down';
@@ -209,7 +281,7 @@ static #setMouseController() {
 
                 }
 
-                if (Controller.#axis == 'x') {
+                if (Controller.axis == 'x') {
 
                     if (deltaX > 0)
                         moveTo = 'right';
@@ -219,68 +291,29 @@ static #setMouseController() {
                 }
 
 
-
+console.log('2');
 				Controller.doMove(moveTo);
     
 
         touchStartEvent = null;
-
-    });
-
-}
-
-
-
-
-static  #setCursorXYChecker() {
-    document.addEventListener('mousemove', mouseMove);
-	 document.addEventListener('mousedown', buttonDown, event);
-	
-		function buttonDown(e) {
-	
-		
-	let x1=e.x
-	let y1=e.y
-		
-		 document.addEventListener('mouseup', buttonUp, event);
-		
-		
-		
-		function buttonUp(e) {
-			let x2=e.x
-			let y2=e.y
-			
-			if (Math.abs(x1-x2) + Math.abs(y1-y2)<5) {
-				
-			
-			Controller.buttonClick();
-
-
-
-
-
-			}
 			
 		}
 		
-		
-		
-		
+
 		
 		
 	}
 	
 	
 	
-
-
+	
+	
+	
+	
+	
     document.addEventListener('touchstart', touchClick);
 
-    function mouseMove() {
-		Controller.checkMouseMove(event.pageX, event.pageY);
-		
 
-    }
 
     function touchClick() {
 
@@ -291,11 +324,11 @@ static  #setCursorXYChecker() {
 
   
 
-        document.addEventListener('touchend', touchClickEnd, x1, y1);
+        document.addEventListener('touchend', touchClickEnd,event,  x1, y1);
 
     }
 
-    function touchClickEnd(e) {
+    function touchClickEnd(e, x1,y1) {
 
 
   
@@ -318,15 +351,63 @@ static  #setCursorXYChecker() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 
-
-
-
-
-	
 }
+
+
+
+ static #setButtonsController() {
+	 	
+        document.getElementById('startNewGame').addEventListener('click', Controller.triggerButton);
+        document.getElementById('makeLose').addEventListener('click', Controller.triggerButton);
+        document.getElementById('makeWin').addEventListener('click', Controller.triggerButton);
+        document.getElementById('makePrewinSituation').addEventListener('click', Controller.triggerButton);
+        document.getElementById('makePreloseSituation').addEventListener('click', Controller.triggerButton);
+
+
+	 
+	 
+ }
+
+
+
+		static triggerButton;
+
 
 
 static doMove;
@@ -342,5 +423,10 @@ static startNewGame;
 
 static checkMouseMove;
 static buttonClick;
+static touchButtonClick;
+static pressEnter;
+static openAdminPanel;
+
+
 
 }
