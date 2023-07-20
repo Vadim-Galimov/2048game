@@ -1,13 +1,13 @@
 export class Controller {
 
-    static init() {
+     init() {
         Controller.#setKeyboardController();
         Controller.#setMouseController();
         Controller.#setTouchpadController();
         Controller.#setButtonsController();
     }
 
-    static #setKeyboardController() {
+     #setKeyboardController() {
         let passArray = new Array;
         document.addEventListener('keydown', function(event) {
 
@@ -44,7 +44,7 @@ export class Controller {
         });
     }
 
-    static #setMouseController() {
+     #setMouseController() {
         let x1, x2, y1, y2;
         document.addEventListener('mousedown', mouseButtonDown);
         function mouseButtonDown(buttonDownEvent) {
@@ -97,7 +97,7 @@ export class Controller {
         document.addEventListener('mousemove', Controller.checkMouseMove);
     }
 
-    static #setTouchpadController() {
+     #setTouchpadController() {
         let deltaX;
         let deltaY;
         let touchStartEvent;
@@ -159,7 +159,7 @@ export class Controller {
         }
     }
 
-    static #setButtonsController() {
+     #setButtonsController() {
 
         document.getElementById('startNewGame').addEventListener('click', Controller.triggerButton);
         document.getElementById('makeLose').addEventListener('click', Controller.triggerButton);
@@ -169,17 +169,17 @@ export class Controller {
 
     }
 
-    static triggerButton;
-    static doMove;
-    static makeLose;
-    static makeWin;
-    static makePrewinSituation;
-    static makePreloseSituation;
-    static startNewGame;
-    static checkMouseMove;
-    static buttonClick;
-    static touchButtonClick;
-    static pressEnter;
-    static openAdminPanel;
+     triggerButton;
+     doMove;
+     makeLose;
+     makeWin;
+     makePrewinSituation;
+     makePreloseSituation;
+     startNewGame;
+     checkMouseMove;
+     buttonClick;
+     touchButtonClick;
+     pressEnter;
+     openAdminPanel;
 
 }

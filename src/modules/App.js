@@ -11,14 +11,14 @@ const field = new Field();
 export class App {
 
     static run() {
-        App.#setupController();
+        App.setupController();
         App.startNewGame();
     }
 
-    static startNewGame() {
+   static  startNewGame() {
         Field.resetData();
         Field.make2ActiveCells();
-        App.#mathCellResize();
+        App.mathCellResize();
         Drawer.drawScore(Field.score);
         Drawer.runBodyDrawer(Field.phaseTime * 2, Field.cellArray);
     }
@@ -29,7 +29,7 @@ export class App {
         await App.turn.runPostTurnPhase();
     }
 
-    static turn = {
+     turn = {
 
         async runPhaseOne() {
             Drawer.runBodyDrawer(Field.phaseTime, Field.cellArray);
@@ -39,7 +39,7 @@ export class App {
         },
 
         async runPhaseTwo() {
-            App.#mathCellResize();
+            App.mathCellResize();
             App.turn.changeScore();
             Field.deleteExcessCells();
             App.turn.checkTurnResult();
@@ -190,7 +190,7 @@ export class App {
 
     }
 
-    static #mathCellResize() {
+     mathCellResize() {
         let i = 0;
         let createInterval = setInterval(() => {
             Field.cellArray.forEach(function(item) {
@@ -208,7 +208,7 @@ export class App {
 
     }
 
-    static adminComands = {
+     adminComands = {
         makePrewinSituation() {
             Field.cellArray[0].value = 1024;
             Field.cellArray[1].value = 1024;
@@ -230,7 +230,7 @@ export class App {
         }
     }
 
-    static #setupController() {
+   static  setupController() {
         Controller.doMove = App.rebind.doMove.bind(this);
         Controller.checkMouseMove = App.rebind.checkMouseMove.bind(this);
         Controller.buttonClick = App.rebind.buttonClick.bind(this);
@@ -242,7 +242,7 @@ export class App {
         Controller.init();
     }
 
-    static gameStatus = {
+     gameStatus = {
 
         checkWin() {
             let valueArray = Field.cellArray.map(function(item) {
@@ -293,7 +293,7 @@ export class App {
 
     }
 
-    static rebind = {
+     rebind = {
 
         doMove(direction) {
             if (Field.turnBlock == 1) return 0;

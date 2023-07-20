@@ -3,28 +3,28 @@ const cell = new Cell();
 
 export class Field {
 
-    static buttonTryAgain = {
+     buttonTryAgain = {
         cursorOverbutton: 0,
         set buttonXY(value) {
             [this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2] = value;
         }
     }
 
-    static moveDeltaXY = {
+     moveDeltaXY = {
         down: [0, 90],
         up: [0, -90],
         left: [-90, 0],
         right: [90, 0],
     }
 
-    static score = 0;
-    static cellArray = [];
-    static moveDirection;
-    static phaseTime = 100;
-    static winStatus = 0;
-    static loseStatus = 0;
-    static moveDetected = 0;
-    static columnArray = {
+     score = 0;
+     cellArray = [];
+     moveDirection;
+     phaseTime = 100;
+     winStatus = 0;
+     loseStatus = 0;
+     moveDetected = 0;
+     columnArray = {
         down: [
             [13, 9, 5, 1],
             [14, 10, 6, 2],
@@ -52,15 +52,15 @@ export class Field {
 
     }
 
-    static turnBlock = 0;
-    static getCellFromNumber(cellNumber) {
+     turnBlock = 0;
+     getCellFromNumber(cellNumber) {
         return Field.cellArray.find(function(item, index) {
             return item.ticket == cellNumber;
         });
 
     }
 
-    static resetData() {
+     resetData() {
         Field.winStatus = 0;
         Field.loseStatus = 0;
         Field.score = 0;
@@ -71,7 +71,7 @@ export class Field {
         Field.turnBlock = 0;
     }
 
-    static make2ActiveCells() {
+     make2ActiveCells() {
 
         let randomNum1 = Math.floor(Math.random() * 16);
         let randomNum2;
@@ -91,7 +91,7 @@ export class Field {
 
     }
 
-    static make1ActiveCell() {
+     make1ActiveCell() {
         let randomNum;
         function checkCellFunc() {
             let thisCell = Field.cellArray.find(function(item) {
@@ -108,7 +108,7 @@ export class Field {
         Field.cellArray.push(newCell);
     }
 
-    static deleteExcessCells() {
+     deleteExcessCells() {
         Field.cellArray = Field.cellArray.filter(function(item) {
             return item.toDelete != 1;
         })
