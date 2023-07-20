@@ -1,70 +1,84 @@
 import {Controller} from './Controller.js';
-const controller = new Controller();
+
+
+
 
 import {Drawer} from './Drawer.js';
-const drawer = new Drawer();
+
 
 import {Field} from './Field.js';
-const field = new Field();
+
+
+
 
 
 export class App {
 
-    static run() {
-        App.#setupController();
-        App.startNewGame();
+    static controller = new Controller();
+    static drawer = new Drawer();
+    static field = new Field();
+        constructor() {
+          if (App._instance) {
+            return App._instance;
+          }
+      
+          App._instance = this;
+        }
+
+
+
+       
+
+
+
+
+    run() {
+        this.setupController();
+        this.startNewGame();
     }
 
-    static startNewGame() {
-        Field.resetData();
-        Field.make2ActiveCells();
-        App.#mathCellResize();
-        Drawer.drawScore(Field.score);
-        Drawer.runBodyDrawer(Field.phaseTime * 2, Field.cellArray);
+    startNewGame() {
+        App.field.resetData();
+        App.field.make2ActiveCells();
+        App.mathCellResize();
+        App.drawer.drawScore(App.field.score);
+        App.drawer.runBodyDrawer(App.field.phaseTime * 2, App.field.cellArray);
     }
 
-    static async makeTurn() {
-        await App.turn.runPhaseOne();
-        await App.turn.runPhaseTwo();
-        await App.turn.runPostTurnPhase();
+    async makeTurn() {
+        await this.turn.runPhaseOne();
+        await this.turn.runPhaseTwo();
+        await this.turn.runPostTurnPhase();
     }
 
-    static turn = {
+    turn = {
 
         async runPhaseOne() {
-            Drawer.runBodyDrawer(Field.phaseTime, Field.cellArray);
-            App.turn.setTickets()
-            App.turn.allMove();
-            await App.turn.delay();
+            App.drawer.runBodyDrawer(App.field.phaseTime, App.field.cellArray);
+            this.setTickets()
+            this.allMove();
+            await this.delay();
         },
 
         async runPhaseTwo() {
-            App.#mathCellResize();
-            App.turn.changeScore();
-            Field.deleteExcessCells();
-            App.turn.checkTurnResult();
-            Drawer.runBodyDrawer(Field.phaseTime, Field.cellArray);
-            await App.turn.delay();
+       
+            App.mathCellResize();
+            this.changeScore();
+            App.field.deleteExcessCells();
+            App.gameStatus.checkTurnResult();
+            App.drawer.runBodyDrawer(App.field.phaseTime, App.field.cellArray);
+            await this.delay();
         },
 
         async runPostTurnPhase() {
-            if (Field.winStatus == 0 && Field.loseStatus == 0) Field.turnBlock = 0
+            if (App.field.winStatus == 0 && App.field.loseStatus == 0) App.field.turnBlock = 0
         },
 
         delay() {
-            return new Promise((resolve) => setTimeout(resolve, Field.phaseTime));
+            return new Promise((resolve) => setTimeout(resolve, App.field.phaseTime));
         },
 
-        checkTurnResult() {
-            if (Field.moveDetected == 1) Field.make1ActiveCell()
-            Field.moveDetected = 0;
-
-            App.gameStatus.checkWin();
-            if (Field.winStatus == 1) return 0;
-
-            App.gameStatus.checkLose();
-            if (Field.loseStatus == 1) return 0;
-        },
+ 
 
         setTickets() {
             for (let i = 0; i < 4; i++) {
@@ -74,8 +88,8 @@ export class App {
             }
 
             function setTicketAndMoveSpeed(choosenNumber, choosenColumn) {
-                let choosenColumnArr = Field.columnArray[Field.moveDirection];
-                let choosenCell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
+                let choosenColumnArr = App.field.columnArray[App.field.moveDirection];
+                let choosenCell = App.field.getCellFromNumber(choosenColumnArr[choosenColumn][choosenNumber]);
 
                 if (!choosenCell)  return 0;
                 let maxMove = getMaxMove(choosenColumn, choosenCell);
@@ -84,9 +98,9 @@ export class App {
                 let sub2Number = choosenNumber - 2;
                 let sub3Number = choosenNumber - 3;
 
-                let sub1Cell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][sub1Number]);
-                let sub2Cell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][sub2Number]);
-                let sub3Cell = Field.getCellFromNumber(choosenColumnArr[choosenColumn][sub3Number]);
+                let sub1Cell = App.field.getCellFromNumber(choosenColumnArr[choosenColumn][sub1Number]);
+                let sub2Cell = App.field.getCellFromNumber(choosenColumnArr[choosenColumn][sub2Number]);
+                let sub3Cell = App.field.getCellFromNumber(choosenColumnArr[choosenColumn][sub3Number]);
 
                 let ticket = choosenCell.number;
                 let moveSpeed = 0;
@@ -98,13 +112,13 @@ export class App {
                     sub1Cell.statusEndedMerge = 1;
                     sub1Cell.mergeBlock = 1;
                     choosenCell.mergeBlock = 1;
-                    Field.moveDetected = 1;
+                    App.field.moveDetected = 1;
                 }
 
                 if (!sub1Cell && maxMove > 0) {
                     moveSpeed = 1;
                     ticket = choosenColumnArr[choosenColumn][sub1Number];
-                    Field.moveDetected = 1;
+                    App.field.moveDetected = 1;
                     if (checkMerge(sub2Cell, choosenCell)) {
                         moveSpeed = 2;
                         sub2Cell.value *= 2;
@@ -142,7 +156,7 @@ export class App {
                 choosenCell.moveSpeed = moveSpeed;
 
                 function getMaxMove(choosenColumn, choosenCell) {
-                    let choosenColumnArr = Field.columnArray[Field.moveDirection];
+                    let choosenColumnArr = App.field.columnArray[App.field.moveDirection];
                     let thisArr = choosenColumnArr[choosenColumn];
                     return thisArr.indexOf(choosenCell.number);;
 
@@ -161,183 +175,181 @@ export class App {
             let timerMakeStep = setInterval(() => {
                 if (animationCounter > 4) {
                     clearInterval(timerMakeStep);
-                    Field.cellArray.forEach(function(item) {
+                    App.field.cellArray.forEach(function(item) {
                         item.number = item.ticket;
 
                     });
                 }
                 stepMove();
                 animationCounter++;
-            }, Field.phaseTime / 5);
+            }, App.field.phaseTime / 5);
 
             function stepMove() {
-                Field.cellArray.forEach(function(item) {
-                    item.x += (Field.moveDeltaXY[Field.moveDirection][0] * item.moveSpeed) / (Field.phaseTime / 20);
-                    item.y += (Field.moveDeltaXY[Field.moveDirection][1] * item.moveSpeed) / (Field.phaseTime / 20);
+                App.field.cellArray.forEach(function(item) {
+                    item.x += (App.field.moveDeltaXY[App.field.moveDirection][0] * item.moveSpeed) / (App.field.phaseTime / 20);
+                    item.y += (App.field.moveDeltaXY[App.field.moveDirection][1] * item.moveSpeed) / (App.field.phaseTime / 20);
                 })
             }
         },
 
         changeScore() {
             let turnScore = 0;
-            Field.cellArray.forEach(function(item) {
+            App.field.cellArray.forEach(function(item) {
                 if (item.toDelete == 1)
                     turnScore += item.valueOfDraw;
             });
-            Field.score += turnScore * 2;
-            Drawer.drawScore(Field.score);
+            App.field.score += turnScore * 2;
+            App.drawer.drawScore(App.field.score);
         },
 
-    }
-
-    static #mathCellResize() {
-        let i = 0;
-        let createInterval = setInterval(() => {
-            Field.cellArray.forEach(function(item) {
-                item.animateCreating(5 - i);
-                item.animateMerge(5 - i);
-            });
-            i++;
-            if (i > 4) {
-                clearInterval(createInterval);
-                Field.cellArray.forEach(function(item) {
-                    item.stopAnimating();
-                });
-            }
-        }, 10)
+   
+    
 
     }
+
 
     static adminComands = {
         makePrewinSituation() {
-            Field.cellArray[0].value = 1024;
-            Field.cellArray[1].value = 1024;
-            Field.cellArray[1].valueOfDraw = 1024;
-            Field.cellArray[0].valueOfDraw = 1024;
-            Drawer.drawCells(Field.cellArray);
+            App.field.cellArray[0].value = 1024;
+            App.field.cellArray[1].value = 1024;
+            App.field.cellArray[1].valueOfDraw = 1024;
+            App.field.cellArray[0].valueOfDraw = 1024;
+            App.drawer.drawCells(App.field.cellArray);
         },
 
         makePreloseSituation() {
-            App.startNewGame();
-            for (let i = 0; i < 13; i++) {
-                Field.make1ActiveCell();
-            }
+            App.field.cellArray=[];
             for (let i = 0; i < 15; i++) {
-                Field.cellArray[i].value = i + 32;
-                Field.cellArray[i].valueOfDraw = i + 32;
+                App.field.make1ActiveCell();
             }
-            Drawer.drawCells(Field.cellArray);
+            console.log(App.field.cellArray);
+            for (let i = 0; i < 15; i++) {
+                App.field.cellArray[i].value = i + 32;
+                App.field.cellArray[i].valueOfDraw = i + 32;
+            }
+            App.drawer.drawCells(App.field.cellArray);
         }
     }
 
-    static #setupController() {
-        Controller.doMove = App.rebind.doMove.bind(this);
-        Controller.checkMouseMove = App.rebind.checkMouseMove.bind(this);
-        Controller.buttonClick = App.rebind.buttonClick.bind(this);
-        Controller.touchButtonClick = App.rebind.touchButtonClick.bind(this);
-        Controller.pressEnter = App.rebind.pressEnter.bind(this);
-        Controller.openAdminPanel = App.rebind.openAdminPanel.bind(this);
-        Controller.triggerButton = App.rebind.triggerButton.bind(this);
+    setupController() {
+        Controller.doMove = this.rebind.doMove.bind(this);
+        Controller.checkMouseMove = this.rebind.checkMouseMove.bind(this);
+        Controller.buttonClick = this.rebind.buttonClick.bind(this);
+        Controller.touchButtonClick = this.rebind.touchButtonClick.bind(this);
+        Controller.pressEnter = this.rebind.pressEnter.bind(this);
+        Controller.openAdminPanel = this.rebind.openAdminPanel.bind(this);
+        Controller.triggerButton = this.rebind.triggerButton.bind(this);
 
-        Controller.init();
+        App.controller.init();
     }
 
-    static gameStatus = {
+   static gameStatus = {
+
+        checkTurnResult() {
+            if (App.field.moveDetected == 1) App.field.make1ActiveCell()
+            App.field.moveDetected = 0;
+
+            App.gameStatus.checkWin();
+            if (App.field.winStatus == 1) return 0;
+
+            App.gameStatus.checkLose();
+            if (App.field.loseStatus == 1) return 0;
+        },
 
         checkWin() {
-            let valueArray = Field.cellArray.map(function(item) {
+            let valueArray = App.field.cellArray.map(function(item) {
                 return item.value;
             });
-            if (valueArray.includes(2048)) Field.winStatus = 1;
-            if (Field.winStatus == 1) setTimeout(App.gameStatus.makeWin, Field.phaseTime * 2);;
+            if (valueArray.includes(2048)) App.field.winStatus = 1;
+            if (App.field.winStatus == 1) setTimeout(App.gameStatus.makeWin, App.field.phaseTime * 2);;
         },
 
         checkLose() {
 
-            Field.loseStatus = 1;
-            if (Field.cellArray.length < 16) {
-                Field.loseStatus = 0;
+            App.field.loseStatus = 1;
+            if (App.field.cellArray.length < 16) {
+                App.field.loseStatus = 0;
                 return 0;
             }
 
             for (let i1 = 0; i1 < 4; i1++) {
                 for (let i = 0; i < 3; i++) {
-                    if (Field.getCellFromNumber(Field.columnArray['down'][i1][i])?.value == Field.getCellFromNumber(Field.columnArray['down'][i1][i + 1])?.value) Field.loseStatus = 0;
+                    if (App.field.getCellFromNumber(App.field.columnArray['down'][i1][i])?.value == App.field.getCellFromNumber(App.field.columnArray['down'][i1][i + 1])?.value) App.field.loseStatus = 0;
                 }
             }
 
             for (let i1 = 0; i1 < 4; i1++) {
                 for (let i = 0; i < 3; i++) {
-                    if (Field.getCellFromNumber(Field.columnArray['right'][i1][i])?.value == Field.getCellFromNumber(Field.columnArray['right'][i1][i + 1])?.value) Field.loseStatus = 0;
+                    if (App.field.getCellFromNumber(App.field.columnArray['right'][i1][i])?.value == App.field.getCellFromNumber(App.field.columnArray['right'][i1][i + 1])?.value) App.field.loseStatus = 0;
                 }
             }
 
-            if (Field.loseStatus == 1)
-                setTimeout(App.gameStatus.makeLose, Field.phaseTime * 2);
+            if (App.field.loseStatus == 1)
+                setTimeout(App.gameStatus.makeLose, App.field.phaseTime * 2);
         },
 
         makeLose() {
-            Drawer.drawLose();
-            let buttonXY = Drawer.drawButton(Field.buttonTryAgain);
-            Field.buttonTryAgain.buttonXY = buttonXY;
-            Field.buttonTryAgain.visible = 1;
+            App.drawer.drawLose();
+            let buttonXY = App.drawer.drawButton(App.field.buttonTryAgain);
+            App.field.buttonTryAgain.buttonXY = buttonXY;
+            App.field.buttonTryAgain.visible = 1;
 
         },
 
         makeWin() {
-            Drawer.drawWin();
-            let buttonXY = Drawer.drawButton(Field.buttonTryAgain);
-            Field.buttonTryAgain.buttonXY = buttonXY;
-            Field.buttonTryAgain.visible = 1;
+            App.drawer.drawWin();
+            let buttonXY = App.drawer.drawButton(App.field.buttonTryAgain);
+            App.field.buttonTryAgain.buttonXY = buttonXY;
+            App.field.buttonTryAgain.visible = 1;
         },
 
     }
 
-    static rebind = {
+    rebind = {
 
         doMove(direction) {
-            if (Field.turnBlock == 1) return 0;
-            Field.turnBlock = 1;
-            Field.moveDirection = direction;
-            App.makeTurn();
+            if (App.field.turnBlock == 1) return 0;
+            App.field.turnBlock = 1;
+            App.field.moveDirection = direction;
+            this.makeTurn();
         },
 
         checkMouseMove(event) {
-            if (Field.buttonTryAgain.visible == 1) {
+            if (App.field.buttonTryAgain.visible == 1) {
                 let elem = document.getElementById('canvasBody');
                 if (
-                    event.x > Field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
-                    event.x < Field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
-                    event.y > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
-                    event.y < Field.buttonTryAgain.buttonY2 + elem.offsetTop) {
+                    event.x > App.field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
+                    event.x < App.field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
+                    event.y > App.field.buttonTryAgain.buttonY1 + elem.offsetTop &&
+                    event.y < App.field.buttonTryAgain.buttonY2 + elem.offsetTop) {
 
                     document.body.style.cursor = "pointer";
-                    Field.buttonTryAgain.cursorOverbutton = 1;
+                    App.field.buttonTryAgain.cursorOverbutton = 1;
 
                 } else {
                     document.body.style.cursor = "default";
-                    Field.buttonTryAgain.cursorOverbutton = 0;
+                    App.field.buttonTryAgain.cursorOverbutton = 0;
                 }
             }
         },
 
         buttonClick() {
-            if (Field.buttonTryAgain.cursorOverbutton == 1 && Field.buttonTryAgain.visible == 1) App.startNewGame();
+            if (App.field.buttonTryAgain.cursorOverbutton == 1 && App.field.buttonTryAgain.visible == 1) this.startNewGame();
         },
 
         touchButtonClick(x1, y1) {
             elem = document.getElementById('canvasBody');
 
             if (
-                x1 > Field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
-                x1 < Field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
-                y1 > Field.buttonTryAgain.buttonY1 + elem.offsetTop &&
-                y1 < Field.buttonTryAgain.buttonY2 + elem.offsetTop &&
-                Field.buttonTryAgain.visible == 1) App.startNewGame();
+                x1 > App.field.buttonTryAgain.buttonX1 + elem.offsetLeft &&
+                x1 < App.field.buttonTryAgain.buttonX2 + elem.offsetLeft &&
+                y1 > App.field.buttonTryAgain.buttonY1 + elem.offsetTop &&
+                y1 < App.field.buttonTryAgain.buttonY2 + elem.offsetTop &&
+                App.field.buttonTryAgain.visible == 1) this.startNewGame();
         },
 
         pressEnter() {
-            if (winStatus == 1 || loseStatus == 1) App.startNewGame();
+            if (App.field.winStatus == 1 || App.field.loseStatus == 1) this.startNewGame();
         },
 
         openAdminPanel() {
@@ -347,7 +359,7 @@ export class App {
         triggerButton(event) {
             switch (event.target.id) {
                 case 'startNewGame':
-                    App.startNewGame();
+                    this.startNewGame();
                     break;
 
                 case 'makeLose':
@@ -368,4 +380,25 @@ export class App {
             }
         }
     }
+    static mathCellResize() {
+        let i = 0;
+        let createInterval = setInterval(() => {
+            App.field.cellArray.forEach(function(item) {
+                item.animateCreating(5 - i);
+                item.animateMerge(5 - i);
+            });
+            i++;
+            if (i > 4) {
+                clearInterval(createInterval);
+                App.field.cellArray.forEach(function(item) {
+                    item.stopAnimating();
+                });
+            }
+        }, 10)
+
+    }
+
+
+
 }
+

@@ -3,28 +3,36 @@ const cell = new Cell();
 
 export class Field {
 
-    static buttonTryAgain = {
+    constructor() {
+        if (Field._instance) {
+          return Field._instance;
+        }
+    
+        Field._instance = this;
+      }
+
+     buttonTryAgain = {
         cursorOverbutton: 0,
         set buttonXY(value) {
             [this.buttonX1, this.buttonY1, this.buttonX2, this.buttonY2] = value;
         }
     }
 
-    static moveDeltaXY = {
+    moveDeltaXY = {
         down: [0, 90],
         up: [0, -90],
         left: [-90, 0],
         right: [90, 0],
     }
 
-    static score = 0;
-    static cellArray = [];
-    static moveDirection;
-    static phaseTime = 100;
-    static winStatus = 0;
-    static loseStatus = 0;
-    static moveDetected = 0;
-    static columnArray = {
+    score = 0;
+    cellArray = [];
+    moveDirection;
+    phaseTime = 100;
+    winStatus = 0;
+    loseStatus = 0;
+    moveDetected = 0;
+    columnArray = {
         down: [
             [13, 9, 5, 1],
             [14, 10, 6, 2],
@@ -52,26 +60,26 @@ export class Field {
 
     }
 
-    static turnBlock = 0;
-    static getCellFromNumber(cellNumber) {
-        return Field.cellArray.find(function(item, index) {
+    turnBlock = 0;
+    getCellFromNumber(cellNumber) {
+        return this.cellArray.find(function(item, index) {
             return item.ticket == cellNumber;
         });
 
     }
 
-    static resetData() {
-        Field.winStatus = 0;
-        Field.loseStatus = 0;
-        Field.score = 0;
-        Field.buttonTryAgain.visible = 0;
-        Field.buttonTryAgain.cursorOverbutton = 0;
+   resetData() {
+        this.winStatus = 0;
+        this.loseStatus = 0;
+        this.score = 0;
+        this.buttonTryAgain.visible = 0;
+        this.buttonTryAgain.cursorOverbutton = 0;
         document.body.style.cursor = "default";
-        Field.cellArray = [];
-        Field.turnBlock = 0;
+        this.cellArray = [];
+        this.turnBlock = 0;
     }
 
-    static make2ActiveCells() {
+     make2ActiveCells() {
 
         let randomNum1 = Math.floor(Math.random() * 16);
         let randomNum2;
@@ -81,35 +89,38 @@ export class Field {
         } while (randomNum2 === randomNum1);
 
         let newCell = new Cell(randomNum1);
-        Field.cellArray.push(newCell);
+        this.cellArray.push(newCell);
         newCell = new Cell(randomNum2);
-        Field.cellArray.push(newCell);
-        Field.cellArray.forEach(function(item) {
+        this.cellArray.push(newCell);
+        this.cellArray.forEach(function(item) {
             item.value = 2;
             item.valueOfDraw = 2;
         })
 
     }
 
-    static make1ActiveCell() {
+    make1ActiveCell() {
+      
         let randomNum;
-        function checkCellFunc() {
-            let thisCell = Field.cellArray.find(function(item) {
-                return item.ticket == randomNum + 1;
-            });
-            return thisCell;
-        }
-
         do {
             randomNum = Math.floor(Math.random() * 16);
-        } while (checkCellFunc());
+        } while (this.checkCellFunc(randomNum));
 
         let newCell = new Cell(randomNum);
-        Field.cellArray.push(newCell);
+        this.cellArray.push(newCell);
     }
 
-    static deleteExcessCells() {
-        Field.cellArray = Field.cellArray.filter(function(item) {
+    checkCellFunc(randomNum) {
+         
+        let thisCell = this.cellArray.find(function(item) {
+            return item.ticket == randomNum + 1;
+        });
+        return thisCell;
+    }
+
+
+     deleteExcessCells() {
+        this.cellArray = this.cellArray.filter(function(item) {
             return item.toDelete != 1;
         })
     }

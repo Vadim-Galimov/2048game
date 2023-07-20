@@ -1,42 +1,52 @@
 export class Drawer {
 
-    static #size = 80;
-    static #minMargin = Drawer.#size / 8;
-    static #fullSize = 4 * Drawer.#size + 5 * Drawer.#minMargin;
-    static #stepMargin = Drawer.#minMargin + Drawer.#size;
-    static #textMarginSize = Drawer.#size / 8 * 3;
 
-    static drawScore(score) {
+    constructor() {
+        if (Drawer._instance) {
+          return Drawer._instance;
+        }
+    
+        Drawer._instance = this;
+      }
+
+    size = 80;
+    minMargin = this.size / 8;
+    fullSize = 4 * this.size + 5 * this.minMargin;
+    stepMargin = this.minMargin + this.size;
+    textMarginSize = this.size / 8 * 3;
+
+    drawScore(score) {
 
         let canvas = (document.getElementById('canvasHead')).getContext('2d');
         canvas.clearRect(0, 0, canvasHead.width, canvasHead.height);
-        canvas.font = 'bold ' + Drawer.#size * 35 / 80 + 'px sans-serif';
-        let [textWidth, textHeight] = Drawer.#mathWidthHeight('SCORE:' + score, canvas);
+        canvas.font = 'bold ' + this.size * 35 / 80 + 'px sans-serif';
+        let [textWidth, textHeight] = this.mathWidthHeight('SCORE:' + score, canvas);
         canvas.fillStyle = '#bbada0';
-        let textWithMarginsWidth = textWidth + Drawer.#textMarginSize;
-        let textScoreMargin = Drawer.#size * 25 / 80;
-        let buttonScoreMarginTop = Drawer.#size / 4;
-        let textScoreMarginTop = Drawer.#size / 8;
+        let textWithMarginsWidth = textWidth + this.textMarginSize;
+        let textScoreMargin = this.size * 25 / 80;
+        let buttonScoreMarginTop = this.size / 4;
+        let textScoreMarginTop = this.size / 8;
 
-        Drawer.#roundRect(canvas, ((Drawer.#fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((Drawer.#fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20);
+        Drawer.roundRect(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20);
         canvas.strokeStyle = '#776e65';
-        Drawer.#roundRectStroke(canvas, ((Drawer.#fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((Drawer.#fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20, 5);
+        Drawer.roundRectStroke(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20, 5);
         canvas.fillStyle = "#ebe4da";
-        canvas.fillText("SCORE: " + score, ((Drawer.#fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + textHeight + textScoreMarginTop);
+        canvas.fillText("SCORE: " + score, ((this.fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + textHeight + textScoreMarginTop);
     }
 
-    static runBodyDrawer(drawDuration, cellArray) {
-        let timerDrawCells = setInterval(Drawer.drawCells, 10, cellArray);
+     
+    runBodyDrawer(drawDuration, cellArray) {
+        let timerDrawCells = setInterval(() => {this.drawCells(cellArray)}, 10);
         setTimeout(clearInterval, drawDuration, timerDrawCells);
     }
 
-    static drawCells(cellArray) {
-
+   drawCells(cellArray) {
+ 
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.clearRect(0, 0, canvasBody.width, canvasBody.height);
-        Drawer.#drawBackground();
+        this.drawBackground();
 
-        cellArray.forEach(function(item) {
+        cellArray.forEach( (item) =>{
             let cellValue = item.valueOfDraw;
 
             switch (cellValue) {
@@ -112,7 +122,7 @@ export class Drawer {
 
             }
 
-            Drawer.#roundRect(canvas, item.x + item.sizePenalty - item.sizeBonus, item.y + item.sizePenalty - item.sizeBonus, item.x + Drawer.#size - item.sizePenalty + item.sizeBonus, item.y + Drawer.#size - item.sizePenalty + item.sizeBonus, 3);
+            Drawer.roundRect(canvas, item.x + item.sizePenalty - item.sizeBonus, item.y + item.sizePenalty - item.sizeBonus, item.x + this.size - item.sizePenalty + item.sizeBonus, item.y + this.size - item.sizePenalty + item.sizeBonus, 3);
 
             switch (cellValue) {
 
@@ -140,66 +150,66 @@ export class Drawer {
 
             }
 
-            let [textWidth, textHeight] = Drawer.#mathWidthHeight(cellValue, canvas);
-            let addWidth = (Drawer.#size - textWidth) / 2;
-            let addHeight = (Drawer.#size - textHeight) / 2;
+            let [textWidth, textHeight] = this.mathWidthHeight(cellValue, canvas);
+            let addWidth = (this.size - textWidth) / 2;
+            let addHeight = (this.size - textHeight) / 2;
             canvas.fillText(cellValue, item.x + addWidth, item.y + addHeight + textHeight);
         });
     }
 
-    static drawLose() {
+    drawLose() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = "rgba(255, 255, 255, 0.5)";
-        Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
+        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = "#776e65";
         canvas.font = 'bold 50px sans-serif';
-        let [textWidth, textHeight] = Drawer.#mathWidthHeight('GAME OVER!', canvas);
-        let addWidth = (Drawer.#fullSize - textWidth) / 2;
-        let addHeight = (Drawer.#fullSize - textHeight) / 2;
+        let [textWidth, textHeight] = this.mathWidthHeight('GAME OVER!', canvas);
+        let addWidth = (this.fullSize - textWidth) / 2;
+        let addHeight = (this.fullSize - textHeight) / 2;
         canvas.fillText("GAME OVER!", addWidth, addHeight + textHeight);
 
     }
 
-    static drawWin() {
+    drawWin() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = "rgba(255, 215, 0, 0.5)";
-        Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
+        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = "#f9f6f2";
         canvas.font = 'bold 50px sans-serif';
-        let [textWidth, textHeight] = Drawer.#mathWidthHeight('YOU WIN!', canvas);
-        let addWidth = (Drawer.#fullSize - textWidth) / 2;
-        let addHeight = (Drawer.#fullSize - textHeight) / 2;
+        let [textWidth, textHeight] = this.mathWidthHeight('YOU WIN!', canvas);
+        let addWidth = (this.fullSize - textWidth) / 2;
+        let addHeight = (this.fullSize - textHeight) / 2;
         canvas.fillText("YOU WIN!", addWidth, addHeight + textHeight);
     }
 
-    static #drawBackground() {
+    drawBackground() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = '#776e65';
-        Drawer.#roundRect(canvas, 0, 0, Drawer.#fullSize, Drawer.#fullSize, 10);
+        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = '#bbada0';
 
         for (let y = 0; y < 4; y++) {
             for (let x = 0; x < 4; x++) {
-                let startWidth = Drawer.#minMargin + Drawer.#stepMargin * x;
-                let startHeight = Drawer.#minMargin + Drawer.#stepMargin * y;
-                Drawer.#roundRect(canvas, startWidth, startHeight, startWidth + Drawer.#size, startHeight + Drawer.#size, 3);
+                let startWidth = this.minMargin + this.stepMargin * x;
+                let startHeight = this.minMargin + this.stepMargin * y;
+                Drawer.roundRect(canvas, startWidth, startHeight, startWidth + this.size, startHeight + this.size, 3);
             }
         }
     }
 
-    static drawButton(button) {
+     drawButton(button) {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = "#8f7a66";
-        canvas.font = 'bold ' + Drawer.#size / 4 + 'px sans-serif';
-        let [textWidth, textHeight] = Drawer.#mathWidthHeight("Try again", canvas);
-        let textWithMarginsWidth = textWidth + Drawer.#textMarginSize;
-        Drawer.#roundRect(canvas, (Drawer.#fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (Drawer.#fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220, 3);
+        canvas.font = 'bold ' + this.size / 4 + 'px sans-serif';
+        let [textWidth, textHeight] = this.mathWidthHeight("Try again", canvas);
+        let textWithMarginsWidth = textWidth + this.textMarginSize;
+        Drawer.roundRect(canvas, (this.fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (this.fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220, 3);
         canvas.fillStyle = "#f9f6f2";
-        canvas.fillText("Try again", ((Drawer.#fullSize - textWidth - 10) / 2) + 2, 244);
-        return [(Drawer.#fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (Drawer.#fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220];
+        canvas.fillText("Try again", ((this.fullSize - textWidth - 10) / 2) + 2, 244);
+        return [(this.fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (this.fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220];
     }
 
-    static #roundRect(canvas, x1, y1, x2, y2, radius) {
+    static roundRect(canvas, x1, y1, x2, y2, radius) {
         radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
         canvas.beginPath();
         canvas.moveTo(x1 + radius, y1);
@@ -214,7 +224,7 @@ export class Drawer {
         canvas.fill();
     }
 
-    static #roundRectStroke(canvas, x1, y1, x2, y2, radius, lineWidth) {
+    static roundRectStroke(canvas, x1, y1, x2, y2, radius, lineWidth) {
         canvas.lineWidth = lineWidth;
         radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
         canvas.beginPath();
@@ -230,7 +240,7 @@ export class Drawer {
         canvas.stroke();
     }
 
-    static #mathWidthHeight(text, canvas) {
+    mathWidthHeight(text, canvas) {
         let metrics = canvas.measureText(text);
         let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
         return [metrics.width, actualHeight]
