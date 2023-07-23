@@ -40,9 +40,9 @@ export class App {
     startNewGame() {
         this.field.resetData();
         this.field.make2ActiveCells();
-        this.turn.mathCellResize(this);
         this.drawer.drawScore(this.field.score);
         this.drawer.runBodyDrawer(this.field.phaseTime * 2, this.field.cellArray);
+        setTimeout(this.field.clearCells, this.field.phaseTime, this.field);
 
     }
 
@@ -62,16 +62,16 @@ export class App {
         },
 
         async runPhaseTwo(appContext) {
-       
-            this.mathCellResize(appContext);
             this.changeScore(appContext);
             appContext.field.deleteExcessCells();
             appContext.checkTurnResult();
             appContext.drawer.runBodyDrawer(appContext.field.phaseTime, appContext.field.cellArray);
             await this.delay(appContext);
+            
         },
 
         async runPostTurnPhase(appContext) {
+            appContext.field.clearCells(appContext.field);
             if (appContext.field.winStatus == 0 && appContext.field.loseStatus == 0) appContext.field.turnBlock = 0
         },
 
@@ -205,23 +205,7 @@ export class App {
             appContext.drawer.drawScore(appContext.field.score);
         },
 
-       mathCellResize(appContext) {
-        let i = 0;
-        let createInterval = setInterval(() => {
-            appContext.field.cellArray.forEach(function(item) {
-                item.animateCreating(5 - i);
-                item.animateMerge(5 - i);
-            });
-            i++;
-            if (i > 4) {
-                clearInterval(createInterval);
-                appContext.field.cellArray.forEach(function(item) {
-                    item.stopAnimating();
-                });
-            }
-        }, 10)
 
-    },
 
     
 
@@ -234,7 +218,7 @@ export class App {
             appContext.field.cellArray[1].value = 1024;
             appContext.field.cellArray[1].valueOfDraw = 1024;
             appContext.field.cellArray[0].valueOfDraw = 1024;
-            appContext.drawer.drawCells(appContext.field.cellArray);
+            appContext.drawer.drawCells(appContext.field.cellArray, 0);
         },
 
         makePreloseSituation(appContext) {
@@ -246,7 +230,7 @@ export class App {
                 appContext.field.cellArray[i].value = i + 32;
                 appContext.field.cellArray[i].valueOfDraw = i + 32;
             }
-            appContext.drawer.drawCells(appContext.field.cellArray);
+            appContext.drawer.drawCells(appContext.field.cellArray, 0);
         }
     }
 

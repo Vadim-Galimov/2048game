@@ -36,12 +36,16 @@ export class Drawer {
 
      
     runBodyDrawer(drawDuration, cellArray) {
-        let timerDrawCells = setInterval(() => {this.drawCells(cellArray)}, 10);
+
+        let i=0;
+        let timerDrawCells = setInterval(() => {let tick = 5 - i; i++; 
+            if (i > 4) tick =0;
+            
+            this.drawCells(cellArray, tick)}, 10);
         setTimeout(clearInterval, drawDuration, timerDrawCells);
     }
 
-   drawCells(cellArray) {
- 
+   drawCells(cellArray, tick) {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.clearRect(0, 0, canvasBody.width, canvasBody.height);
         this.drawBackground();
@@ -121,8 +125,7 @@ export class Drawer {
                     break;
 
             }
-
-            this.roundRect(canvas, item.x + item.sizePenalty - item.sizeBonus, item.y + item.sizePenalty - item.sizeBonus, item.x + this.size - item.sizePenalty + item.sizeBonus, item.y + this.size - item.sizePenalty + item.sizeBonus, 3);
+            this.roundRect(canvas, item.x + tick*item.statusNewlyCreating - tick*item.statusEndedMerge , item.y + tick*2*item.statusNewlyCreating - tick*item.statusEndedMerge, item.x + this.size - tick*item.statusNewlyCreating + tick*item.statusEndedMerge, item.y + this.size - tick*item.statusNewlyCreating + tick*item.statusEndedMerge, 3);
 
             switch (cellValue) {
 

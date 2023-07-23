@@ -21,13 +21,9 @@ export class Field {
         left: [-90, 0],
         right: [90, 0],
     }
-
-    score = 0;
     cellArray = [];
     moveDirection;
     phaseTime = 100;
-    winStatus = 0;
-    loseStatus = 0;
     moveDetected = 0;
     columnArray = {
         down: [
@@ -57,7 +53,6 @@ export class Field {
 
     }
 
-    turnBlock = 0;
     getCellFromNumber(cellNumber) {
         return this.cellArray.find(function(item, index) {
             return item.ticket == cellNumber;
@@ -71,9 +66,9 @@ export class Field {
         this.score = 0;
         this.buttonTryAgain.visible = 0;
         this.buttonTryAgain.cursorOverbutton = 0;
-        document.body.style.cursor = "default";
         this.cellArray = [];
         this.turnBlock = 0;
+        document.body.style.cursor = "default";
     }
 
      make2ActiveCells() {
@@ -101,19 +96,25 @@ export class Field {
         let randomNum;
         do {
             randomNum = Math.floor(Math.random() * 16);
-        } while (this.checkCellFunc(randomNum));
+        } while (checkCellFunc(randomNum, this));
 
         let newCell = new Cell(randomNum);
         this.cellArray.push(newCell);
+
+
+
+       function checkCellFunc(randomNum, fieldContext) {
+            let thisCell = fieldContext.cellArray.find(function(item) {
+                return item.ticket == randomNum + 1;
+            });
+            return thisCell;
+        }
+
+
+
     }
 
-    checkCellFunc(randomNum) {
-         
-        let thisCell = this.cellArray.find(function(item) {
-            return item.ticket == randomNum + 1;
-        });
-        return thisCell;
-    }
+
 
 
      deleteExcessCells() {
@@ -121,7 +122,23 @@ export class Field {
             return item.toDelete != 1;
         })
     }
+    clearCells(fieldContext) {
+        fieldContext.cellArray.forEach(function(item){
+            item.statusNewlyCreating = 0;
+            item.statusEndedMerge = 0;
+        })
+
+
+    }
+
+
+
+
+
+
+
 }
+
 
 
  function Cell(index) {
@@ -135,9 +152,8 @@ export class Field {
       
         toDelete : 0,
         statusNewlyCreating : 1,
-        sizePenalty : 0,
         statusEndedMerge : 0,
-        sizeBonus : 0,
+
  
 
     set number(value) {
@@ -156,22 +172,10 @@ export class Field {
         return this._number;
     },
 
-    animateMerge: function(tick) {
-        if (this.statusEndedMerge == 0) return 0;
-        this.sizeBonus = 1 * tick;
-    },
 
-    animateCreating: function(tick) {
-        if (this.statusNewlyCreating == 0) return 0;
-        this.sizePenalty = 2 * tick;
-    },
 
-    stopAnimating: function() {
-        this.statusNewlyCreating = 0;
-        this.sizePenalty = 0;
-        this.statusEndedMerge = 0;
-        this.sizeBonus = 0;
-    },
+
+ 
 
 }
 cell.number = index + 1;

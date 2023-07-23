@@ -24,7 +24,10 @@ export class Controller {
         let passArray = new Array;
         
 
-        document.addEventListener('keydown', function() {
+        document.addEventListener('keydown', checkKey);
+
+
+        function checkKey() {
 
             switch (event.code) {
 
@@ -56,12 +59,20 @@ export class Controller {
             if (passArray.join() == ['KeyA', 'KeyD', 'KeyM', 'KeyI', 'KeyN'].join()) {
                 controllerContext.openAdminPanel();
             }
-        });
+        }
+
+
+
+
+
     }
+
+
+
 
     setMouseController(controllerContext) {
         let x1, x2, y1, y2;
-        document.addEventListener('mousedown', mouseButtonDown, event);
+        document.addEventListener('mousedown', mouseButtonDown);
         function mouseButtonDown(buttonDownEvent) {
 
             if (event === null) return 0;
@@ -69,7 +80,7 @@ export class Controller {
          
             x1 = buttonDownEvent.x;
             y1 = buttonDownEvent.y;
-            document.addEventListener('mouseup', buttonUp, event);
+            document.addEventListener('mouseup', buttonUp);
         }
 
         function buttonUp(ButtonUpEvent) {
@@ -115,7 +126,7 @@ export class Controller {
         let deltaX;
         let deltaY;
         let touchStartEvent;
-        document.addEventListener("touchstart", touchStart, event);
+        document.addEventListener("touchstart", touchStart);
         function touchStart(touchStartEvent) {
 
             function touchMove(touchMoveEvent) {
@@ -125,7 +136,7 @@ export class Controller {
                 }
             }
 
-            document.addEventListener("touchmove", touchMove, event);
+            document.addEventListener("touchmove", touchMove);
             document.addEventListener("touchend", touchEnd);
 
             function touchEnd() {
@@ -158,14 +169,14 @@ export class Controller {
           elem = document.getElementById('canvasBody');
             let x1 = event.touches[0]?.pageX;
             let y1 = event.touches[0]?.pageY
-            document.addEventListener('touchend', touchClickEnd, event, x1, y1);
+            document.addEventListener('touchend', touchClickEnd, x1, y1);
 
         }
 
-        function touchClickEnd(e, x1, y1) {
+        function touchClickEnd( x1, y1) {
 
-            let x2 = e.x
-            let y2 = e.y
+            let x2 = event.x
+            let y2 = event.y
 
             if (Math.abs(x1 - x2) + Math.abs(y1 - y2) < 5) {
                 controllerContext.touchButtonClick(x1, y1);
