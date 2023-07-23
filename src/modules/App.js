@@ -267,22 +267,22 @@ export class App {
             if (this.field.moveDetected == 1) this.field.make1ActiveCell()
             this.field.moveDetected = 0;
 
-           this.checkWin();
+           this.checkWin(this);
             if (this.field.winStatus == 1) return 0;
 
-            this.checkLose();
+            this.checkLose(this);
             if (this.field.loseStatus == 1) return 0;
         }
 		
-     checkWin() {
+     checkWin(appContext) {
             let valueArray = this.field.cellArray.map(function(item) {
                 return item.value;
             });
             if (valueArray.includes(2048)) this.field.winStatus = 1;
-            if (this.field.winStatus == 1) setTimeout(this.makeWin, this.field.phaseTime * 2, this);
+            if (this.field.winStatus == 1) setTimeout(this.makeWin, this.field.phaseTime * 2, appContext);
         }
 
-     checkLose() {
+     checkLose(appContext) {
 
             this.field.loseStatus = 1;
             if (this.field.cellArray.length < 16) {
@@ -303,7 +303,7 @@ export class App {
             }
 
             if (this.field.loseStatus == 1)
-                setTimeout(this.makeLose, this.field.phaseTime * 2, this);
+                setTimeout(this.makeLose, this.field.phaseTime * 2, appContext);
         }
 
         makeLose(appContext) {
@@ -382,11 +382,11 @@ export class App {
                     break;
 
                 case 'makeLose':
-                    this.makeLose();
+                    this.makeLose(this);
                     break;
 
                 case 'makeWin':
-                    this.makeWin();
+                    this.makeWin(this);
                     break;
 
                 case 'makePrewinSituation':
