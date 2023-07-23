@@ -43,7 +43,7 @@ export class App {
         this.turn.mathCellResize(this);
         this.drawer.drawScore(this.field.score);
         this.drawer.runBodyDrawer(this.field.phaseTime * 2, this.field.cellArray);
-        console.log(this.field.cellArray)
+
     }
 
     async makeTurn(appContext) {
