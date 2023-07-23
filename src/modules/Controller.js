@@ -11,40 +11,42 @@ export class Controller {
         Controller._instance = this;
       }
 
+   
      init() {
-       this.setKeyboardController();
-        this.setMouseController();
-        this.setTouchpadController();
-        this.setButtonsController();
+       
+       this.setKeyboardController(this);
+        this.setMouseController(this);
+        this.setTouchpadController(this);
+        this.setButtonsController(this);
     }
 
-    setKeyboardController() {   
+    setKeyboardController(controllerContext) {   
         let passArray = new Array;
         
 
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function() {
 
             switch (event.code) {
 
                 case 'ArrowUp':
-                    Controller.doMove('up');
+                    controllerContext.doMove('up');
                     break;
 
                 case 'ArrowDown':
-                    Controller.doMove('down');
+                    controllerContext.doMove('down');
                     break;
 
                 case 'ArrowLeft':
-                    Controller.doMove('left');
+                    controllerContext.doMove('left');
                     break;
 
                 case 'ArrowRight':
-                    Controller.doMove('right');
+                    controllerContext.doMove('right');
                     break;
 
                 case 'Enter':
                     event.preventDefault()
-                    Controller.pressEnter();
+                    controllerContext.pressEnter();
                     break;
             }
 
@@ -52,22 +54,22 @@ export class Controller {
             if (passArray.length > 5)
                 passArray.shift();
             if (passArray.join() == ['KeyA', 'KeyD', 'KeyM', 'KeyI', 'KeyN'].join()) {
-                Controller.openAdminPanel();
+                controllerContext.openAdminPanel();
             }
         });
     }
 
-    setMouseController() {
+    setMouseController(controllerContext) {
         let x1, x2, y1, y2;
-        document.addEventListener('mousedown', mouseButtonDown);
+        document.addEventListener('mousedown', mouseButtonDown, event);
         function mouseButtonDown(buttonDownEvent) {
 
             if (event === null) return 0;
             if (event.type == "touchstart") return 0;
-
-            x1 = buttonDownEvent.x
-            y1 = buttonDownEvent.y
-            document.addEventListener('mouseup', buttonUp);
+         
+            x1 = buttonDownEvent.x;
+            y1 = buttonDownEvent.y;
+            document.addEventListener('mouseup', buttonUp, event);
         }
 
         function buttonUp(ButtonUpEvent) {
@@ -77,7 +79,6 @@ export class Controller {
 
             x2 = ButtonUpEvent.x
             y2 = ButtonUpEvent.y
-
             checkMove();
             checkClick();
 
@@ -100,17 +101,17 @@ export class Controller {
                     if (mouseMove[0] > 0) moveTo = 'right';
                     else moveTo = 'left';
                 }
-                Controller.doMove(moveTo);
+                controllerContext.doMove(moveTo);
             }
 
             function checkClick() {
-                if (Math.abs(x2 - x1) + Math.abs(y2 - y1) < 5)  Controller.buttonClick();
+                if (Math.abs(x2 - x1) + Math.abs(y2 - y1) < 5)  controllerContext.buttonClick();
             }
         }
-        document.addEventListener('mousemove', Controller.checkMouseMove);
+        document.addEventListener('mousemove', controllerContext.checkMouseMove);
     }
 
-    setTouchpadController() {
+    setTouchpadController(controllerContext) {
         let deltaX;
         let deltaY;
         let touchStartEvent;
@@ -145,7 +146,7 @@ export class Controller {
                     else  moveTo = 'left';
                 }
 
-                Controller.doMove(moveTo);
+                controllerContext.doMove(moveTo);
                 touchStartEvent = null;
             }
         }
@@ -154,7 +155,7 @@ export class Controller {
 
         function touchClick() {
 
-            elem = document.getElementById('canvasBody');
+          elem = document.getElementById('canvasBody');
             let x1 = event.touches[0]?.pageX;
             let y1 = event.touches[0]?.pageY
             document.addEventListener('touchend', touchClickEnd, event, x1, y1);
@@ -167,32 +168,28 @@ export class Controller {
             let y2 = e.y
 
             if (Math.abs(x1 - x2) + Math.abs(y1 - y2) < 5) {
-                Controller.touchButtonClick(x1, y1);
+                controllerContext.touchButtonClick(x1, y1);
             }
         }
     }
 
-    setButtonsController() {
+    setButtonsController(controllerContext) {
 
-        document.getElementById('startNewGame').addEventListener('click', Controller.triggerButton);
-        document.getElementById('makeLose').addEventListener('click', Controller.triggerButton);
-        document.getElementById('makeWin').addEventListener('click', Controller.triggerButton);
-        document.getElementById('makePrewinSituation').addEventListener('click', Controller.triggerButton);
-        document.getElementById('makePreloseSituation').addEventListener('click', Controller.triggerButton);
+        document.getElementById('startNewGame').addEventListener('click', controllerContext.triggerButton);
+        document.getElementById('makeLose').addEventListener('click', controllerContext.triggerButton);
+        document.getElementById('makeWin').addEventListener('click', controllerContext.triggerButton);
+        document.getElementById('makePrewinSituation').addEventListener('click',controllerContext.triggerButton);
+        document.getElementById('makePreloseSituation').addEventListener('click', controllerContext.triggerButton);
 
     }
 
-    static triggerButton;
-    doMove;
-    static makeLose;
-    static makeWin;
-    static makePrewinSituation;
-    static makePreloseSituation;
-    static startNewGame;
-    static checkMouseMove;
-    static buttonClick;
-    static touchButtonClick;
-    static pressEnter;
-    static openAdminPanel;
+   
+     doMove;	 
+     checkMouseMove;
+     buttonClick;
+     touchButtonClick;
+     pressEnter;
+     openAdminPanel;
+	 triggerButton;
 
 }

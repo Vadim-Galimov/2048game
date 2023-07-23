@@ -27,9 +27,9 @@ export class Drawer {
         let buttonScoreMarginTop = this.size / 4;
         let textScoreMarginTop = this.size / 8;
 
-        Drawer.roundRect(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20);
+        this.roundRect(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20);
         canvas.strokeStyle = '#776e65';
-        Drawer.roundRectStroke(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20, 5);
+        this.roundRectStroke(canvas, ((this.fullSize - textWithMarginsWidth) / 2) - textScoreMargin, buttonScoreMarginTop, textWidth + ((this.fullSize - textWithMarginsWidth) / 2) + textScoreMargin, buttonScoreMarginTop + textHeight + 2 * textScoreMarginTop, 20, 5);
         canvas.fillStyle = "#ebe4da";
         canvas.fillText("SCORE: " + score, ((this.fullSize - textWithMarginsWidth) / 2), buttonScoreMarginTop + textHeight + textScoreMarginTop);
     }
@@ -122,7 +122,7 @@ export class Drawer {
 
             }
 
-            Drawer.roundRect(canvas, item.x + item.sizePenalty - item.sizeBonus, item.y + item.sizePenalty - item.sizeBonus, item.x + this.size - item.sizePenalty + item.sizeBonus, item.y + this.size - item.sizePenalty + item.sizeBonus, 3);
+            this.roundRect(canvas, item.x + item.sizePenalty - item.sizeBonus, item.y + item.sizePenalty - item.sizeBonus, item.x + this.size - item.sizePenalty + item.sizeBonus, item.y + this.size - item.sizePenalty + item.sizeBonus, 3);
 
             switch (cellValue) {
 
@@ -160,7 +160,7 @@ export class Drawer {
     drawLose() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = "rgba(255, 255, 255, 0.5)";
-        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
+        this.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = "#776e65";
         canvas.font = 'bold 50px sans-serif';
         let [textWidth, textHeight] = this.mathWidthHeight('GAME OVER!', canvas);
@@ -173,7 +173,7 @@ export class Drawer {
     drawWin() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = "rgba(255, 215, 0, 0.5)";
-        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
+        this.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = "#f9f6f2";
         canvas.font = 'bold 50px sans-serif';
         let [textWidth, textHeight] = this.mathWidthHeight('YOU WIN!', canvas);
@@ -185,14 +185,14 @@ export class Drawer {
     drawBackground() {
         let canvas = (document.getElementById('canvasBody')).getContext('2d');
         canvas.fillStyle = '#776e65';
-        Drawer.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
+        this.roundRect(canvas, 0, 0, this.fullSize, this.fullSize, 10);
         canvas.fillStyle = '#bbada0';
 
         for (let y = 0; y < 4; y++) {
             for (let x = 0; x < 4; x++) {
                 let startWidth = this.minMargin + this.stepMargin * x;
                 let startHeight = this.minMargin + this.stepMargin * y;
-                Drawer.roundRect(canvas, startWidth, startHeight, startWidth + this.size, startHeight + this.size, 3);
+                this.roundRect(canvas, startWidth, startHeight, startWidth + this.size, startHeight + this.size, 3);
             }
         }
     }
@@ -203,13 +203,13 @@ export class Drawer {
         canvas.font = 'bold ' + this.size / 4 + 'px sans-serif';
         let [textWidth, textHeight] = this.mathWidthHeight("Try again", canvas);
         let textWithMarginsWidth = textWidth + this.textMarginSize;
-        Drawer.roundRect(canvas, (this.fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (this.fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220, 3);
+        this.roundRect(canvas, (this.fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (this.fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220, 3);
         canvas.fillStyle = "#f9f6f2";
         canvas.fillText("Try again", ((this.fullSize - textWidth - 10) / 2) + 2, 244);
         return [(this.fullSize - textWithMarginsWidth) / 2, 220, textWidth + 30 + (this.fullSize - textWithMarginsWidth) / 2, textHeight + 15 + 220];
     }
 
-    static roundRect(canvas, x1, y1, x2, y2, radius) {
+     roundRect(canvas, x1, y1, x2, y2, radius) {
         radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
         canvas.beginPath();
         canvas.moveTo(x1 + radius, y1);
@@ -224,7 +224,7 @@ export class Drawer {
         canvas.fill();
     }
 
-    static roundRectStroke(canvas, x1, y1, x2, y2, radius, lineWidth) {
+     roundRectStroke(canvas, x1, y1, x2, y2, radius, lineWidth) {
         canvas.lineWidth = lineWidth;
         radius = Math.min(radius, (x2 - x1) / 2, (y2 - y1) / 2);
         canvas.beginPath();
