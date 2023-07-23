@@ -1,6 +1,3 @@
-import {Cell} from './Cell.js';
-const cell = new Cell();
-
 export class Field {
 
     constructor() {
@@ -125,3 +122,62 @@ export class Field {
         })
     }
 }
+
+
+ function Cell(index) {
+    let cell ={
+  
+
+        // В паре "индекс - номер" индекс служит для математических операций, а номер оставлен для простоты восприятия кода, в частности в паре "номер - билет", где в определённый момент хода, они могут иметь разные значения
+
+  
+        value : ((Math.floor(Math.random() * 10)== 9) ? 4 : 2),
+      
+        toDelete : 0,
+        statusNewlyCreating : 1,
+        sizePenalty : 0,
+        statusEndedMerge : 0,
+        sizeBonus : 0,
+ 
+
+    set number(value) {
+        this._number = value;
+        this.index = this._number - 1;
+        this.columnNumber = (((this.index + 1) % 4) != 0) ? (this.index + 1) % 4 : 4;
+        this.rowNumber = (Math.floor((this.index) / 4)) + 1;
+        this.x = this.columnNumber * (90) - 80;
+        this.y = this.rowNumber * (90) - 80;
+        this.moveSpeed = 0;
+        this.mergeBlock = 0;
+        this.valueOfDraw = this.value;
+    },
+
+    get number() {
+        return this._number;
+    },
+
+    animateMerge: function(tick) {
+        if (this.statusEndedMerge == 0) return 0;
+        this.sizeBonus = 1 * tick;
+    },
+
+    animateCreating: function(tick) {
+        if (this.statusNewlyCreating == 0) return 0;
+        this.sizePenalty = 2 * tick;
+    },
+
+    stopAnimating: function() {
+        this.statusNewlyCreating = 0;
+        this.sizePenalty = 0;
+        this.statusEndedMerge = 0;
+        this.sizeBonus = 0;
+    },
+
+}
+cell.number = index + 1;
+cell.ticket=cell.number;
+
+
+return cell;
+}
+
